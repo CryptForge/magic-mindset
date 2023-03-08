@@ -32,4 +32,10 @@ public class UserInfo {
     @OneToMany(mappedBy = "user")
     private List<Course> courses;
 
+    @OneToMany(mappedBy = "recipient")
+    private List<Recommendation> recommendations;
+
+    @OneToMany(mappedBy = "recommender")
+    private List<Recommendation> sentRecommendations;
+
 }
