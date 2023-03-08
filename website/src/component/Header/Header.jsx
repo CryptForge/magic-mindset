@@ -10,7 +10,6 @@ const Header = (props) => {
         <h2>
           <NavLink to="/studentspage">Studentspage</NavLink>
         </h2>
-        <h1>Magic Mindset</h1>
         <h1>
           <NavLink to="/">Magic Mindset</NavLink>
         </h1>
