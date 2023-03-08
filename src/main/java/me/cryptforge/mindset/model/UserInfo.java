@@ -29,4 +29,7 @@ public class UserInfo {
     @OneToMany(mappedBy = "user")
     private List<Skill> skills;
 
+    @OneToMany(mappedBy = "user")
+    private List<Course> courses;
+
 }
