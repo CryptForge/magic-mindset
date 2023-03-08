@@ -1,0 +1,8 @@
+.homecolumnflex {
+  display: flex;
+  flex-direction: column;
+}
+.homesplitflex {
+  display: flex;
+  flex-direction: row;
+}
