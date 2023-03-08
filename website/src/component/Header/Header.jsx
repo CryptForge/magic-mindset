@@ -1,17 +1,29 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import "./Header.css";
 
 const Header = (props) => {
   return (
     <div>
-      <>Hello world! - Header</>
+      <div className="headerflex">
+        <button>Logout/Login WIP</button>
+        <h2>
+          <NavLink to="/studentspage">Studentspage</NavLink>
+        </h2>
+        <h1>
+          <NavLink to="/">Magic Mindset</NavLink>
+        </h1>
+        <h2>
+          <NavLink to="/dashboard">Dashboard</NavLink>
+        </h2>
+        <h2>
+          <NavLink to="/profile">Profile</NavLink>
+        </h2>
+      </div>
       <div>
-        <NavLink to="/">Home</NavLink>
+        <h2>lazy nav, to reach pages not accessible through nav</h2>
         <NavLink to="/login">Login</NavLink>
         <NavLink to="/info">Info</NavLink>
-        <NavLink to="/studentpage">Studentpage</NavLink>
-        <NavLink to="/dashboard">Dashboard</NavLink>
-        <NavLink to="profile">Profile</NavLink>
       </div>
     </div>
   );
