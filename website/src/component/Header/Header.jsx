@@ -11,6 +11,9 @@ const Header = (props) => {
           <NavLink to="/studentspage">Studentspage</NavLink>
         </h2>
         <h1>Magic Mindset</h1>
+        <h1>
+          <NavLink to="/">Magic Mindset</NavLink>
+        </h1>
         <h2>
           <NavLink to="/dashboard">Dashboard</NavLink>
         </h2>
@@ -20,7 +23,6 @@ const Header = (props) => {
       </div>
       <div>
         <h2>lazy nav, to reach pages not accessible through nav</h2>
-        <NavLink to="/">Home</NavLink>
         <NavLink to="/login">Login</NavLink>
         <NavLink to="/info">Info</NavLink>
       </div>
