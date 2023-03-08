@@ -1,0 +1,12 @@
+ADR01 - User Info
+Problem: it is possible to have a relation between Manager and Coach in current database structure.
+
+Solutions:
+1: Proper backend code that makes it impossible to connect two users together with the same role,
+or two users with a Coach/Manager role.
+2: Add new tables to the database that properly defines UserInfo's with their role.
+
+Out of these two, the second solution seems better. As it would lead a less complex backend code.
+And speed with queries, because if you ever need a list of all coaches, you dont need to pull the entire userlist.
+
+Therefore, we will work on Solution 2 and update our ERD as well for documentation purposes.
