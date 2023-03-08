@@ -1,9 +1,7 @@
-import React from "react"
+import React from "react";
 
-const StudentsPage = (props) =>{
-    return(
-        <>Hello world! - StudentsPage</>
-    )
-    };
-    
-    export default StudentsPage;
+const StudentsPage = (props) => {
+  return <>Hello world! - StudentsPage</>;
+};
+
+export default StudentsPage;
