@@ -42,7 +42,7 @@ public class User {
         TRAINEE, COACH, MANAGER, HR;
 
         public GrantedAuthority asAuthority() {
-            return new SimpleGrantedAuthority(asString());
+            return new SimpleGrantedAuthority("ROLE_" + asString());
         }
 
         public String asString() {
