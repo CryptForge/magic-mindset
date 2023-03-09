@@ -1,0 +1,18 @@
+.grid {
+  display: grid;
+}
+.gridelement {
+  padding: 20px;
+}
+.box1 {
+  grid-area: "topleft";
+}
+.box2 {
+  grid-area: "topright";
+}
+.box3 {
+  grid-area: "bottomleft";
+}
+.box4 {
+  grid-area: "bottomright";
+}
