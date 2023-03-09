@@ -4,12 +4,17 @@
 .gridelement {
   padding: 20px;
 }
-.box1 {
-  grid-area: "topleft";
+.hrgrid {
+  grid-template-areas:
+    "left topright"
+    "left bottomright";
 }
-.box2 {
-  grid-area: "topright";
+.hrgrid .box1 {
+  grid-area: left;
 }
-.box3 {
-  grid-area: "bottomleft";
+.hrgrid .box2 {
+  grid-area: topright;
+}
+.hrgrid .box3 {
+  grid-area: bottomright;
 }

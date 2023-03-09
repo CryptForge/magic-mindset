@@ -1,15 +1,20 @@
 .grid {
   display: grid;
 }
+.managergrid {
+  grid-template-areas:
+    "left topright"
+    "left bottomright";
+}
 .gridelement {
   padding: 20px;
 }
-.box1 {
-  grid-area: "topleft";
+.managergrid .box1 {
+  grid-area: left;
 }
-.box2 {
-  grid-area: "topright";
+.managergrid .box2 {
+  grid-area: topright;
 }
-.box3 {
-  grid-area: "bottomleft";
+.managergrid .box3 {
+  grid-area: bottomright;
 }

@@ -4,15 +4,20 @@
 .gridelement {
   padding: 20px;
 }
-.box1 {
-  grid-area: "topleft";
+.usergrid {
+  grid-template-areas:
+    "topleft topright"
+    "bottomleft bottomright";
 }
-.box2 {
-  grid-area: "topright";
+.usergrid .box1 {
+  grid-area: topleft;
 }
-.box3 {
-  grid-area: "bottomleft";
+.usergrid .box2 {
+  grid-area: topright;
 }
-.box4 {
-  grid-area: "bottomright";
+.usergrid .box3 {
+  grid-area: bottomleft;
+}
+.usergrid .box4 {
+  grid-area: bottomright;
 }

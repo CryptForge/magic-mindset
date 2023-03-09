@@ -1,15 +1,17 @@
 import React from "react";
 import "./Dashboard.css";
+import User from "../../component/Dashboard/User/User";
+import HR from "../../component/Dashboard/HR/HR";
+import Coach from "../../component/Dashboard/Coach/Coach";
+import Manager from "../../component/Dashboard/manager/Manager";
 
 const Dashboard = (props) => {
   return (
     <div>
-      <div className="grid standardgrid">
-        <div className="box1 gridelement">block 1</div>
-        <div className="box2 gridelement">block 2</div>
-        <div className="box3 gridelement">block 3</div>
-        <div className="box4 gridelement">block 4</div>
-      </div>
+      <User />
+      <HR />
+      <Coach />
+      <Manager />
     </div>
   );
 };
