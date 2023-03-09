@@ -7,16 +7,16 @@ const Profile = (props) => {
       <form>
         <div className="flex">
           <div className="flex column">
-            <label>Profile Image</label>
-            <button>Round button with +</button>
+            <label htmlFor="image">Profile Image</label>
+            <button id="image">Round button with +</button>
           </div>
           <div className="flex column">
-            <label>Name</label>
-            <input></input>
-            <label>E-Mail</label>
-            <input></input>
-            <label>Password</label>
-            <input></input>
+            <label htmlFor="name">Name</label>
+            <input id="name"></input>
+            <label htmlFor="email">E-Mail</label>
+            <input id="email"></input>
+            <label htmlFor="password">Password</label>
+            <input id="password"></input>
           </div>
         </div>
         <div className="flex">
