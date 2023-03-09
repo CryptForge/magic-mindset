@@ -3,6 +3,7 @@ package me.cryptforge.mindset.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import me.cryptforge.mindset.model.user.Trainee;
 
 import java.util.Date;
 
@@ -22,5 +23,9 @@ public class Recommendation {
 
     @Column(name = "message", nullable = false)
     private String message;
+
+    @ManyToOne
+    @JoinColumn(name = "trainee_id")
+    private Trainee trainee;
 
 }

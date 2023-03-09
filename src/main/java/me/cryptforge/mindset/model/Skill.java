@@ -3,6 +3,7 @@ package me.cryptforge.mindset.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import me.cryptforge.mindset.model.user.Trainee;
 
 import java.util.List;
 
@@ -28,5 +29,9 @@ public class Skill {
 
     @OneToMany(mappedBy = "skill")
     private List<Course> courses;
+
+    @ManyToOne
+    @JoinColumn(name = "trainee_id")
+    private Trainee trainee;
 
 }
