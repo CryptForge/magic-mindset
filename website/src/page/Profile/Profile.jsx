@@ -20,7 +20,7 @@ const Profile = (props) => {
           </div>
         </div>
         <div className="flex">
-          <button>Back to Dashboard</button>
+          <button>Back to Dashboard!</button>
           <input type="submit" value="save"></input>
         </div>
       </form>
