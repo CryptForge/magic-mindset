@@ -15,10 +15,6 @@ public class Course {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private UserInfo user;
-
-    @ManyToOne
     @JoinColumn(name = "skill_id")
     private Skill skill;
 
