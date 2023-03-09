@@ -26,10 +26,6 @@ public class Skill {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "user_info_id")
-    private UserInfo user;
-
     @OneToMany(mappedBy = "skill")
     private List<Course> courses;
 
