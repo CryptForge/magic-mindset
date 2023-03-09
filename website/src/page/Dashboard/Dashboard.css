@@ -1,0 +1,26 @@
+.grid {
+  display: grid;
+}
+.standardgrid {
+  grid-template-areas:
+    "topleft topright"
+    "bottomleft bottomright";
+  justify-content: center;
+  padding: 20px;
+}
+.gridelement {
+  padding: 20px;
+}
+
+.box1 {
+  grid-area: "topleft";
+}
+.box2 {
+  grid-area: "topright";
+}
+.box3 {
+  grid-area: "bottomleft";
+}
+.box4 {
+  grid-area: "bottomright";
+}
