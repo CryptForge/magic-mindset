@@ -3,6 +3,9 @@ package me.cryptforge.mindset.model.user;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import me.cryptforge.mindset.model.Evaluation;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -23,5 +26,8 @@ public class UserInfo {
 
     @Column(name = "city", nullable = false)
     private String city;
+
+    @OneToMany(mappedBy = "evaluator")
+    private List<Evaluation> evaluations;
 
 }
