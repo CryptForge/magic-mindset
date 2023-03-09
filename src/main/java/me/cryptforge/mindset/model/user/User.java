@@ -3,6 +3,8 @@ package me.cryptforge.mindset.model.user;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 @Getter
 @Setter
@@ -29,6 +31,14 @@ public class User {
      * Enum containing valid user roles.
      */
     public enum Role {
-        TRAINEE, COACH, MANAGER, HR
+        TRAINEE, COACH, MANAGER, HR;
+
+        public GrantedAuthority asAuthority() {
+            return new SimpleGrantedAuthority(asString());
+        }
+
+        public String asString() {
+            return name();
+        }
     }
 }
