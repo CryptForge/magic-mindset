@@ -1,4 +1,4 @@
-package me.cryptforge.mindset.model;
+package me.cryptforge.mindset.model.user;
 
 import jakarta.persistence.*;
 import lombok.Getter;
