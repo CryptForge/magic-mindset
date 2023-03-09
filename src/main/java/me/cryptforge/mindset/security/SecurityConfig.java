@@ -1,6 +1,8 @@
 package me.cryptforge.mindset.security;
 
 import me.cryptforge.mindset.model.user.User;
+import me.cryptforge.mindset.service.EntityUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,6 +16,9 @@ import java.util.Arrays;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    @Autowired
+    EntityUserDetailsService userDetailsService;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -36,7 +41,7 @@ public class SecurityConfig {
                 .requestMatchers("/**")
                 .permitAll()
                 .and()
-//                .userDetailsService()
+                .userDetailsService(userDetailsService)
                 .httpBasic()
                 .and()
                 .build();
