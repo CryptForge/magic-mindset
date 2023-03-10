@@ -9,15 +9,15 @@
 .gridelement {
   padding: 20px;
 }
-.box1 {
-  grid-area: "topleft";
+.coachgrid .box1 {
+  grid-area: topleft;
 }
-.box2 {
-  grid-area: "topright";
+.coachgrid .box2 {
+  grid-area: topright;
 }
-.box3 {
-  grid-area: "bottomleft";
+.coachgrid .box3 {
+  grid-area: bottomleft;
 }
-.box4 {
-  grid-area: "bottomright";
+.coachgrid .box4 {
+  grid-area: bottomright;
 }
