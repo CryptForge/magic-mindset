@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Home.css";
 
 const Home = (props) => {
@@ -19,7 +20,9 @@ const Home = (props) => {
           doloribus asperiores quo maiores, consequuntur laboriosam veniam sequi
           officia libero odit a iure!
         </h2>
-        <button>LOGIN NOW</button>
+        <Link to="/login">
+          <button>LOGIN NOW</button>
+        </Link>
       </div>
       <div>IMAGE HERE</div>
     </div>
