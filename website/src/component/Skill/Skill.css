@@ -1,0 +1,10 @@
+.flex {
+  display: flex;
+}
+.skillflex {
+  justify-content: space-around;
+}
+.popup {
+  background-color: blue;
+  padding: 50px;
+}
