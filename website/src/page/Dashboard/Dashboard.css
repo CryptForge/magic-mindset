@@ -1,26 +1,41 @@
 .grid {
   display: grid;
 }
-.standardgrid {
-  grid-template-areas:
-    "topleft topright"
-    "bottomleft bottomright";
-  justify-content: center;
-  padding: 20px;
-}
 .gridelement {
   padding: 20px;
 }
+/* Styling for 2x2 grid, used in User and Coach */
+.grid2x2 {
+  grid-template-areas:
+    "topleft topright"
+    "bottomleft bottomright";
+}
+.grid2x2 .box1 {
+  grid-area: topleft;
+}
+.grid2x2 .box2 {
+  grid-area: topright;
+}
+.grid2x2 .box3 {
+  grid-area: bottomleft;
+}
+.grid2x2 .box4 {
+  grid-area: bottomright;
+}
 
-.box1 {
-  grid-area: "topleft";
+/* Styling for 2x2 grid with the first element 1x2, used in Manager and HR */
+.grid2x2first1x2 {
+  grid-template-areas:
+    "left topright"
+    "left bottomright";
 }
-.box2 {
-  grid-area: "topright";
+
+.grid2x2first1x2 .box1 {
+  grid-area: left;
 }
-.box3 {
-  grid-area: "bottomleft";
+.grid2x2first1x2 .box2 {
+  grid-area: topright;
 }
-.box4 {
-  grid-area: "bottomright";
+.grid2x2first1x2 .box3 {
+  grid-area: bottomright;
 }

@@ -1,9 +1,8 @@
 import React from "react";
-import "./Coach.css";
 
 const Coach = (props) => {
   return (
-    <div className="grid coachgrid">
+    <div className="grid grid2x2">
       <div className="gridelement box1">Coachbox1</div>
       <div className="gridelement box2">Coachbox2</div>
       <div className="gridelement box3">Coachbox3</div>

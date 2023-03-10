@@ -1,8 +1,7 @@
 import React from "react";
-import "./User.css";
 const User = (props) => {
   return (
-    <div className="grid usergrid">
+    <div className="grid grid2x2">
       <div className="gridelement box1">Userbox1</div>
       <div className="gridelement box2">Userbox2</div>
       <div className="gridelement box3">Userbox3</div>

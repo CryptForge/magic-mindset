@@ -1,9 +1,8 @@
 import React from "react";
-import "./HR.css";
 
 const HR = (props) => {
   return (
-    <div className="grid hrgrid">
+    <div className="grid grid2x2first1x2">
       <div className="gridelement box1">HRbox1</div>
       <div className="gridelement box2">HRbox2</div>
       <div className="gridelement box3">HRbox3</div>
