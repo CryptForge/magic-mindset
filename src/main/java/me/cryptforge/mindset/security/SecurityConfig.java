@@ -11,9 +11,11 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.util.Arrays;
 
@@ -24,30 +26,34 @@ public class SecurityConfig {
     @Autowired
     EntityUserDetailsService userDetailsService;
 
+    @Autowired
+    JwtRequestFilter requestFilter;
+
+    @Autowired
+    JwtAuthenticationEntryEndpoint authenticationEntryEndpoint;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         final String[] allRoles = Arrays.stream(User.Role.values()).map(User.Role::name).toArray(String[]::new);
 
-        http.cors();
         http.authenticationProvider(authenticationProvider());
-        http.userDetailsService(userDetailsService);
-        http.csrf().disable();
-        http.authorizeHttpRequests()
-                .requestMatchers("/api/auth/**")
-                .permitAll()
-                .requestMatchers("/api/coach")
-                .hasRole(User.Role.COACH.asString())
-                .requestMatchers("/api/manager")
-                .hasRole(User.Role.MANAGER.asString())
-                .requestMatchers("/api/trainee")
-                .hasRole(User.Role.TRAINEE.asString())
-                .requestMatchers("/api/user")
-                .hasAnyRole(allRoles)
-                .anyRequest()
-                .authenticated();
 
+        http.cors();
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.exceptionHandling().authenticationEntryPoint(authenticationEntryEndpoint);
+        http.csrf().disable();
         http.httpBasic().disable();
         http.formLogin().disable();
+
+        http.authorizeHttpRequests()
+                .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/api/coach").hasRole(User.Role.COACH.asString())
+                .requestMatchers("/api/manager").hasRole(User.Role.MANAGER.asString())
+                .requestMatchers("/api/trainee").hasRole(User.Role.TRAINEE.asString())
+                .requestMatchers("/api/user").hasAnyRole(allRoles)
+                .anyRequest().authenticated();
+
+        http.addFilterBefore(requestFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

@@ -2,6 +2,8 @@ package me.cryptforge.mindset.service;
 
 import me.cryptforge.mindset.dto.auth.LoginRequest;
 import me.cryptforge.mindset.dto.auth.LoginResponse;
+import me.cryptforge.mindset.model.user.User;
+import me.cryptforge.mindset.repository.UserRepository;
 import me.cryptforge.mindset.security.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AuthServiceImpl implements AuthService {
+
+    @Autowired
+    UserRepository userRepository;
 
     @Autowired
     AuthenticationManager authenticationManager;
@@ -34,13 +39,14 @@ public class AuthServiceImpl implements AuthService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(request.email());
+        final User user = userRepository.findByEmail(request.email()).orElseThrow();
 
         final String token = tokenUtil.generateToken(userDetails);
 
         return ResponseEntity.accepted().body(new LoginResponse(
                 token,
                 userDetails.getUsername(),
-                "TRAINEE"
+                user.getRole().name()
         ));
     }
 }
