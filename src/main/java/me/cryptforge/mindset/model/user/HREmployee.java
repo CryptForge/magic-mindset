@@ -11,8 +11,14 @@ import lombok.Setter;
 public class HREmployee {
 
     @Id
+    private Long id;
+
     @OneToOne
     @JoinColumn(name = "id")
+    @PrimaryKeyJoinColumn
     private UserInfo user;
 
+    public HREmployee(UserInfo user) {
+        this.user = user;
+    }
 }

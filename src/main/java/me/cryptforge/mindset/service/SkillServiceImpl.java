@@ -82,7 +82,7 @@ public class SkillServiceImpl implements SkillService {
         Skill skill = new Skill(skillRequest.type(), skillRequest.name(),
                 skillRequest.description(), courses,
                 trainee.get()
-                );
+        );
         Skill savedSkill = skillRepository.save(skill);
         return ResponseEntity.ok(savedSkill);
     }

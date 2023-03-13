@@ -13,11 +13,22 @@ import java.util.List;
 public class Coach {
 
     @Id
+    private Long id;
+
     @OneToOne
     @JoinColumn(name = "id")
+    @PrimaryKeyJoinColumn
     private UserInfo user;
 
     @OneToMany(mappedBy = "coach")
     private List<Trainee> trainees;
 
+    public Coach(UserInfo user) {
+        this.user = user;
+    }
+
+    public Coach(UserInfo user, List<Trainee> trainees) {
+        this.user = user;
+        this.trainees = trainees;
+    }
 }

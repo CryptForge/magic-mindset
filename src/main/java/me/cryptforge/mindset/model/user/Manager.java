@@ -13,11 +13,22 @@ import java.util.List;
 public class Manager {
 
     @Id
+    private Long id;
+
     @OneToOne
     @JoinColumn(name = "id")
+    @PrimaryKeyJoinColumn
     private UserInfo user;
 
     @OneToMany(mappedBy = "manager")
     private List<Trainee> trainees;
 
+    public Manager(UserInfo user) {
+        this.user = user;
+    }
+
+    public Manager(UserInfo user, List<Trainee> trainees) {
+        this.user = user;
+        this.trainees = trainees;
+    }
 }
