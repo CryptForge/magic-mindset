@@ -36,4 +36,11 @@ public class Evaluation {
     @JoinColumn(name = "trainee_id")
     private Trainee trainee;
 
+    public Evaluation(Date date, String location, String conclusion, UserInfo evaluator, Trainee trainee) {
+        this.date = date;
+        this.location = location;
+        this.conclusion = conclusion;
+        this.evaluator = evaluator;
+        this.trainee = trainee;
+    }
 }
