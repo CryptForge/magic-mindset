@@ -34,4 +34,11 @@ public class Skill {
     @JoinColumn(name = "trainee_id")
     private Trainee trainee;
 
+    public Skill(boolean type, String name, String description, List<Course> courses, Trainee trainee) {
+        this.type = type;
+        this.name = name;
+        this.description = description;
+        this.courses = courses;
+        this.trainee = trainee;
+    }
 }

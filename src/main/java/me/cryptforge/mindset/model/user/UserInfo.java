@@ -14,8 +14,11 @@ import java.util.List;
 public class UserInfo {
 
     @Id
+    private Long id;
+
     @OneToOne
     @JoinColumn(name = "id")
+    @PrimaryKeyJoinColumn
     private User user;
 
     @Column(name = "name", nullable = false)

@@ -17,8 +17,11 @@ import java.util.List;
 public class Trainee {
 
     @Id
+    private Long id;
+
     @OneToOne
     @JoinColumn(name = "id")
+    @PrimaryKeyJoinColumn
     private UserInfo user;
 
     @ManyToOne

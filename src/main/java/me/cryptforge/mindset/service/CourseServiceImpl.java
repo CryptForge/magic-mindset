@@ -21,9 +21,9 @@ import java.util.Optional;
 public class CourseServiceImpl implements CourseService {
 
     @Autowired
-    CourseRepository courseRepository;
+    private CourseRepository courseRepository;
     @Autowired
-    SkillRepository skillRepository;
+    private SkillRepository skillRepository;
     @Autowired
     private TraineeRepository traineeRepository;
     @Autowired
@@ -31,11 +31,6 @@ public class CourseServiceImpl implements CourseService {
     @Autowired
     private UserInfoRepository userInfoRepository;
 
-    /**
-     * A method that gets a single course from id
-     * @param id - The id that is used to search the single course
-     * @return - Returns the single course or a not found response.
-     */
     @Override
     public ResponseEntity<?> getSingleCourse(String id) {
         Optional<Course> singleCourse = courseRepository.findById(Long.valueOf(id));
@@ -45,10 +40,6 @@ public class CourseServiceImpl implements CourseService {
         return ResponseEntity.notFound().build();
     }
 
-    /**
-     * A method that searches all courses in the database
-     * @return - Returns all courses or none when there aren't any.
-     */
     @Override
     public ResponseEntity<List<Course>> getAllCourses() {
         List<Course> allCourses = new ArrayList<>();
@@ -56,11 +47,6 @@ public class CourseServiceImpl implements CourseService {
         return ResponseEntity.ok(allCourses);
     }
 
-    /**
-     * A method that searches all courses of a user in the database.
-     * @param id - The id of the user which the values need to be found from.
-     * @return - Returns a list with all courses from a user or empty.
-     */
     @Override
     public ResponseEntity<List<CourseResponseWithoutTrainee>> getAllCoursesUser(String id) {
         List<Course> allCourses = new ArrayList<>();
@@ -74,11 +60,6 @@ public class CourseServiceImpl implements CourseService {
         return ResponseEntity.ok(updatedCourses);
     }
 
-    /**
-     * A method that creates a new course from a specialized request
-     * @param courseRequest -  A course request that doesn't hold other models but ids.
-     * @return - Returns a course or a BadRequest when values aren't present.
-     */
     @Override
     public ResponseEntity<?> createNewCourse(CourseRequest courseRequest) {
         Optional<Skill> skill = skillRepository.findById(courseRequest.skillId());
@@ -89,11 +70,11 @@ public class CourseServiceImpl implements CourseService {
         if (user.isEmpty()) {
             return returnBadRequest("user");
         }
-        Optional<UserInfo> userInfo = userInfoRepository.findById(user.get());
+        Optional<UserInfo> userInfo = userInfoRepository.findByUser(user.get());
         if (userInfo.isEmpty()) {
             return returnBadRequest("userInfo");
         }
-        Optional<Trainee> trainee = traineeRepository.findById(userInfo.get());
+        Optional<Trainee> trainee = traineeRepository.findByUser(userInfo.get());
         if (trainee.isEmpty()) {
             return returnBadRequest("trainee");
         }
@@ -102,11 +83,6 @@ public class CourseServiceImpl implements CourseService {
         return ResponseEntity.accepted().body(savedCourse);
     }
 
-    /**
-     * A method that edits a course except the trainee. Which will always be the same.
-     * @param courseEditRequest - The Request gotten from the frontend.
-     * @return - Returns a course or a BadRequest when values aren't present.
-     */
     @Override
     public ResponseEntity<?> editCourse(CourseEditRequest courseEditRequest) {
         Optional<Course> optionalCourse = courseRepository.findById(courseEditRequest.id());
