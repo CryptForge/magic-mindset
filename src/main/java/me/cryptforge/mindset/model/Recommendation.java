@@ -28,4 +28,9 @@ public class Recommendation {
     @JoinColumn(name = "trainee_id")
     private Trainee trainee;
 
+    public Recommendation(Date date, String message, Trainee trainee) {
+        this.date = date;
+        this.message = message;
+        this.trainee = trainee;
+    }
 }
