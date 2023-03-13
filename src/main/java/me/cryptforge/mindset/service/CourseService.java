@@ -11,6 +11,7 @@ import java.util.List;
 public interface CourseService {
     /**
      * A method that gets a single course from id
+     *
      * @param id - The id that is used to search the single course
      * @return - Returns the single course or a not found response.
      */
@@ -18,12 +19,14 @@ public interface CourseService {
 
     /**
      * A method that searches all courses in the database
+     *
      * @return - Returns all courses or none when there aren't any.
      */
     ResponseEntity<List<Course>> getAllCourses();
 
     /**
      * A method that searches all courses of a user in the database.
+     *
      * @param id - The id of the user which the values need to be found from.
      * @return - Returns a list with all courses from a user or empty.
      */
@@ -31,6 +34,7 @@ public interface CourseService {
 
     /**
      * A method that creates a new course from a specialized request
+     *
      * @param courseRequest -  A course request that doesn't hold other models but ids.
      * @return - Returns a course or a BadRequest when values aren't present.
      */
@@ -38,6 +42,7 @@ public interface CourseService {
 
     /**
      * A method that edits a course except the trainee. Which will always be the same.
+     *
      * @param courseEditRequest - The edit request gotten from the frontend.
      * @return - Returns a course or a BadRequest when values aren't present.
      */
@@ -45,6 +50,7 @@ public interface CourseService {
 
     /**
      * A method that deletes a course from the database
+     *
      * @param id - The id from the course that is to be deleted
      * @return - Returns a ok response after deletion.
      */

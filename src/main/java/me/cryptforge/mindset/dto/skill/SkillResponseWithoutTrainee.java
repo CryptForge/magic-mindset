@@ -1,7 +1,6 @@
 package me.cryptforge.mindset.dto.skill;
 
 import me.cryptforge.mindset.model.Course;
-import me.cryptforge.mindset.model.Skill;
 
 import java.util.List;
 
