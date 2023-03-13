@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface CourseService {
-
     /**
      * A method that gets a single course from id
      * @param id - The id that is used to search the single course
