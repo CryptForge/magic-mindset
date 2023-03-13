@@ -8,26 +8,46 @@ import Profile from "./page/Profile/Profile";
 import StudentsPage from "./page/StudentsPage/StudentsPage";
 import Info from "./page/Info/Info";
 import Login from "./page/Login/Login";
+import { AuthContext } from "./AuthContext";
+import { useState } from "react";
 
 function App() {
-  return (
-    <div className="App">
-      <div>
-        <Header />
-      </div>
+  const [auth, setAuth] = useState({
+    authenticated: false,
+    info: null,
+  });
 
-      <div>{API_BASE}</div>
-      <div>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/studentspage" element={<StudentsPage />} />
-          <Route path="/info" element={<Info />} />
-          <Route path="/login" element={<Login />} />
-        </Routes>
+  const authenticate = (token, username, role) => {
+    setAuth({
+      authenticated: true,
+      info: {
+        token,
+        username,
+        role,
+      },
+    });
+  };
+
+  return (
+    <AuthContext.Provider value={auth}>
+      <div className="App">
+        <div>
+          <Header />
+        </div>
+
+        <div>{API_BASE}</div>
+        <div>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/studentspage" element={<StudentsPage />} />
+            <Route path="/info" element={<Info />} />
+            <Route path="/login" element={<Login authenticate={authenticate} />} />
+          </Routes>
+        </div>
       </div>
-    </div>
+    </AuthContext.Provider>
   );
 }
 

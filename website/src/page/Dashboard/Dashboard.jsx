@@ -1,24 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import "./Dashboard.css";
 import User from "../../component/Dashboard/User/User";
 import HR from "../../component/Dashboard/HR/HR";
 import Coach from "../../component/Dashboard/Coach/Coach";
 import Manager from "../../component/Dashboard/manager/Manager";
+import { AuthContext } from "../../AuthContext";
 
 const Dashboard = (props) => {
-  const [activeComp, setActiveComp] = useState("User");
+  const auth = useContext(AuthContext);
 
-  switch (activeComp) {
-    case "User":
-      return <User />;
-    case "Coach":
-      return <Coach />;
-    case "Manager":
-      return <Manager />;
-    case "HR":
-      return <HR />;
+  if (!auth.authenticated) {
+    return "😯";
   }
-  return "😯";
+
+  switch(auth.info.role) {
+    case "TRAINEE":
+      return <User />;
+    case "COACH":
+      return <Coach/>;
+    case "MANAGER":
+      return <Manager />
+    case "HR":
+      return <HR/>
+  }
 };
 
 export default Dashboard;
