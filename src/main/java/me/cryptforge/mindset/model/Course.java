@@ -29,4 +29,11 @@ public class Course {
     @JoinColumn(name = "trainee_id")
     private Trainee trainee;
 
+    public Course(Skill skill, float progress, String certification, Trainee trainee) {
+        this.skill = skill;
+        this.progress = progress;
+        this.certification = certification;
+        this.trainee = trainee;
+    }
+
 }

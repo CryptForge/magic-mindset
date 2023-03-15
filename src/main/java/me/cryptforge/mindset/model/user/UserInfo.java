@@ -14,8 +14,11 @@ import java.util.List;
 public class UserInfo {
 
     @Id
+    private Long id;
+
     @OneToOne
     @JoinColumn(name = "id")
+    @PrimaryKeyJoinColumn
     private User user;
 
     @Column(name = "name", nullable = false)
@@ -30,4 +33,18 @@ public class UserInfo {
     @OneToMany(mappedBy = "evaluator")
     private List<Evaluation> evaluations;
 
+    public UserInfo(User user, String name, String address, String city) {
+        this.user = user;
+        this.name = name;
+        this.address = address;
+        this.city = city;
+    }
+
+    public UserInfo(User user, String name, String address, String city, List<Evaluation> evaluations) {
+        this.user = user;
+        this.name = name;
+        this.address = address;
+        this.city = city;
+        this.evaluations = evaluations;
+    }
 }

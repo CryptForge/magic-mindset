@@ -17,8 +17,11 @@ import java.util.List;
 public class Trainee {
 
     @Id
+    private Long id;
+
     @OneToOne
     @JoinColumn(name = "id")
+    @PrimaryKeyJoinColumn
     private UserInfo user;
 
     @ManyToOne
@@ -41,4 +44,17 @@ public class Trainee {
     @OneToMany(mappedBy = "trainee")
     private List<Evaluation> evaluations;
 
+    public Trainee(UserInfo user) {
+        this.user = user;
+    }
+
+    public Trainee(UserInfo user, Coach coach, Manager manager, List<Skill> skills, List<Course> courses, List<Recommendation> recommendations, List<Evaluation> evaluations) {
+        this.user = user;
+        this.coach = coach;
+        this.manager = manager;
+        this.skills = skills;
+        this.courses = courses;
+        this.recommendations = recommendations;
+        this.evaluations = evaluations;
+    }
 }
