@@ -1,33 +1,4 @@
 .loginflexcolumn {
-  margin: auto;
-  align-items: center;
   display: flex;
   flex-direction: column;
-}
-.inputfield {
-  width: 300px;
-  font-size: 1.4em;
-  padding: 10px 5px 10px 5px;
-  color: #ffba08;
-}
-.inputbutton {
-  background: #2e294e;
-  font-family: "Source Sans Pro", sans-serif;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 20px;
-  transition-duration: 0.5s;
-  font-size: 2em;
-  width: 200px;
-  margin-top: 25px;
-}
-.inputbutton:hover {
-  transform: scale(110%);
-  cursor: pointer;
-}
-.loginflexcolumn label {
-  font-family: "Source Sans Pro", sans-serif;
-  color: #ffba08;
-  font-size: 1.4em;
 }
