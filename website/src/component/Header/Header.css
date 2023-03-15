@@ -5,8 +5,10 @@
   border-bottom-style: solid;
   border-bottom-width: 1px;
   padding-top: 4px;
+  border-color: white;
 }
 
 a {
   text-decoration: none;
+  color: white;
 }
