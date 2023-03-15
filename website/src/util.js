@@ -52,8 +52,6 @@ export function useLocalStorage(key, initialValue) {
 
 export function isTokenValid(token) {
   const decoded = jwtDecode(token);
-  const expirationDate = new Date(decoded.exp);
-  const now = new Date();
 
-  return now < expirationDate;
+  return Date.now() / 1000 < decoded.exp;
 }
