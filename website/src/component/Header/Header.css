@@ -4,6 +4,7 @@
   margin: auto;
   border-bottom-style: solid;
   border-bottom-width: 4px;
+  border-color: white;
   padding: 20px;
 }
 .headerbutton {
@@ -25,4 +26,5 @@
 
 a {
   text-decoration: none;
+  color: white;
 }
