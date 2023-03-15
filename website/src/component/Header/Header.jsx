@@ -21,11 +21,6 @@ const Header = (props) => {
           <NavLink to="/profile">Profile</NavLink>
         </h2>
       </div>
-      <div>
-        <h2>lazy nav, to reach pages not accessible through nav</h2>
-        <NavLink to="/login">Login</NavLink>
-        <NavLink to="/info">Info</NavLink>
-      </div>
     </div>
   );
 };

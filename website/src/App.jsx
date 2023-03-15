@@ -53,7 +53,6 @@ function App() {
           <Header logOut={logOut} />
         </div>
 
-        <div>{API_BASE}</div>
         <div className="container">
           <Routes>
             <Route path="/" element={<Home />} />
