@@ -6,7 +6,7 @@ const Header = (props) => {
   return (
     <div>
       <div className="headerflex">
-        <button>Logout/Login WIP</button>
+        <button className="headerbutton">Logout/Login WIP</button>
         <h2>
           <NavLink to="/studentspage">Studentspage</NavLink>
         </h2>

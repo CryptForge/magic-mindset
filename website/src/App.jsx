@@ -40,13 +40,13 @@ function App() {
 
   return (
     <AuthContext.Provider value={auth}>
-      <div className="App">
+      <div className="App background">
         <div>
           <Header />
         </div>
 
         <div>{API_BASE}</div>
-        <div>
+        <div className="container">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/dashboard" element={<Dashboard />} />

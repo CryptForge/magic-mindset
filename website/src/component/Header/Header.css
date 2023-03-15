@@ -1,4 +1,25 @@
 .headerflex {
   display: flex;
   justify-content: space-around;
+  margin: auto;
+  border-bottom-style: solid;
+  border-bottom-width: 4px;
+  padding: 20px;
+}
+.headerbutton {
+  background: #2e294e;
+  font-family: "Source Sans Pro", sans-serif;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 5px;
+  transition-duration: 0.5s;
+}
+.headerbutton:hover {
+  transform: scale(110%);
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
 }

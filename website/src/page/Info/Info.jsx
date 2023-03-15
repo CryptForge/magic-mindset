@@ -16,7 +16,7 @@ const Info = (props) => {
         dignissimos suscipit consequuntur temporibus rerum eos similique saepe
         pariatur quas, amet quia.
       </div>
-      <button>Click here!</button>
+      <button className="bluebutton">Click here!</button>
     </div>
   );
 };
