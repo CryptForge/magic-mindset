@@ -14,8 +14,6 @@ body {
   border-radius: 25px;
   padding: 40px;
   margin: 40px;
-}
-.container * {
   color: black;
 }
 .container button {
@@ -36,8 +34,12 @@ body {
   background: rgba(217, 217, 217, 0.75);
   border-radius: 25px;
 }
-* {
-  color: white;
+.whiteelement {
+  background-color: #fbfef9;
+  border-radius: 25px;
+  padding: 30px;
+  margin: 20px;
+  color: black;
 }
 h1,
 h2,
@@ -47,8 +49,5 @@ h3 {
 }
 p,
 span {
-  font-family: "Source Sans Pro", sans-serif;
-}
-label {
   font-family: "Source Sans Pro", sans-serif;
 }
