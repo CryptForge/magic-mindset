@@ -38,11 +38,19 @@ function App() {
     });
   };
 
+  const logOut = () => {
+    setAuth({
+      authenticated: false,
+      info: null,
+    });
+    console.log("logged out");
+  };
+
   return (
     <AuthContext.Provider value={auth}>
       <div className="App background">
         <div>
-          <Header />
+          <Header logOut={logOut} />
         </div>
 
         <div>{API_BASE}</div>

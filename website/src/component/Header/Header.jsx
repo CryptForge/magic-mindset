@@ -1,12 +1,13 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import "./Header.css";
+import LoginLogoutButton from "../LoginLogoutButton/LoginLogoutButton";
 
 const Header = (props) => {
   return (
     <div>
       <div className="headerflex">
-        <button className="headerbutton">Logout/Login WIP</button>
+        <LoginLogoutButton logOut={props.logOut} />
         <h2>
           <NavLink to="/studentspage">Studentspage</NavLink>
         </h2>
