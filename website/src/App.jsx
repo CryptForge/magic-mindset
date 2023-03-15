@@ -9,13 +9,23 @@ import StudentsPage from "./page/StudentsPage/StudentsPage";
 import Info from "./page/Info/Info";
 import Login from "./page/Login/Login";
 import { AuthContext } from "./AuthContext";
-import { useState } from "react";
+import { isTokenValid, useLocalStorage } from "./util";
+import { useEffect } from "react";
 
 function App() {
-  const [auth, setAuth] = useState({
+  const [auth, setAuth] = useLocalStorage("auth", {
     authenticated: false,
     info: null,
   });
+
+  useEffect(() => {
+    if (auth.authenticated && !isTokenValid(auth.info.token)) {
+      setAuth({
+        authenticated: false,
+        info: null,
+      });
+    }
+  }, []);
 
   const authenticate = (token, username, role) => {
     setAuth({
@@ -43,7 +53,10 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/studentspage" element={<StudentsPage />} />
             <Route path="/info" element={<Info />} />
-            <Route path="/login" element={<Login authenticate={authenticate} />} />
+            <Route
+              path="/login"
+              element={<Login authenticate={authenticate} />}
+            />
           </Routes>
         </div>
       </div>
