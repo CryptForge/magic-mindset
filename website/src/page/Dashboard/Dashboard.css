@@ -1,5 +1,6 @@
 .grid {
   display: grid;
+  gap: 20px;
 }
 .gridelement {
   padding: 20px;
