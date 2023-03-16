@@ -1,14 +1,16 @@
 import React from "react";
 import Popup from "reactjs-popup";
+import Student from "../Student/DropDownStudent";
 import "./StudentDropdown.css";
 
-const StudentDropdown = () => {
+const StudentDropdown = (props) => {
   return (
     <div>
       <Popup trigger={<button>Select Student</button>}>
         <div className="studentlist">
-          <div className="student">A student</div>
-          <div className="student">Another student</div>
+          {props.studentList.map((students, index) => (
+            <Student key={index} name={students.name} />
+          ))}
         </div>
       </Popup>
     </div>

@@ -1,0 +1,13 @@
+.student {
+  background-color: darkslateblue;
+  color: white;
+  border: 0;
+  padding: 3px;
+  font-size: 1.4em;
+}
+.student:hover {
+  transform: translateX(5px);
+}
+.student:active {
+  transform: translateX(5px) translateY(3px);
+}

@@ -1,8 +1,7 @@
 .studentlist {
   background-color: chocolate;
   padding: 10px;
-}
-.student {
-  background-color: darkslateblue;
-  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 }
