@@ -3,9 +3,15 @@ import React from "react";
 const HR = (props) => {
   return (
     <div className="grid grid2x2first1x2">
-      <div className="gridelement box1">HRbox1</div>
-      <div className="gridelement box2">HRbox2</div>
-      <div className="gridelement box3">HRbox3</div>
+      <div className="gridelement element box1">
+        <h2>Show students + button for single one</h2>
+      </div>
+      <div className="gridelement element box2">
+        <h2>Show progress reports</h2>
+      </div>
+      <div className="gridelement element box3">
+        <h2>Current changes to accounts</h2>
+      </div>
     </div>
   );
 };

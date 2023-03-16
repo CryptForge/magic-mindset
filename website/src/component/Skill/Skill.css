@@ -1,10 +1,17 @@
 .flex {
   display: flex;
 }
-.skillflex {
-  justify-content: space-around;
+.skill {
+  justify-content: space-between;
+  margin: 5px;
+  background-color: #fbfef950;
+  padding: 2px 10px 2px 10px;
 }
 .popup {
   background-color: blue;
   padding: 50px;
+}
+.skill .skillbutton {
+  background: none;
+  color: black;
 }

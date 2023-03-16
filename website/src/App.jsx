@@ -11,6 +11,7 @@ import Login from "./page/Login/Login";
 import { AuthContext } from "./AuthContext";
 import { isTokenValid, useLocalStorage } from "./util";
 import { useEffect } from "react";
+import ProtectedRoute from "./component/ProtectedRoute";
 
 function App() {
   const [auth, setAuth] = useLocalStorage("auth", {
@@ -38,20 +39,48 @@ function App() {
     });
   };
 
+  const logOut = () => {
+    setAuth({
+      authenticated: false,
+      info: null,
+    });
+    console.log("logged out");
+  };
+
   return (
     <AuthContext.Provider value={auth}>
-      <div className="App">
+      <div className="App background">
         <div>
-          <Header />
+          <Header logOut={logOut} />
         </div>
 
-        <div>{API_BASE}</div>
-        <div>
+        <div className="container">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/studentspage" element={<StudentsPage />} />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/studentspage"
+              element={
+                <ProtectedRoute role="COACH|MANAGER|HR">
+                  <StudentsPage />
+                </ProtectedRoute>
+              }
+            />
             <Route path="/info" element={<Info />} />
             <Route
               path="/login"

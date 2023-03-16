@@ -2,14 +2,17 @@ package me.cryptforge.mindset.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import me.cryptforge.mindset.model.user.Trainee;
 import me.cryptforge.mindset.model.user.UserInfo;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "evaluation")
 public class Evaluation {
@@ -35,6 +38,12 @@ public class Evaluation {
     @ManyToOne
     @JoinColumn(name = "trainee_id")
     private Trainee trainee;
+
+    @OneToOne(mappedBy = "evaluation")
+    private Report report;
+    
+    @OneToMany(mappedBy = "evaluation")
+    private List<EvaluationInvitation> invitations;
 
     public Evaluation(Date date, String location, String conclusion, UserInfo evaluator, Trainee trainee) {
         this.date = date;

@@ -1,8 +1,12 @@
 .grid {
   display: grid;
+  gap: 20px;
 }
 .gridelement {
   padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 /* Styling for 2x2 grid, used in User and Coach */
 .grid2x2 {
