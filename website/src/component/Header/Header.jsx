@@ -1,14 +1,14 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import "./Header.css";
-import LoginLogoutButton from "../LoginLogoutButton/LoginLogoutButton";
+import AuthButton from "../AuthButton/AuthButton";
 import Protected from "../Protected";
 
 const Header = (props) => {
   return (
     <div>
       <div className="headerflex">
-        <LoginLogoutButton logOut={props.logOut} />
+        <AuthButton logOut={props.logOut} />
 
         <Protected role="COACH|MANAGER|HR">
           <NavLink to="/studentspage">

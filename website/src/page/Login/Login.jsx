@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { Navigate } from "react-router-dom";
 import { AuthContext } from "../../AuthContext";
 import { API_BASE } from "../../main";
 import { postForm } from "../../util";
@@ -6,6 +7,10 @@ import "./Login.css";
 
 const Login = (props) => {
   const auth = useContext(AuthContext);
+
+  if (auth.authenticated) {
+    return <Navigate to="/" replace />;
+  }
 
   const login = async (event) => {
     const response = await postForm(event, `${API_BASE}/auth/login`);

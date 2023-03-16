@@ -1,4 +1,4 @@
-.login-button {
+.auth-button {
   background: #2e294e;
   font-family: "Source Sans Pro", sans-serif;
   color: white;
@@ -11,7 +11,7 @@
   padding: 20px 40px 20px 40px;
 }
 
-.login-button:hover {
-  transform: scale(110%);
+.auth-button:hover {
+  transform: scale(105%);
   cursor: pointer;
 }
