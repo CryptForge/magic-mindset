@@ -2,6 +2,8 @@ package me.cryptforge.mindset.controller;
 
 import me.cryptforge.mindset.dto.evaluation.EditEvaluationRequest;
 import me.cryptforge.mindset.dto.evaluation.EvaluationRequest;
+import me.cryptforge.mindset.exception.EntityNotFoundException;
+import me.cryptforge.mindset.model.Evaluation;
 import me.cryptforge.mindset.service.EvaluationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,27 +18,35 @@ public class EvaluationController {
     private EvaluationService evaluationService;
 
     @GetMapping("/get/all")
-    public ResponseEntity<?> getAllEvaluations() {
+    public Iterable<Evaluation> getAllEvaluations() {
         return evaluationService.getAllEvaluations();
     }
 
     @GetMapping("/get/single/{id}")
-    public ResponseEntity<?> getSingleEvaluation(@PathVariable String id) {
-        return evaluationService.getSingleEvaluation(id);
+    public ResponseEntity<Evaluation> getSingleEvaluation(@PathVariable Long id) {
+        return ResponseEntity.of(evaluationService.getSingleEvaluation(id));
     }
 
     @GetMapping("/get/all/user/{id}")
-    public ResponseEntity<?> getAllEvaluationsUser(@PathVariable String id) {
+    public Iterable<Evaluation> getAllEvaluationsUser(@PathVariable Long id) {
         return evaluationService.getAllEvaluationsUser(id);
     }
 
     @PostMapping
     public ResponseEntity<?> createEvaluation(@RequestBody EvaluationRequest evaluationRequest) {
-        return evaluationService.createEvaluation(evaluationRequest);
+        try {
+            return ResponseEntity.ok(evaluationService.createEvaluation(evaluationRequest));
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
-    @GetMapping("/edit")
+    @PutMapping("/edit")
     public ResponseEntity<?> editEvaluation(@RequestBody EditEvaluationRequest editEvaluationRequest) {
-        return evaluationService.editEvaluation(editEvaluationRequest);
+        try {
+            return ResponseEntity.ok(evaluationService.editEvaluation(editEvaluationRequest));
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }
