@@ -11,6 +11,7 @@ import Login from "./page/Login/Login";
 import { AuthContext } from "./AuthContext";
 import { isTokenValid, useLocalStorage } from "./util";
 import { useEffect } from "react";
+import ProtectedRoute from "./component/ProtectedRoute";
 
 function App() {
   const [auth, setAuth] = useLocalStorage("auth", {
@@ -56,9 +57,30 @@ function App() {
         <div className="container">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/studentspage" element={<StudentsPage />} />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/studentspage"
+              element={
+                <ProtectedRoute role="COACH|MANAGER|HR">
+                  <StudentsPage />
+                </ProtectedRoute>
+              }
+            />
             <Route path="/info" element={<Info />} />
             <Route
               path="/login"

@@ -5,7 +5,7 @@ const Protected = (props) => {
   const auth = useContext(AuthContext);
 
   if (!auth.authenticated) {
-    return <></>;
+    return getOrElse(props.orElse);
   }
 
   if (props.role !== undefined) {
@@ -14,11 +14,18 @@ const Protected = (props) => {
       : [props.role];
 
     if (!roles.includes(auth.info.role)) {
-      return <></>;
+      return getOrElse(props.orElse);
     }
   }
 
   return <>{props.children}</>;
+};
+
+const getOrElse = (orElse) => {
+  if (orElse === undefined) {
+    return <></>;
+  }
+  return orElse;
 };
 
 export default Protected;
