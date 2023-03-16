@@ -9,11 +9,6 @@ import Protected from "../../component/Protected";
 
 const Dashboard = (props) => {
   const auth = useContext(AuthContext);
-
-  // if (!auth.authenticated) {
-  //   return "😯";
-  // }
-
   return (
     <div>
       <Protected role="TRAINEE">
@@ -30,17 +25,6 @@ const Dashboard = (props) => {
       </Protected>
     </div>
   );
-
-  // switch(auth.info.role) {
-  //   case "TRAINEE":
-  //     return <User />;
-  //   case "COACH":
-  //     return <Coach/>;
-  //   case "MANAGER":
-  //     return <Manager />
-  //   case "HR":
-  //     return <HR/>
-  //   }
 };
 
 export default Dashboard;
