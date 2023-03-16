@@ -54,3 +54,6 @@ span {
 .columncenter {
   align-items: center;
 }
+.pointer:hover {
+  cursor: pointer;
+}
