@@ -4,38 +4,39 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import me.cryptforge.mindset.model.user.Trainee;
+
+import java.util.Date;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "course")
-public class Course {
+@Table(name = "skill_report")
+public class SkillReport {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "report_id")
+    private Report report;
+
+    @ManyToOne
     @JoinColumn(name = "skill_id")
     private Skill skill;
 
     @Column(name = "progress", nullable = false)
-    private float progress;
+    private String progress;
 
-    @Column(name = "certification")
-    private String certification;
+    @Column(name = "date", nullable = false)
+    private Date date;
 
-    @ManyToOne
-    @JoinColumn(name = "trainee_id")
-    private Trainee trainee;
-
-    public Course(Skill skill, float progress, String certification, Trainee trainee) {
+    public SkillReport(Report report, Skill skill, String progress, Date date) {
+        this.report = report;
         this.skill = skill;
         this.progress = progress;
-        this.certification = certification;
-        this.trainee = trainee;
+        this.date = date;
     }
 
 }

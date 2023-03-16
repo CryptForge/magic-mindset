@@ -2,6 +2,7 @@ package me.cryptforge.mindset.model.user;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import me.cryptforge.mindset.model.Evaluation;
 
@@ -9,6 +10,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "user_info")
 public class UserInfo {
