@@ -7,6 +7,7 @@ import me.cryptforge.mindset.model.user.Trainee;
 import me.cryptforge.mindset.model.user.UserInfo;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -35,6 +36,9 @@ public class Evaluation {
     @ManyToOne
     @JoinColumn(name = "trainee_id")
     private Trainee trainee;
+
+    @OneToMany(mappedBy = "evaluation")
+    private List<EvaluationInvitation> invitations;
 
     public Evaluation(Date date, String location, String conclusion, UserInfo evaluator, Trainee trainee) {
         this.date = date;
