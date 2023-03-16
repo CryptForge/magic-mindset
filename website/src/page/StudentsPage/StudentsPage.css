@@ -7,3 +7,9 @@
 .spacearound {
   justify-content: space-around;
 }
+.skillist {
+  margin: 20px;
+}
+.buttonlist {
+  margin-bottom: 20px;
+}

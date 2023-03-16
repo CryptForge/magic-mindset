@@ -51,3 +51,6 @@ p,
 span {
   font-family: "Source Sans Pro", sans-serif;
 }
+.columncenter {
+  align-items: center;
+}
