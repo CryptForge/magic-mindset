@@ -17,9 +17,9 @@ public class Manager {
     @Id
     private Long id;
 
-    @OneToOne
+    @MapsId
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "id")
-    @PrimaryKeyJoinColumn
     private UserInfo user;
 
     @OneToMany(mappedBy = "manager")
