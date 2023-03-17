@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Skill from "../../component/Skill/Skill";
 import StudentDropdown from "../../component/StudentsPage/StudentDropdown";
 import { Link } from "react-router-dom";
@@ -31,14 +31,27 @@ const StudentsPage = (props) => {
     { name: "Rebecca" },
   ];
 
+  const [selectedStudent, selectStudent] = useState({});
+  // const [students, setStudents] = useState([]);
+  // const [isLoaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    selectStudent(studentArray[0]);
+  }, []);
+
+  // useEffect(() => {}, [selectedStudent]);
+
   return (
     <div className="flex column element">
       <div className="flex spacearound columncenter">
         <div className="flex column">
-          <h2>Student - Place McHolder</h2>
+          <h2>Student - {selectedStudent.name}</h2>
           <h3>Current Skills</h3>
         </div>
-        <StudentDropdown studentList={studentArray} />
+        <StudentDropdown
+          selectStudent={selectStudent}
+          studentList={studentArray}
+        />
       </div>
       <div className="flex column skillist">
         {skillArray.map((skill, index) => (
