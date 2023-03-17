@@ -11,7 +11,7 @@ const Header = (props) => {
         <AuthButton logOut={props.logOut} />
 
         <Protected role="COACH|MANAGER|HR">
-          <NavLink to="/studentspage">
+          <NavLink to="/traineepage">
             <h2 className="navigation-link">Students</h2>
           </NavLink>
         </Protected>
