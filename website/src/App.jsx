@@ -5,13 +5,13 @@ import Header from "./component/Header/Header";
 import Home from "./page/Home/Home";
 import Dashboard from "./page/Dashboard/Dashboard";
 import Profile from "./page/Profile/Profile";
-import StudentsPage from "./page/StudentsPage/StudentsPage";
 import Info from "./page/Info/Info";
 import Login from "./page/Login/Login";
 import { AuthContext } from "./AuthContext";
 import { isTokenValid, useLocalStorage } from "./util";
 import { useEffect } from "react";
 import ProtectedRoute from "./component/ProtectedRoute";
+import TraineePage from "./page/TraineePage/TraineePage";
 
 function App() {
   const [auth, setAuth] = useLocalStorage("auth", {
@@ -74,10 +74,10 @@ function App() {
               }
             />
             <Route
-              path="/studentspage"
+              path="/traineepage"
               element={
                 <ProtectedRoute role="COACH|MANAGER|HR">
-                  <StudentsPage />
+                  <TraineePage />
                 </ProtectedRoute>
               }
             />
