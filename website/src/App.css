@@ -1,0 +1,82 @@
+.side-lines-divider {
+  display: grid;
+  grid-template-columns: 8vh auto 8vh;
+  min-height: calc(100vh - 10vh - 20px);
+}
+
+.side-lines-left {
+  position: relative;
+}
+
+.side-lines-left .link {
+  font-size: 1.5vw;
+  text-decoration: none;
+
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+
+  position: absolute;
+  top: 22.5vh;
+  left: 3vw;
+  margin-left: -30px;
+
+  transform: rotate(270deg);
+  transform-origin: 0 0;
+  transition: color 0.5s;
+}
+
+.side-lines-left .link:hover {
+  color: #ffba08;
+}
+
+.side-lines-left .line-container {
+  margin: 25vh 2.25vw 0 2.25vw;
+  height: 50%;
+}
+
+.side-lines-left .line-container .line {
+  height: 100%;
+  border-right: 1px solid whitesmoke;
+}
+
+.side-lines-right {
+  max-width: 8vw;
+  position: relative;
+}
+
+.side-lines-right-text {
+  font-size: 1.5vw;
+  text-decoration: none;
+
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+
+  width: max-content;
+  height: fit-content;
+
+  position: absolute;
+  bottom: 10vh;
+  left: 5.5vw;
+  margin-left: -4.5vw;
+
+  transform: rotate(270deg);
+  transform-origin: 0 0;
+  transition: color 0.5s;
+}
+
+.side-lines-middle {
+  margin-left: 5vw;
+  margin-right: 5vw;
+  margin-top: 2vh;
+  display: flex;
+  justify-content: space-around;
+  height: calc(100vh - 10vh - 1px - 6vh);
+}

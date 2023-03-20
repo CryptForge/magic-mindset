@@ -13,7 +13,6 @@ import ProtectedRoute from "./component/ProtectedRoute";
 import TraineePage from "./page/TraineePage/TraineePage";
 import SpecificTrainee from "./page/TraineePage/SpecificTrainee/SpecificTrainee";
 
-
 function App() {
   return (
     <AuthProvider>
@@ -22,38 +21,36 @@ function App() {
           <Header />
         </div>
 
-        <div className="container">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route
-              path="/dashboard"
-              element={
-                <ProtectedRoute>
-                  <Dashboard />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/profile"
-              element={
-                <ProtectedRoute>
-                  <Profile />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/traineepage"
-              element={
-                <ProtectedRoute role="COACH|MANAGER|HR">
-                  <TraineePage />
-                </ProtectedRoute>
-              }
-            />
-            <Route path="/info" element={<Info />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/trainee/:traineeId" element={<SpecificTrainee />} />
-          </Routes>
-        </div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/traineepage"
+            element={
+              <ProtectedRoute role="COACH|MANAGER|HR">
+                <TraineePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/info" element={<Info />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/trainee/:traineeId" element={<SpecificTrainee />} />
+        </Routes>
       </div>
     </AuthProvider>
   );

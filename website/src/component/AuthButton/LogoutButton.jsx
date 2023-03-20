@@ -6,9 +6,9 @@ const LogoutButton = () => {
   const auth = useContext(AuthContext);
 
   return (
-    <button className="auth-button" onClick={() => auth.userLogout()}>
+    <div className="navigation-link" onClick={() => auth.userLogout()}>
       Log Out
-    </button>
+    </div>
   );
 };
 

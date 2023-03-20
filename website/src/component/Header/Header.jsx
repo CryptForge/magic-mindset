@@ -4,37 +4,43 @@ import "./Header.css";
 import AuthButton from "../AuthButton/AuthButton";
 import Protected from "../Protected";
 
-const Header = (props) => {
+const Header = () => {
   return (
     <div>
-      <div className="headerflex">
-        <AuthButton />
+      <div className="headergrid">
+        <div className="header-side-one">
+          <AuthButton />
 
-        <Protected role="COACH|MANAGER|HR">
-          <NavLink to="/traineepage">
-            <h2 className="navigation-link">Students</h2>
+          <Protected role="COACH|MANAGER|HR">
+            <NavLink to="/traineepage" className="navigation-link">
+              Trainees
+            </NavLink>
+          </Protected>
+        </div>
+
+        <div className="header-middle">
+          <NavLink to="/" className="title">
+            Magic Mindset
           </NavLink>
-        </Protected>
+        </div>
 
-        <NavLink to="/">
-          <h1 className="title">Magic Mindset</h1>
-        </NavLink>
-
-        <NavLink to="/info">
-          <h2 className="navigation-link">Info</h2>
-        </NavLink>
-
-        <Protected>
-          <NavLink to="/dashboard">
-            <h2 className="navigation-link">Dashboard</h2>
+        <div className="header-side-two">
+          <NavLink to="/info" className="navigation-link">
+            Info
           </NavLink>
-        </Protected>
 
-        <Protected>
-          <NavLink to="/profile">
-            <h2 className="navigation-link">Profile</h2>
-          </NavLink>
-        </Protected>
+          <Protected>
+            <NavLink to="/dashboard" className="navigation-link">
+              Dashboard
+            </NavLink>
+          </Protected>
+
+          <Protected>
+            <NavLink to="/profile" className="navigation-link">
+              Profile
+            </NavLink>
+          </Protected>
+        </div>
       </div>
     </div>
   );

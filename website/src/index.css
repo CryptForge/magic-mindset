@@ -2,32 +2,13 @@
 body {
   margin: 0;
   width: auto;
+  height: 100vh;
   background: rgb(97, 67, 133);
   background: linear-gradient(
     116.64deg,
     rgba(97, 67, 133, 1) 0%,
     rgba(81, 99, 149, 1) 100%
   );
-}
-.container {
-  background: rgba(217, 217, 217, 0.6);
-  border-radius: 25px;
-  padding: 40px;
-  margin: 40px;
-  color: black;
-}
-.container button {
-  background: #2e294e;
-  font-family: "Source Sans Pro", sans-serif;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 5px;
-  transition-duration: 0.5s;
-}
-.container button:hover {
-  transform: scale(110%);
-  cursor: pointer;
 }
 
 .element {

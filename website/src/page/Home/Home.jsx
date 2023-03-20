@@ -1,30 +1,53 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, NavLink } from "react-router-dom";
+import AuthContext from "../../AuthContext";
+import wand from "../../img/wand.png";
 import "./Home.css";
 
-const Home = (props) => {
-  return (
-    <div className="homesplitflex">
-      <div className="homecolumnflex">
-        <h1>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-          Necessitatibus ullam deleniti natus laboriosam in beatae expedita
-          iusto enim doloremque soluta.
-        </h1>
+const Home = () => {
+  const auth = useContext(AuthContext);
 
-        <h2>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam
-          perferendis voluptatibus error hic voluptas cum quasi eos quos numquam
-          dolorem vel tempore cumque doloribus consectetur assumenda quae
-          accusamus nobis facere quia minima iure, atque mollitia ut. Fugit,
-          doloribus asperiores quo maiores, consequuntur laboriosam veniam sequi
-          officia libero odit a iure!
-        </h2>
-        <Link to="/login">
-          <button>LOGIN NOW</button>
-        </Link>
+  const isLoggedIn = auth.userIsAuthenticated();
+
+  return (
+    <div className="side-lines-divider">
+      <div className="side-lines-left">
+        {isLoggedIn ? (
+          <NavLink to="/profile" className="link">
+            Profile
+          </NavLink>
+        ) : (
+          <NavLink to="/login" className="link">
+            Login
+          </NavLink>
+        )}
+        <div className="line-container">
+          <div className="line"></div>
+        </div>
       </div>
-      <div>IMAGE HERE</div>
+      <div className="side-lines-middle">
+        <div className="home-split-flex">
+          <div className="home-column-flex">
+            <h1>The Magic Starts Here</h1>
+            <h2>
+              Learn the ins and outs of magic through the fake works of Magic
+              Mindset! And yes, this is completely fake. So all info is
+              protected and life will not be better by trying this :)
+            </h2>
+            <Link to="/login" className="login">
+              Login Now
+            </Link>
+          </div>
+          <div>
+            <img src={wand} alt="Wand"></img>
+          </div>
+        </div>
+      </div>
+      <div className="side-lines-right">
+        <div className="side-lines-right-text">
+          Let your magical adventure begin
+        </div>
+      </div>
     </div>
   );
 };
