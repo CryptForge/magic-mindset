@@ -33,6 +33,7 @@ body {
 .element {
   background: rgba(217, 217, 217, 0.75);
   border-radius: 25px;
+  padding: 20px;
 }
 .whiteelement {
   background-color: #fbfef9;
@@ -56,4 +57,20 @@ span {
 }
 .pointer:hover {
   cursor: pointer;
+}
+.listelement {
+  background-color: #e3e8f1;
+  padding: 1px;
+}
+.list {
+  gap: 10px;
+}
+.space-around {
+  justify-content: space-around;
+}
+.space-between {
+  justify-content: space-between;
+}
+.buttonspacing {
+  gap: 100px;
 }
