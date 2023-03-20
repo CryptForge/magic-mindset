@@ -41,7 +41,7 @@ public class Evaluation {
 
     @OneToOne(mappedBy = "evaluation")
     private Report report;
-    
+
     @OneToMany(mappedBy = "evaluation")
     private List<EvaluationInvitation> invitations;
 
