@@ -12,6 +12,7 @@ import { isTokenValid, useLocalStorage } from "./util";
 import { useEffect } from "react";
 import ProtectedRoute from "./component/ProtectedRoute";
 import TraineePage from "./page/TraineePage/TraineePage";
+import SpecificTrainee from "./page/TraineePage/SpecificTrainee/SpecificTrainee";
 
 function App() {
   const [auth, setAuth] = useLocalStorage("auth", {
@@ -86,6 +87,7 @@ function App() {
               path="/login"
               element={<Login authenticate={authenticate} />}
             />
+            <Route path="/trainee/:traineeId" element={<SpecificTrainee />} />
           </Routes>
         </div>
       </div>

@@ -9,11 +9,13 @@ const TraineePage = (props) => {
   let traineeArray = [
     {
       name: "Victor",
+      id: 0,
     },
     {
       name: "Tijs",
+      id: 1,
     },
-    { name: "Rebecca" },
+    { name: "Rebecca", id: 2 },
   ];
 
   return (
@@ -21,7 +23,7 @@ const TraineePage = (props) => {
       <h2>Full list of students.</h2>
       <div className="flex column spacearound">
         {traineeArray.map((trainee, index) => (
-          <ListedTrainee key={index} name={trainee.name} />
+          <ListedTrainee key={index} name={trainee.name} id={trainee.id} />
         ))}
       </div>
       <div className="flex spacearound buttonlist">

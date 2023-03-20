@@ -8,7 +8,9 @@ const ListedTrainee = (props) => {
     <div className="flex listedelement">
       <p>{props.name}</p>
       <div className="flex traineelistbuttons">
-        <button>Manage Trainee</button>
+        <Link to={`/trainee/${props.id}`}>
+          <button>Manage Trainee</button>
+        </Link>
         <Protected role="COACH|MANAGER">
           <button>Invite Trainee</button>
         </Protected>
