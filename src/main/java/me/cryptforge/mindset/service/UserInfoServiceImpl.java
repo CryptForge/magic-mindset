@@ -22,7 +22,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
-    private HREmployeeRepository hREmployeeRepository;
+    private HREmployeeRepository hrEmployeeRepository;
     @Autowired
     private CoachRepository coachRepository;
     @Autowired
@@ -59,7 +59,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     private void createEntityFromRole(UserInfo userInfo, User.Role role) {
         switch (role) {
-            case HR -> hREmployeeRepository.save(new HREmployee(userInfo));
+            case HR -> hrEmployeeRepository.save(new HREmployee(userInfo));
             case COACH -> coachRepository.save(new Coach(userInfo));
             case MANAGER -> managerRepository.save(new Manager(userInfo));
             case TRAINEE -> traineeRepository.save(new Trainee(userInfo));

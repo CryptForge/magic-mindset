@@ -51,4 +51,5 @@ public class UserInfoController {
     public Trainee editTraineeTheirManager(@RequestBody EditManagerInTraineeRequest editManagerInTraineeRequest) {
         return userInfoService.changeManagerTrainee(editManagerInTraineeRequest);
     }
+
 }
