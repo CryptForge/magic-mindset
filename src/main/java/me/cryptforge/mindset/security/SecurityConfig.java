@@ -47,10 +47,7 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests()
                 .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers("/api/coach").hasRole(User.Role.COACH.asString())
-                .requestMatchers("/api/manager").hasRole(User.Role.MANAGER.asString())
-                .requestMatchers("/api/trainee").hasRole(User.Role.TRAINEE.asString())
-                .requestMatchers("/api/user").hasAnyRole(allRoles)
+                .requestMatchers("/api/user/**").hasRole(User.Role.HR.asString())
                 .anyRequest().authenticated();
 
         http.addFilterBefore(requestFilter, UsernamePasswordAuthenticationFilter.class);

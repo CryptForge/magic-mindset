@@ -1,15 +1,15 @@
 package me.cryptforge.mindset.service;
 
 import me.cryptforge.mindset.dto.user.*;
+import me.cryptforge.mindset.exception.EntityAlreadyExistsException;
+import me.cryptforge.mindset.exception.EntityNotFoundException;
+import me.cryptforge.mindset.exception.RoleMismatchException;
 import me.cryptforge.mindset.model.user.*;
 import me.cryptforge.mindset.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,7 +22,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
-    private HREmployeeRepository hREmployeeRepository;
+    private HREmployeeRepository hrEmployeeRepository;
     @Autowired
     private CoachRepository coachRepository;
     @Autowired
@@ -31,145 +31,98 @@ public class UserInfoServiceImpl implements UserInfoService {
     private TraineeRepository traineeRepository;
 
     @Override
-    public ResponseEntity<List<UserInfo>> getAllUsers() {
-        List<UserInfo> allUsers = new ArrayList<>();
-        userInfoRepository.findAll().iterator().forEachRemaining(allUsers::add);
-        return ResponseEntity.ok(allUsers);
+    public Iterable<UserInfo> getAllUsers() {
+        return userInfoRepository.findAll();
     }
 
     @Override
-    public ResponseEntity<?> getUserFromId(String id) {
-        Optional<UserInfo> user = userInfoRepository.findByUser_Id(Long.parseLong(id));
-        if (user.isEmpty()) {
-            return returnBadRequest("user");
-        }
-        return ResponseEntity.ok(user.get());
+    public Optional<UserInfo> getUserFromId(Long id) {
+        return userInfoRepository.findByUser_Id(id);
     }
 
     @Override
-    public ResponseEntity<?> createUser(UserRequest userRequest) {
+    public UserInfo createUser(UserRequest userRequest) {
         if (userRepository.existsByEmail(userRequest.email())) {
-            return ResponseEntity.badRequest().body("User with email: " + userRequest.email() + " already exists!");
+            throw new EntityAlreadyExistsException("User with email \"" + userRequest.email() + "\" already exists!");
         }
 
         // Creating user's account
-        User newUser = new User(userRequest.email(), passwordEncoder.encode(userRequest.password()), userRequest.role());
-        User user = userRepository.save(newUser);
+        User user = new User(userRequest.email(), passwordEncoder.encode(userRequest.password()), userRequest.role());
+        user = userRepository.save(user);
 
-        UserInfo newUserInfo = new UserInfo(user, userRequest.name(), userRequest.address(), userRequest.city());
-        UserInfo userInfo = userInfoRepository.save(newUserInfo);
+        UserInfo userInfo = new UserInfo(user, userRequest.name(), userRequest.address(), userRequest.city());
+        userInfo = userInfoRepository.save(userInfo);
 
-        checkRoleAndCreateAppropriateEntity(userInfo, userRequest.role());
-        return ResponseEntity.ok().body(userInfo);
+        createEntityFromRole(userInfo, userRequest.role());
+        return userInfo;
     }
 
-    private void checkRoleAndCreateAppropriateEntity(UserInfo userInfo, User.Role role) {
+    private void createEntityFromRole(UserInfo userInfo, User.Role role) {
         switch (role) {
-            case HR -> {
-                HREmployee hrEmployee = new HREmployee(userInfo);
-                hREmployeeRepository.save(hrEmployee);
-            }
-            case COACH -> {
-                Coach coach = new Coach(userInfo);
-                coachRepository.save(coach);
-            }
-            case MANAGER -> {
-                Manager manager = new Manager(userInfo);
-                managerRepository.save(manager);
-            }
-            default -> {
-                Trainee trainee = new Trainee(userInfo);
-                traineeRepository.save(trainee);
-            }
+            case HR -> hrEmployeeRepository.save(new HREmployee(userInfo));
+            case COACH -> coachRepository.save(new Coach(userInfo));
+            case MANAGER -> managerRepository.save(new Manager(userInfo));
+            case TRAINEE -> traineeRepository.save(new Trainee(userInfo));
         }
     }
 
     @Override
-    public ResponseEntity<?> editUserInfo(EditUserInfoRequest editUserInfoRequest) {
-        Optional<User> optionalUser = userRepository.findById(editUserInfoRequest.userId());
-        if (optionalUser.isEmpty()) {
-            return returnBadRequest("user");
-        }
-        User user = optionalUser.get();
-        Optional<UserInfo> optionalUserInfo = userInfoRepository.findByUser(user);
-        if (optionalUserInfo.isEmpty()) {
-            return returnBadRequest("userinfo");
-        }
-        UserInfo userInfo = optionalUserInfo.get();
-        userInfo.setAddress(editUserInfoRequest.address());
-        userInfo.setCity(editUserInfoRequest.city());
-        userInfo.setName(editUserInfoRequest.name());
-        UserInfo editedUserInfo = userInfoRepository.save(userInfo);
-        return ResponseEntity.ok(editedUserInfo);
+    public UserInfo editUserInfo(EditUserInfoRequest request) {
+        final User user = userRepository.findById(request.userId())
+                .orElseThrow(() -> new EntityNotFoundException("user"));
+        final UserInfo userInfo = userInfoRepository.findByUser(user)
+                .orElseThrow(() -> new EntityNotFoundException("userInfo"));
+
+        userInfo.setAddress(request.address());
+        userInfo.setCity(request.city());
+        userInfo.setName(request.name());
+
+        return userInfoRepository.save(userInfo);
     }
 
     @Override
-    public ResponseEntity<?> editUser(EditUserRequest editUserRequest) {
-        Optional<User> optionalUser = userRepository.findById(editUserRequest.id());
-        if (optionalUser.isEmpty()) {
-            return returnBadRequest("user");
-        }
-        User user = optionalUser.get();
+    public User editUser(EditUserRequest editUserRequest) {
+        final User user = userRepository.findById(editUserRequest.id())
+                .orElseThrow(() -> new EntityNotFoundException("user"));
+
         user.setEmail(editUserRequest.email());
         user.setPassword(passwordEncoder.encode(editUserRequest.password()));
         user.setRole(editUserRequest.role());
-        User editedUser = userRepository.save(user);
-        return ResponseEntity.ok(editedUser);
+
+        return userRepository.save(user);
     }
 
     @Override
-    public ResponseEntity<?> changeCoachTrainee(EditCoachInTraineeRequest editCoachInTraineeRequest) {
-        Optional<UserInfo> traineeUser = userInfoRepository.findByUser_Id(editCoachInTraineeRequest.traineeId());
-        Optional<UserInfo> coachUser = userInfoRepository.findByUser_Id(editCoachInTraineeRequest.coachId());
-        if (traineeUser.isEmpty()) {
-            return returnBadRequest("trainee");
-        }
-        if (coachUser.isEmpty()) {
-            return returnBadRequest("coach");
-        }
-        Optional<Trainee> optionalTrainee = traineeRepository.findByUser(traineeUser.get());
-        Optional<Coach> optionalCoach = coachRepository.findByUser(coachUser.get());
-        if (optionalTrainee.isEmpty()) {
-            return returnBadRequestWrongRole("trainee");
-        }
-        if (optionalCoach.isEmpty()) {
-            returnBadRequestWrongRole("coach");
-        }
-        Trainee trainee = optionalTrainee.get();
-        trainee.setCoach(optionalCoach.get());
-        Trainee editedTrainee = traineeRepository.save(trainee);
-        return ResponseEntity.ok(editedTrainee);
+    public Trainee changeCoachTrainee(EditCoachInTraineeRequest request) {
+        final UserInfo traineeUser = userInfoRepository.findByUser_Id(request.traineeId())
+                .orElseThrow(() -> new EntityNotFoundException("trainee"));
+        final UserInfo coachUser = userInfoRepository.findByUser_Id(request.coachId())
+                .orElseThrow(() -> new EntityNotFoundException(("coach")));
+
+        final Trainee trainee = traineeRepository.findByUser(traineeUser)
+                .orElseThrow(RoleMismatchException::new);
+        final Coach coach = coachRepository.findByUser(coachUser)
+                .orElseThrow(RoleMismatchException::new);
+
+        trainee.setCoach(coach);
+
+        return traineeRepository.save(trainee);
     }
 
     @Override
-    public ResponseEntity<?> changeManagerTrainee(EditManagerInTraineeRequest editManagerInTraineeRequest) {
-        Optional<UserInfo> traineeUser = userInfoRepository.findByUser_Id(editManagerInTraineeRequest.traineeId());
-        Optional<UserInfo> managerUser = userInfoRepository.findByUser_Id(editManagerInTraineeRequest.managerId());
-        if (traineeUser.isEmpty()) {
-            return returnBadRequest("trainee");
-        }
-        if (managerUser.isEmpty()) {
-            return returnBadRequest("manager");
-        }
-        Optional<Trainee> optionalTrainee = traineeRepository.findByUser(traineeUser.get());
-        Optional<Manager> optionalManager = managerRepository.findByUser(managerUser.get());
-        if (optionalTrainee.isEmpty()) {
-            return returnBadRequestWrongRole("trainee");
-        }
-        if (optionalManager.isEmpty()) {
-            returnBadRequestWrongRole("coach");
-        }
-        Trainee trainee = optionalTrainee.get();
-        trainee.setManager(optionalManager.get());
-        Trainee editedTrainee = traineeRepository.save(trainee);
-        return ResponseEntity.ok(editedTrainee);
-    }
+    public Trainee changeManagerTrainee(EditManagerInTraineeRequest request) {
+        final UserInfo traineeUser = userInfoRepository.findByUser_Id(request.traineeId())
+                .orElseThrow(() -> new EntityNotFoundException("trainee"));
+        final UserInfo managerUser = userInfoRepository.findByUser_Id(request.managerId())
+                .orElseThrow(() -> new EntityNotFoundException("manager"));
 
-    private ResponseEntity<String> returnBadRequest(String type) {
-        return ResponseEntity.badRequest().body("No " + type + " with that id could be found!");
-    }
+        final Trainee trainee = traineeRepository.findByUser(traineeUser)
+                .orElseThrow(RoleMismatchException::new);
+        final Manager manager = managerRepository.findByUser(managerUser)
+                .orElseThrow(RoleMismatchException::new);
 
-    private ResponseEntity<String> returnBadRequestWrongRole(String type) {
-        return ResponseEntity.badRequest().body("The user you are searching isn't the role " + type);
+        trainee.setManager(manager);
+
+        return traineeRepository.save(trainee);
     }
 }

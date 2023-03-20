@@ -18,9 +18,9 @@ public class UserInfo {
     @Id
     private Long id;
 
-    @OneToOne
+    @MapsId
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "id")
-    @PrimaryKeyJoinColumn
     private User user;
 
     @Column(name = "name", nullable = false)
