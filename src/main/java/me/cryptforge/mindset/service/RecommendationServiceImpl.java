@@ -1,10 +1,7 @@
 package me.cryptforge.mindset.service;
 
-import me.cryptforge.mindset.dto.course.CourseResponseWithoutTrainee;
 import me.cryptforge.mindset.dto.recommendation.RecommendationRequest;
-import me.cryptforge.mindset.model.Course;
 import me.cryptforge.mindset.model.Recommendation;
-import me.cryptforge.mindset.model.Skill;
 import me.cryptforge.mindset.model.user.Trainee;
 import me.cryptforge.mindset.repository.RecommendationRepository;
 import me.cryptforge.mindset.repository.TraineeRepository;
@@ -63,6 +60,7 @@ public class RecommendationServiceImpl implements RecommendationService {
         Recommendation savedRecommendation = recommendationRepository.save(recommendation);
         return ResponseEntity.ok(savedRecommendation);
     }
+
     private ResponseEntity<String> returnBadRequest(String type) {
         return ResponseEntity.badRequest().body("No " + type + " with that id could be found!");
     }
