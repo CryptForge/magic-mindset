@@ -14,6 +14,7 @@ import ProtectedRoute from "./component/ProtectedRoute";
 import TraineePage from "./page/TraineePage/TraineePage";
 import SpecificTrainee from "./page/TraineePage/SpecificTrainee/SpecificTrainee";
 
+
 function App() {
   const [auth, setAuth] = useLocalStorage("auth", {
     authenticated: false,
