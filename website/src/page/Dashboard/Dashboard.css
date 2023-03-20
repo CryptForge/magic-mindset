@@ -43,3 +43,8 @@
 .grid2x2first1x2 .box3 {
   grid-area: bottomright;
 }
+
+.temp-divider {
+  display: flex;
+  justify-content: space-between;
+}
