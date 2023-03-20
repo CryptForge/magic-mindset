@@ -8,10 +8,10 @@ const Header = (props) => {
   return (
     <div>
       <div className="headerflex">
-        <AuthButton logOut={props.logOut} />
+        <AuthButton />
 
         <Protected role="COACH|MANAGER|HR">
-          <NavLink to="/studentspage">
+          <NavLink to="/traineepage">
             <h2 className="navigation-link">Students</h2>
           </NavLink>
         </Protected>

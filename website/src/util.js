@@ -18,6 +18,26 @@ export const postForm = (event, url) => {
   });
 };
 
+export const authPostForm = (event, url, token) => {
+  event.preventDefault();
+  const formData = new FormData(event.currentTarget);
+  const request = Object.fromEntries(formData);
+  event.currentTarget.reset();
+
+  return authFetch(url, token, JSON.stringify(request), "POST");
+};
+
+export const authFetch = (url, token, body, method = "GET") => {
+  return fetch(url, {
+    method,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body,
+  });
+};
+
 export function useLocalStorage(key, initialValue) {
   const [storedValue, setStoredValue] = useState(() => {
     if (typeof window === "undefined") {

@@ -1,17 +1,16 @@
 import React, { useContext } from "react";
 import { API_BASE } from "../../../main";
-import { postForm } from "../../../util";
+import { authPostForm } from "../../../util";
 import "./AddUserForm.css";
-import { AuthContext } from "../../../AuthContext";
+import AuthContext from "../../../AuthContext";
 
 const AddUserForm = () => {
   const auth = useContext(AuthContext);
-  // add a new parameter to postForm for auth.info.token!
   return (
     <form
-      onSubmit={(event) => {
-        postForm(event, `${API_BASE}/user/create`);
-      }}
+      onSubmit={(event) =>
+        authPostForm(event, `${API_BASE}/user/create`, auth.info.token)
+      }
     >
       <div className="flex column form">
         <label htmlFor="name">Name</label>

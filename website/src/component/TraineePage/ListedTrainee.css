@@ -1,0 +1,10 @@
+.listedelement {
+  padding: 5px;
+  margin: 10px;
+  background-color: aliceblue;
+  border-radius: 15px;
+  justify-content: space-around;
+}
+.traineelistbuttons {
+  gap: 40px;
+}

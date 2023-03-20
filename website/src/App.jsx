@@ -1,57 +1,25 @@
 import "./App.css";
-import { API_BASE } from "./main";
 import { Route, Routes } from "react-router-dom";
 import Header from "./component/Header/Header";
 import Home from "./page/Home/Home";
 import Dashboard from "./page/Dashboard/Dashboard";
 import Profile from "./page/Profile/Profile";
-import StudentsPage from "./page/StudentsPage/StudentsPage";
 import Info from "./page/Info/Info";
 import Login from "./page/Login/Login";
-import { AuthContext } from "./AuthContext";
+import { AuthProvider } from "./AuthContext";
 import { isTokenValid, useLocalStorage } from "./util";
 import { useEffect } from "react";
 import ProtectedRoute from "./component/ProtectedRoute";
+import TraineePage from "./page/TraineePage/TraineePage";
+import SpecificTrainee from "./page/TraineePage/SpecificTrainee/SpecificTrainee";
+
 
 function App() {
-  const [auth, setAuth] = useLocalStorage("auth", {
-    authenticated: false,
-    info: null,
-  });
-
-  useEffect(() => {
-    if (auth.authenticated && !isTokenValid(auth.info.token)) {
-      setAuth({
-        authenticated: false,
-        info: null,
-      });
-    }
-  }, []);
-
-  const authenticate = (token, username, role) => {
-    setAuth({
-      authenticated: true,
-      info: {
-        token,
-        username,
-        role,
-      },
-    });
-  };
-
-  const logOut = () => {
-    setAuth({
-      authenticated: false,
-      info: null,
-    });
-    console.log("logged out");
-  };
-
   return (
-    <AuthContext.Provider value={auth}>
+    <AuthProvider>
       <div className="App background">
         <div>
-          <Header logOut={logOut} />
+          <Header />
         </div>
 
         <div className="container">
@@ -74,22 +42,20 @@ function App() {
               }
             />
             <Route
-              path="/studentspage"
+              path="/traineepage"
               element={
                 <ProtectedRoute role="COACH|MANAGER|HR">
-                  <StudentsPage />
+                  <TraineePage />
                 </ProtectedRoute>
               }
             />
             <Route path="/info" element={<Info />} />
-            <Route
-              path="/login"
-              element={<Login authenticate={authenticate} />}
-            />
+            <Route path="/login" element={<Login />} />
+            <Route path="/trainee/:traineeId" element={<SpecificTrainee />} />
           </Routes>
         </div>
       </div>
-    </AuthContext.Provider>
+    </AuthProvider>
   );
 }
 
