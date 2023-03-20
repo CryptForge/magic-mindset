@@ -1,8 +1,12 @@
+import { useContext } from "react";
+import AuthContext from "../../AuthContext";
 import "./AuthButton.css";
 
-const LogoutButton = (props) => {
+const LogoutButton = () => {
+  const auth = useContext(AuthContext);
+
   return (
-    <button className="auth-button" onClick={props.logOut}>
+    <button className="auth-button" onClick={() => auth.userLogout()}>
       Log Out
     </button>
   );

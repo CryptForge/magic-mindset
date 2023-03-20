@@ -1,14 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
 import "./Dashboard.css";
 import User from "../../component/Dashboard/User/User";
 import HR from "../../component/Dashboard/HR/HR";
 import Coach from "../../component/Dashboard/Coach/Coach";
-import Manager from "../../component/Dashboard/Manager/Manager";
-import { AuthContext } from "../../AuthContext";
+import Manager from "../../component/Dashboard/manager/Manager";
 import Protected from "../../component/Protected";
 
-const Dashboard = (props) => {
-  const auth = useContext(AuthContext);
+const Dashboard = () => {
   return (
     <div>
       <Protected role="TRAINEE">

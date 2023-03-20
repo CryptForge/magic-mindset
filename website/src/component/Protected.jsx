@@ -1,20 +1,22 @@
+import AuthContext from "../AuthContext";
 import { useContext } from "react";
-import { AuthContext } from "../AuthContext";
 
 const Protected = (props) => {
   const auth = useContext(AuthContext);
 
-  if (!auth.authenticated) {
+  if (!auth.userIsAuthenticated()) {
     return getOrElse(props.orElse);
   }
 
   if (props.role !== undefined) {
-    const roles = props.role.includes("|")
-      ? props.role.split("|")
-      : [props.role];
+    if (auth.getUser().role !== undefined) {
+      const roles = props.role.includes("|")
+        ? props.role.split("|")
+        : [props.role];
 
-    if (!roles.includes(auth.info.role)) {
-      return getOrElse(props.orElse);
+      if (!roles.includes(auth.getUser().role)) {
+        return getOrElse(props.orElse);
+      }
     }
   }
 
