@@ -6,6 +6,7 @@ import "./SpecificTrainee.css";
 import AddCourseForm from "../../../component/TraineePage/AddCourseForm";
 
 const SpecificTrainee = () => {
+  const { traineeId } = useParams();
   const [activeSkill, activateSkill] = useState();
 
   function toggleButton(index) {
@@ -39,7 +40,6 @@ const SpecificTrainee = () => {
       name: "Astral Projection",
     },
   ];
-  const { traineeId } = useParams();
 
   return (
     <div>
