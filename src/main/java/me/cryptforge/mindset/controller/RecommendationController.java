@@ -2,7 +2,6 @@ package me.cryptforge.mindset.controller;
 
 import me.cryptforge.mindset.dto.recommendation.RecommendationRequest;
 import me.cryptforge.mindset.service.RecommendationService;
-import me.cryptforge.mindset.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
