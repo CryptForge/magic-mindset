@@ -1,14 +1,14 @@
 import React, { useContext } from "react";
 import { Navigate } from "react-router-dom";
-import { AuthContext } from "../../AuthContext";
+import AuthContext from "../../AuthContext";
 import { API_BASE } from "../../main";
 import { postForm } from "../../util";
 import "./Login.css";
 
-const Login = (props) => {
+const Login = () => {
   const auth = useContext(AuthContext);
 
-  if (auth.authenticated) {
+  if (auth.userIsAuthenticated()) {
     return <Navigate to="/" replace />;
   }
 
@@ -16,7 +16,7 @@ const Login = (props) => {
     const response = await postForm(event, `${API_BASE}/auth/login`);
     const data = await response.json();
 
-    props.authenticate(data.token, data.username, data.role);
+    auth.userLogin(data);
   };
 
   return (

@@ -1,13 +1,13 @@
 import { useContext } from "react";
-import { AuthContext } from "../../AuthContext";
+import AuthContext from "../../AuthContext";
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
 
 const AuthButton = (props) => {
   const auth = useContext(AuthContext);
 
-  if (auth.authenticated) {
-    return <LogoutButton logOut={props.logOut} />;
+  if (auth.userIsAuthenticated()) {
+    return <LogoutButton />;
   } else {
     return <LoginButton />;
   }

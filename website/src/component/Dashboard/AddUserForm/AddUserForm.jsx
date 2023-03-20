@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { API_BASE } from "../../../main";
 import { authPostForm } from "../../../util";
 import "./AddUserForm.css";
-import { AuthContext } from "../../../AuthContext";
+import AuthContext from "../../../AuthContext";
 
 const AddUserForm = () => {
   const auth = useContext(AuthContext);

@@ -8,7 +8,7 @@ const Header = (props) => {
   return (
     <div>
       <div className="headerflex">
-        <AuthButton logOut={props.logOut} />
+        <AuthButton />
 
         <Protected role="COACH|MANAGER|HR">
           <NavLink to="/traineepage">
