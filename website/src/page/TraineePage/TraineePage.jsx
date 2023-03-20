@@ -15,12 +15,10 @@ const TraineePage = (props) => {
       name: "Tijs",
       id: 1,
     },
-    { name: "Rebecca", id: 2 },
-    },
     {
-      name: "Tijs",
-    },
-    { name: "Rebecca" },
+      name: "Rebecca",
+      id: 2,
+    }
   ];
 
   return (
