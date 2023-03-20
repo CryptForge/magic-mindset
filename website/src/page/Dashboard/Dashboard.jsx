@@ -3,7 +3,7 @@ import "./Dashboard.css";
 import User from "../../component/Dashboard/User/User";
 import HR from "../../component/Dashboard/HR/HR";
 import Coach from "../../component/Dashboard/Coach/Coach";
-import Manager from "../../component/Dashboard/manager/Manager";
+import Manager from "../../component/Dashboard/Manager/Manager";
 import { AuthContext } from "../../AuthContext";
 import Protected from "../../component/Protected";
 
