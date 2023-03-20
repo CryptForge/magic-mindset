@@ -8,6 +8,14 @@ import AddCourseForm from "../../../component/TraineePage/AddCourseForm";
 const SpecificTrainee = () => {
   const [activeSkill, activateSkill] = useState();
 
+  function toggleButton(index) {
+    if (activeSkill === index) {
+      activateSkill(null);
+      return;
+    }
+    activateSkill(index);
+  }
+
   const courseArray = [
     {
       name: "course1",
@@ -39,11 +47,11 @@ const SpecificTrainee = () => {
       <h2>Trainee name and skilllist</h2>
       <div className="element flex column list">
         {skillArray.map((skill, index) => (
-          <div>
+          <div key={index}>
             <div key={index} className="listelement flex space-around">
               <h3>{skill.name}</h3>
               <div className="flex space-between buttonspacing">
-                <button onClick={() => activateSkill(index)}>
+                <button onClick={() => toggleButton(index)}>
                   Show Courses
                 </button>
                 <Popup trigger={<button>Add Course</button>} modal>
@@ -52,7 +60,7 @@ const SpecificTrainee = () => {
                 <button>Show Reports</button>
               </div>
             </div>
-            <div id={index} className={activeSkill == index ? "" : "hidden"}>
+            <div id={index} className={activeSkill === index ? "" : "hidden"}>
               {courseArray.map((course, index) => (
                 <div key={index}>
                   <p>{course.name}</p>
