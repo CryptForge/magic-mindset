@@ -11,6 +11,8 @@ import { isTokenValid, useLocalStorage } from "./util";
 import { useEffect } from "react";
 import ProtectedRoute from "./component/ProtectedRoute";
 import TraineePage from "./page/TraineePage/TraineePage";
+import SpecificTrainee from "./page/TraineePage/SpecificTrainee/SpecificTrainee";
+
 
 function App() {
   return (
@@ -49,6 +51,7 @@ function App() {
             />
             <Route path="/info" element={<Info />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/trainee/:traineeId" element={<SpecificTrainee />} />
           </Routes>
         </div>
       </div>

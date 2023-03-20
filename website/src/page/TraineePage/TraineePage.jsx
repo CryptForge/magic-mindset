@@ -9,11 +9,16 @@ const TraineePage = (props) => {
   let traineeArray = [
     {
       name: "Victor",
+      id: 0,
     },
     {
       name: "Tijs",
+      id: 1,
     },
-    { name: "Rebecca" },
+    {
+      name: "Rebecca",
+      id: 2,
+    }
   ];
 
   return (
