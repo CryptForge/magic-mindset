@@ -2,14 +2,14 @@ import React, { useContext } from "react";
 import { API_BASE } from "../../../main";
 import { authPostForm } from "../../../util";
 import "./AddUserForm.css";
-import AuthContext from "../../../AuthContext";
+import { useAuthContext } from "../../../AuthContext";
 
 const AddUserForm = () => {
-  const auth = useContext(AuthContext);
+  const auth = useAuthContext();
   return (
     <form
       onSubmit={(event) =>
-        authPostForm(event, `${API_BASE}/user/create`, auth.info.token)
+        authPostForm(event, `${API_BASE}/user/create`, auth.getUser().token)
       }
     >
       <div className="flex column form">
@@ -17,10 +17,10 @@ const AddUserForm = () => {
         <input id="name" name="name" required></input>
         <label htmlFor="role">Role</label>
         <select id="role" name="role">
-          <option value="trainee">Trainee</option>
-          <option value="coach">Coach</option>
-          <option value="manager">Manager</option>
-          <option value="hr">HR</option>
+          <option value="TRAINEE">Trainee</option>
+          <option value="COACH">Coach</option>
+          <option value="MANAGER">Manager</option>
+          <option value="HR">HR</option>
         </select>
         <label htmlFor="email">E-mail</label>
         <input id="email" name="email" required type="email"></input>
@@ -37,4 +37,5 @@ const AddUserForm = () => {
     </form>
   );
 };
+
 export default AddUserForm;
