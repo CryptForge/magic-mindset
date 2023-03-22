@@ -7,9 +7,7 @@ import Protected from "../Protected";
 import SkillCourseList from "../SkillCourseList";
 
 const Skill = (props) => {
-  console.log(props.courseArray);
   const courseArray = props.courseArray;
-  console.log(courseArray);
   return (
     <div>
       <div className="flex skill">
