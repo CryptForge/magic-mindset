@@ -1,0 +1,72 @@
+const skillArray = [
+  {
+    name: "Woodcutting",
+  },
+  {
+    name: "Planning",
+  },
+  {
+    name: "Astral Projection",
+  },
+];
+const courseArray = [
+  {
+    name: "course1",
+  },
+  {
+    name: "course2",
+  },
+  {
+    name: "course3",
+  },
+];
+const traineeArray = [
+  {
+    name: "Victor",
+    id: 0,
+  },
+  {
+    name: "Tijs",
+    id: 1,
+  },
+  {
+    name: "Rebecca",
+    id: 2,
+  },
+];
+const inviteArray = [
+  {
+    date: "1994-10-21",
+    answered: true,
+  },
+  {
+    date: "2006-07-06",
+    answered: true,
+  },
+  {
+    date: "2003-04-03",
+    answered: false,
+  },
+  {
+    date: "2016-05-16",
+    answered: true,
+  },
+  {
+    date: "2020-01-12",
+    answered: false,
+  },
+];
+const recommendationArray = [
+  {
+    date: "1994-10-21",
+    message: "Terrible",
+  },
+  {
+    date: "2006-07-06",
+    message: "Amazing",
+  },
+  {
+    date: "2003-04-03",
+    message: "What is this?",
+  },
+];
