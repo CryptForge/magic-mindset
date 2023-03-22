@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 @Service
 public class CourseServiceImpl implements CourseService {
@@ -49,14 +50,13 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public ResponseEntity<List<CourseResponseWithoutTrainee>> getAllCoursesUser(String id) {
-        List<Course> allCourses = new ArrayList<>();
-        courseRepository.findAllByTrainee_User_User_Id(Long.valueOf(id)).iterator().forEachRemaining(allCourses::add);
+        final Iterable<Course> allCourses = courseRepository.findAllByTrainee_User_User_Id(Long.valueOf(id));
 
-        List<CourseResponseWithoutTrainee> updatedCourses = new ArrayList<>();
-        allCourses.forEach(value -> updatedCourses.add(
-                new CourseResponseWithoutTrainee(
-                        value.getId(), value.getSkill(),
-                        value.getProgress(), value.getCertification())));
+        final var updatedCourses = StreamSupport.stream(allCourses.spliterator(), false)
+                .map(course -> new CourseResponseWithoutTrainee(
+                        course.getId(), course.getName(), course.getSkill(),
+                        course.getProgress(), course.getCertification()
+                )).toList();
         return ResponseEntity.ok(updatedCourses);
     }
 
@@ -78,7 +78,7 @@ public class CourseServiceImpl implements CourseService {
         if (trainee.isEmpty()) {
             return returnBadRequest("trainee");
         }
-        Course course = new Course(skill.get(), courseRequest.progress(), courseRequest.certification(), trainee.get());
+        Course course = new Course(courseRequest.name(), skill.get(), courseRequest.progress(), courseRequest.certification(), trainee.get());
         Course savedCourse = courseRepository.save(course);
         return ResponseEntity.accepted().body(savedCourse);
     }
@@ -94,6 +94,7 @@ public class CourseServiceImpl implements CourseService {
             return returnBadRequest("skill");
         }
         Course course = optionalCourse.get();
+        course.setName(courseEditRequest.name());
         course.setCertification(courseEditRequest.certification());
         course.setSkill(skill.get());
         course.setProgress(courseEditRequest.progress());

@@ -17,6 +17,9 @@ public class Course {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Column(name = "name", nullable = false)
+    private String name;
+
     @ManyToOne
     @JoinColumn(name = "skill_id")
     private Skill skill;
@@ -31,7 +34,8 @@ public class Course {
     @JoinColumn(name = "trainee_id")
     private Trainee trainee;
 
-    public Course(Skill skill, float progress, String certification, Trainee trainee) {
+    public Course(String name, Skill skill, float progress, String certification, Trainee trainee) {
+        this.name = name;
         this.skill = skill;
         this.progress = progress;
         this.certification = certification;
