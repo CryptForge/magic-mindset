@@ -18,7 +18,7 @@ public class Coach {
     private Long id;
 
     @MapsId
-    @OneToOne(optional = false, fetch = FetchType.LAZY)
+    @OneToOne(optional = false)
     @JoinColumn(name = "id")
     private UserInfo user;
 

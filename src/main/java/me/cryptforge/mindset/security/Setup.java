@@ -18,7 +18,7 @@ public class Setup {
     PasswordEncoder passwordEncoder;
 
     @Autowired
-    UserRepository repository;
+    UserInfoService userService;
 
     @Autowired
     MailService mailService;
@@ -29,8 +29,14 @@ public class Setup {
         // Add a user for every role for development purposes
         for (User.Role role : User.Role.values()) {
             final String username = role.asString().toLowerCase();
-            final User user = new User(username, passwordEncoder.encode(username), role);
-            repository.save(user);
+            userService.createUser(new UserRequest(
+                    username,
+                    username,
+                    role,
+                    username,
+                    username + " city",
+                    username + " street"
+            ));
         }
 
         try {

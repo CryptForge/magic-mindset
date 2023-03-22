@@ -15,6 +15,7 @@ import SpecificTrainee from "./page/TraineePage/SpecificTrainee/SpecificTrainee"
 import Verify from "./page/User/Verify/Verify";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import SkillPage from "./page/Skillpage/SkillPage";
 
 function App() {
   return (
@@ -60,6 +61,14 @@ function App() {
             element={
               <ProtectedRoute role="COACH|MANAGER|HR">
                 <TraineePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/skills"
+            element={
+              <ProtectedRoute role="TRAINEE">
+                <SkillPage />
               </ProtectedRoute>
             }
           />

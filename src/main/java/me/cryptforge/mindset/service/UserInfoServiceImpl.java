@@ -37,7 +37,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public Optional<UserInfo> getUserFromId(Long id) {
-        return userInfoRepository.findByUser_Id(id);
+        return userInfoRepository.findById(id);
     }
 
     @Override
@@ -94,9 +94,9 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public Trainee changeCoachTrainee(EditCoachInTraineeRequest request) {
-        final UserInfo traineeUser = userInfoRepository.findByUser_Id(request.traineeId())
+        final UserInfo traineeUser = userInfoRepository.findById(request.traineeId())
                 .orElseThrow(() -> new EntityNotFoundException("trainee"));
-        final UserInfo coachUser = userInfoRepository.findByUser_Id(request.coachId())
+        final UserInfo coachUser = userInfoRepository.findById(request.coachId())
                 .orElseThrow(() -> new EntityNotFoundException(("coach")));
 
         final Trainee trainee = traineeRepository.findByUser(traineeUser)
@@ -111,9 +111,9 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public Trainee changeManagerTrainee(EditManagerInTraineeRequest request) {
-        final UserInfo traineeUser = userInfoRepository.findByUser_Id(request.traineeId())
+        final UserInfo traineeUser = userInfoRepository.findById(request.traineeId())
                 .orElseThrow(() -> new EntityNotFoundException("trainee"));
-        final UserInfo managerUser = userInfoRepository.findByUser_Id(request.managerId())
+        final UserInfo managerUser = userInfoRepository.findById(request.managerId())
                 .orElseThrow(() -> new EntityNotFoundException("manager"));
 
         final Trainee trainee = traineeRepository.findByUser(traineeUser)
