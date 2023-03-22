@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @Service
@@ -19,16 +18,20 @@ public class MailServiceImpl implements MailService {
 
     @Value("${project.mail.noreplyemail}")
     private String NOREPLY_ADDRESS;
+
     @Value("${project.domain}")
     private String domain;
+
     @Autowired
     private JavaMailSender emailSender;
+
     @Autowired
     private SpringTemplateEngine thymeleafTemplateEngine;
+
     @Override
     public void sendVerificationMail(String to) throws MessagingException {
         Map<String, Object> templateModel = Map.of("to", to,
-                "verificationLink", domain+"verify?email=" + to);
+                "verificationLink", domain + "verify?email=" + to);
 
         String htmlBody = thymeleafTemplateEngine.process("mail/verification_mail.html", createContext(templateModel));
 
@@ -38,7 +41,7 @@ public class MailServiceImpl implements MailService {
     @Override
     public void sendEvaluationMail(String to, String username, String dateTime, String location) throws MessagingException {
         Map<String, Object> templateModel = Map.of("to", to, "asker", username,
-                "dateTime",dateTime, "location", location);
+                "dateTime", dateTime, "location", location);
 
         String htmlBody = thymeleafTemplateEngine.process("mail/evaluation_mail.html", createContext(templateModel));
 
@@ -72,7 +75,6 @@ public class MailServiceImpl implements MailService {
     }
 
     private void sendHtmlMessage(String to, String subject, String htmlBody) throws MessagingException {
-
         MimeMessage message = emailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
         helper.setFrom(NOREPLY_ADDRESS);
