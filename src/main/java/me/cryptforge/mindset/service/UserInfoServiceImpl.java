@@ -58,7 +58,9 @@ public class UserInfoServiceImpl implements UserInfoService {
 
         createEntityFromRole(userInfo, userRequest.role());
         try {
-            mailService.sendVerificationMail(user.getEmail());
+            if (user.getEmail().contains("@")) {
+                mailService.sendVerificationMail(user.getEmail());
+            }
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
