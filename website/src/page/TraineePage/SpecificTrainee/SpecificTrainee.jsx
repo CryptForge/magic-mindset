@@ -47,7 +47,7 @@ const SpecificTrainee = () => {
       <h2>Trainee name and skilllist</h2>
       <div className="element flex column ">
         {skillArray.map((skill, index) => (
-          <div key={index} className=" alternatebackground listelement">
+          <div key={index} className="alternatebackground listelement">
             <div key={index} className="flex space-around">
               <h3>{skill.name}</h3>
               <div className="flex space-between buttonspacing">
