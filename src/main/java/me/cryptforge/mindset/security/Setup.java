@@ -22,9 +22,6 @@ public class Setup {
     @Autowired
     UserInfoService userService;
 
-    @Autowired
-    MailService mailService;
-
     @EventListener
     @Transactional
     public void onReadyEvent(ApplicationReadyEvent event) {
