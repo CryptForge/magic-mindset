@@ -20,6 +20,17 @@ const TraineePage = (props) => {
       id: 2,
     },
   ];
+  const courseArray = [
+    {
+      name: "course1",
+    },
+    {
+      name: "course2",
+    },
+    {
+      name: "course3",
+    },
+  ];
 
   return (
     <div className="flex column element traineelist">
