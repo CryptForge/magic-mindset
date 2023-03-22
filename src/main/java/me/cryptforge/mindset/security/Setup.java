@@ -1,15 +1,12 @@
 package me.cryptforge.mindset.security;
 
-import jakarta.mail.MessagingException;
 import me.cryptforge.mindset.dto.user.UserRequest;
 import me.cryptforge.mindset.model.user.User;
-import me.cryptforge.mindset.repository.UserRepository;
-import me.cryptforge.mindset.service.MailService;
+import me.cryptforge.mindset.service.AuthService;
 import me.cryptforge.mindset.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,10 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class Setup {
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+    UserInfoService userService;
 
     @Autowired
-    UserInfoService userService;
+    AuthService authService;
 
     @EventListener
     @Transactional
@@ -36,6 +33,7 @@ public class Setup {
                     username + " city",
                     username + " street"
             ));
+            authService.verify(username);
         }
     }
 
