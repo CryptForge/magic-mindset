@@ -1,4 +1,4 @@
-package me.cryptforge.mindset.config;
+package me.cryptforge.mindset.util;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

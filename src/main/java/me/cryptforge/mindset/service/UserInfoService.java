@@ -4,6 +4,7 @@ import me.cryptforge.mindset.dto.user.*;
 import me.cryptforge.mindset.model.user.Trainee;
 import me.cryptforge.mindset.model.user.User;
 import me.cryptforge.mindset.model.user.UserInfo;
+import org.springframework.http.ResponseEntity;
 
 import java.util.Optional;
 
@@ -63,4 +64,6 @@ public interface UserInfoService {
      * @return The edited Trainee or bad request
      */
     Trainee changeManagerTrainee(EditManagerInTraineeRequest editManagerInTraineeRequest);
+
+    ResponseEntity<?> editProfile(EditProfileRequest editProfileRequest);
 }
