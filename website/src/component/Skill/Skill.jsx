@@ -7,7 +7,6 @@ import Protected from "../Protected";
 import SkillCourseList from "../SkillCourseList";
 
 const Skill = (props) => {
-  const courseArray = props.courseArray;
   return (
     <div>
       <div className="flex skill">
@@ -29,7 +28,7 @@ const Skill = (props) => {
         className={props.activeSkill === props.index ? "" : "hidden"}
       >
         <div>
-          {courseArray.map((course, index) => (
+          {props.courseArray.map((course, index) => (
             <SkillCourseList key={index} name={course.name} />
           ))}
         </div>
