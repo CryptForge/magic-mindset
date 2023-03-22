@@ -45,10 +45,10 @@ const SpecificTrainee = () => {
     <div>
       <h1>{traineeId}</h1>
       <h2>Trainee name and skilllist</h2>
-      <div className="element flex column list">
+      <div className="element flex column ">
         {skillArray.map((skill, index) => (
-          <div key={index}>
-            <div key={index} className="listelement flex space-around">
+          <div key={index} className=" alternatebackground listelement">
+            <div key={index} className="flex space-around">
               <h3>{skill.name}</h3>
               <div className="flex space-between buttonspacing">
                 <button onClick={() => toggleButton(index)}>
@@ -62,7 +62,7 @@ const SpecificTrainee = () => {
             </div>
             <div id={index} className={activeSkill === index ? "" : "hidden"}>
               {courseArray.map((course, index) => (
-                <div key={index}>
+                <div key={index} className="listelement alternatebackground">
                   <p>{course.name}</p>
                 </div>
               ))}
