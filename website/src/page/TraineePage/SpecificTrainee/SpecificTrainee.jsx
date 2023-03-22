@@ -46,7 +46,7 @@ const SpecificTrainee = () => {
     <div>
       <h1>{traineeId}</h1>
       <h2>Trainee name and skilllist</h2>
-      <div className="element flex column list">
+      <div className="element flex column ">
         {skillArray.map((skill, index) => (
           <Skill
             name={skill.name}

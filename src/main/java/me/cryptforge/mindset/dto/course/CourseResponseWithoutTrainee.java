@@ -4,7 +4,9 @@ import me.cryptforge.mindset.model.Skill;
 
 public record CourseResponseWithoutTrainee(
         Long id,
+        String name,
         Skill skill,
         float progress,
-        String certification) {
+        String certification
+) {
 }

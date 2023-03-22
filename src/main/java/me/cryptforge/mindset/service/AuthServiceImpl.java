@@ -44,6 +44,7 @@ public class AuthServiceImpl implements AuthService {
         final String token = tokenUtil.generateToken(userDetails);
 
         return ResponseEntity.accepted().body(new LoginResponse(
+                user.getId(),
                 token,
                 userDetails.getUsername(),
                 user.getRole().name()

@@ -5,7 +5,7 @@ import Protected from "../Protected";
 
 const ListedTrainee = (props) => {
   return (
-    <div className="flex listedelement">
+    <div className="flex listedelement alternatebackground">
       <p>{props.name}</p>
       <div className="flex traineelistbuttons">
         <Link to={`/trainee/${props.id}`}>
