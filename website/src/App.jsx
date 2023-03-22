@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import ProtectedRoute from "./component/ProtectedRoute";
 import TraineePage from "./page/TraineePage/TraineePage";
 import SpecificTrainee from "./page/TraineePage/SpecificTrainee/SpecificTrainee";
+import SkillPage from "./page/Skillpage/SkillPage";
 
 function App() {
   return (
@@ -44,6 +45,14 @@ function App() {
             element={
               <ProtectedRoute role="COACH|MANAGER|HR">
                 <TraineePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/skills"
+            element={
+              <ProtectedRoute role="TRAINEE">
+                <SkillPage />
               </ProtectedRoute>
             }
           />
