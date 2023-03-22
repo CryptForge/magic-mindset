@@ -32,12 +32,6 @@ public class Setup {
             final User user = new User(username, passwordEncoder.encode(username), role);
             repository.save(user);
         }
-
-        try {
-            mailService.sendEvaluationMail("rebeccadj2003@gmail.com", "Rebecca de Jong", "12-03-2024 15:00", "Home");
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
-        }
     }
 
 }
