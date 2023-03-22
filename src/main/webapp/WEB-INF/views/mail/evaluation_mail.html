@@ -1,0 +1,11 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<h3 style="text-align: center; color: green">
+    <span th:text="'Hello, ' + ${to} + '!'"></span>
+    <span th:text="${asker} + ' wants to have a meeting with you.'"></span>
+    <span th:text="'At location: ' + ${location}"></span>
+    <span th:text="'At date + time: ' + ${dateTime}"></span>
+    <span>Go to your dashboard to accept/deny</span>
+</h3>
+</body>
+</html>

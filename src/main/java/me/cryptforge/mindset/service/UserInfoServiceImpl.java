@@ -1,5 +1,6 @@
 package me.cryptforge.mindset.service;
 
+import jakarta.mail.MessagingException;
 import me.cryptforge.mindset.dto.user.*;
 import me.cryptforge.mindset.exception.EntityAlreadyExistsException;
 import me.cryptforge.mindset.exception.EntityNotFoundException;
@@ -29,6 +30,8 @@ public class UserInfoServiceImpl implements UserInfoService {
     private ManagerRepository managerRepository;
     @Autowired
     private TraineeRepository traineeRepository;
+    @Autowired
+    private MailService mailService;
 
     @Override
     public Iterable<UserInfo> getAllUsers() {
@@ -54,6 +57,13 @@ public class UserInfoServiceImpl implements UserInfoService {
         userInfo = userInfoRepository.save(userInfo);
 
         createEntityFromRole(userInfo, userRequest.role());
+        try {
+            if (user.getEmail().contains("@")) {
+                mailService.sendVerificationMail(user.getEmail());
+            }
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
         return userInfo;
     }
 

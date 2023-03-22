@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { Navigate } from "react-router-dom";
-import AuthContext from "../../AuthContext";
-import { API_BASE } from "../../main";
-import { postForm } from "../../util";
+import AuthContext from "../../../AuthContext";
+import { API_BASE } from "../../../main";
+import { postForm } from "../../../util";
 import "./Login.css";
 
 const Login = () => {
