@@ -1,5 +1,6 @@
 import { useState } from "react";
 import jwtDecode from "jwt-decode";
+import { API_BASE } from "./main";
 
 export const postForm = (event, url) => {
   event.preventDefault();
@@ -15,6 +16,16 @@ export const postForm = (event, url) => {
     },
     redirect: "follow",
     body: JSON.stringify(request),
+  });
+};
+
+export const verifyUserAccount = (email) => {
+  return fetch(`${API_BASE}/auth/verify/${email}`, {
+    method: "GET",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
 };
 

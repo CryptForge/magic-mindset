@@ -2,6 +2,7 @@ package me.cryptforge.mindset.controller;
 
 
 import me.cryptforge.mindset.dto.auth.LoginRequest;
+import me.cryptforge.mindset.model.Evaluation;
 import me.cryptforge.mindset.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,4 +21,8 @@ public class AuthController {
         return authService.login(request);
     }
 
+    @GetMapping("/verify/{email}")
+    public ResponseEntity<?> verify(@PathVariable String email) {
+        return authService.verify(email);
+    }
 }

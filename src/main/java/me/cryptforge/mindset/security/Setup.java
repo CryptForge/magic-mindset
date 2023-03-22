@@ -1,7 +1,9 @@
 package me.cryptforge.mindset.security;
 
+import jakarta.mail.MessagingException;
 import me.cryptforge.mindset.model.user.User;
 import me.cryptforge.mindset.repository.UserRepository;
+import me.cryptforge.mindset.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
@@ -18,6 +20,9 @@ public class Setup {
     @Autowired
     UserRepository repository;
 
+    @Autowired
+    MailService mailService;
+
     @EventListener
     @Transactional
     public void onReadyEvent(ApplicationReadyEvent event) {
@@ -26,6 +31,12 @@ public class Setup {
             final String username = role.asString().toLowerCase();
             final User user = new User(username, passwordEncoder.encode(username), role);
             repository.save(user);
+        }
+
+        try {
+            mailService.sendEvaluationMail("rebeccadj2003@gmail.com", "Rebecca de Jong", "12-03-2024 15:00", "Home");
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
         }
     }
 

@@ -27,6 +27,9 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(name = "verified", nullable = false)
+    private boolean verified = false;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "role", length = 16)
     private Role role;

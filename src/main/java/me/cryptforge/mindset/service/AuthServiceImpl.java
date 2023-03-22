@@ -41,6 +41,10 @@ public class AuthServiceImpl implements AuthService {
         final UserDetails userDetails = userDetailsService.loadUserByUsername(request.email());
         final User user = userRepository.findByEmail(request.email()).orElseThrow();
 
+        if (!user.isVerified()) {
+            return ResponseEntity.badRequest().body("User isn't verified yet!");
+        }
+
         final String token = tokenUtil.generateToken(userDetails);
 
         return ResponseEntity.accepted().body(new LoginResponse(
@@ -48,5 +52,19 @@ public class AuthServiceImpl implements AuthService {
                 userDetails.getUsername(),
                 user.getRole().name()
         ));
+    }
+
+    @Override
+    public ResponseEntity<?> verify(String email) {
+        final User user = userRepository.findByEmail(email).orElseThrow();
+
+        if (user.isVerified()) {
+            return ResponseEntity.badRequest().body("Already verified!");
+        }
+
+        user.setVerified(true);
+        userRepository.save(user);
+
+        return ResponseEntity.accepted().body("User verified, login now!");
     }
 }

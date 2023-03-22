@@ -7,4 +7,6 @@ public interface AuthService {
 
     ResponseEntity<?> login(LoginRequest request);
 
+    ResponseEntity<?> verify(String email);
+
 }

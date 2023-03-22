@@ -1,0 +1,9 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<h3 style="text-align: center; color: green">
+    <span th:text="'Hello, ' + ${to} + '!'"></span>
+    <span>Your request was denied for the following reason</span>
+    <span th:text="${reason}"></span>
+</h3>
+</body>
+</html>
