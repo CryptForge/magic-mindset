@@ -19,7 +19,7 @@ public class UserInfo {
     private Long id;
 
     @MapsId
-    @OneToOne(optional = false, fetch = FetchType.LAZY)
+    @OneToOne(optional = false)
     @JoinColumn(name = "id")
     private User user;
 

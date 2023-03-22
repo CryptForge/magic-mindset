@@ -1,7 +1,8 @@
 package me.cryptforge.mindset.security;
 
+import me.cryptforge.mindset.dto.user.UserRequest;
 import me.cryptforge.mindset.model.user.User;
-import me.cryptforge.mindset.repository.UserRepository;
+import me.cryptforge.mindset.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
@@ -16,7 +17,7 @@ public class Setup {
     PasswordEncoder passwordEncoder;
 
     @Autowired
-    UserRepository repository;
+    UserInfoService userService;
 
     @EventListener
     @Transactional
@@ -24,8 +25,14 @@ public class Setup {
         // Add a user for every role for development purposes
         for (User.Role role : User.Role.values()) {
             final String username = role.asString().toLowerCase();
-            final User user = new User(username, passwordEncoder.encode(username), role);
-            repository.save(user);
+            userService.createUser(new UserRequest(
+                    username,
+                    username,
+                    role,
+                    username,
+                    username + " city",
+                    username + " street"
+            ));
         }
     }
 
