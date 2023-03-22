@@ -55,3 +55,6 @@ span {
 .buttonspacing {
   gap: 100px;
 }
+.alternatebackground:nth-child(even) {
+  background-color: rgb(167, 167, 167);
+}
