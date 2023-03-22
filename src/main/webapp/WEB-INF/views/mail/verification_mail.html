@@ -2,7 +2,7 @@
 <body>
 <h3 style="text-align: center; color: green">
     <span th:text="'Welcome to MM, ' + ${to} + '!'"></span>
-    <a href=${verificationLink}>Click to verify!</a>
+    <a th:href="${verificationLink}">Click to verify!</a>
 </h3>
 </body>
 </html>
