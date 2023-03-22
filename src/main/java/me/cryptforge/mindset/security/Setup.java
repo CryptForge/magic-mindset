@@ -1,9 +1,11 @@
 package me.cryptforge.mindset.security;
 
 import jakarta.mail.MessagingException;
+import me.cryptforge.mindset.dto.user.UserRequest;
 import me.cryptforge.mindset.model.user.User;
 import me.cryptforge.mindset.repository.UserRepository;
 import me.cryptforge.mindset.service.MailService;
+import me.cryptforge.mindset.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
