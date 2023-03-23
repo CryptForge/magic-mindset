@@ -9,7 +9,7 @@ const Login = () => {
   const auth = useContext(AuthContext);
 
   if (auth.userIsAuthenticated()) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/dashboard" replace />;
   }
 
   const login = async (event) => {
@@ -20,7 +20,7 @@ const Login = () => {
   };
 
   return (
-    <div className="whiteelement">
+    <div className="white-element">
       <form className="loginflexcolumn" onSubmit={login}>
         <div className="flex column">
           <h3>
