@@ -19,12 +19,32 @@ export const postForm = (event, url) => {
   });
 };
 
+export const profileUpload = (token, formData) => {
+  return fetch(`${API_BASE}/user/profile/edit`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: formData,
+  });
+};
+
 export const verifyUserAccount = (email) => {
   return fetch(`${API_BASE}/auth/verify/${email}`, {
     method: "GET",
     mode: "cors",
     headers: {
       "Content-Type": "application/json",
+    },
+  });
+};
+
+export const getUser = (id, token) => {
+  return fetch(`${API_BASE}/user/get/profile/${id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
   });
 };

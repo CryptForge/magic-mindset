@@ -63,4 +63,8 @@ public interface UserInfoService {
      * @return The edited Trainee or bad request
      */
     Trainee changeManagerTrainee(EditManagerInTraineeRequest editManagerInTraineeRequest);
+
+    String editProfile(EditProfileRequest editProfileRequest);
+
+    UserProfile getProfile(Long id);
 }

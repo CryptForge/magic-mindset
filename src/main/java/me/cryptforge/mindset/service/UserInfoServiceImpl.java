@@ -5,12 +5,20 @@ import me.cryptforge.mindset.dto.user.*;
 import me.cryptforge.mindset.exception.EntityAlreadyExistsException;
 import me.cryptforge.mindset.exception.EntityNotFoundException;
 import me.cryptforge.mindset.exception.RoleMismatchException;
+import me.cryptforge.mindset.model.PendingEdit;
 import me.cryptforge.mindset.model.user.*;
 import me.cryptforge.mindset.repository.*;
+import me.cryptforge.mindset.util.LobHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Blob;
+import java.sql.SQLException;
+import java.util.Base64;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -31,7 +39,13 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Autowired
     private TraineeRepository traineeRepository;
     @Autowired
+    private PendingEditRepository pendingEditRepository;
+    @Autowired
     private MailService mailService;
+    @Autowired
+    private LobHelper lobCreator;
+
+    @Autowired
 
     @Override
     public Iterable<UserInfo> getAllUsers() {
@@ -134,5 +148,52 @@ public class UserInfoServiceImpl implements UserInfoService {
         trainee.setManager(manager);
 
         return traineeRepository.save(trainee);
+    }
+
+    @Override
+    public String editProfile(EditProfileRequest request) {
+        UserInfo userInfo = userInfoRepository.findById(request.id())
+                .orElseThrow(() -> new EntityNotFoundException("user"));
+        User user = userInfo.getUser();
+        if (!Objects.equals(request.email(), user.getEmail()) || !Objects.equals(request.name(), userInfo.getName())) {
+            if (pendingEditRepository.existsByEmail(request.email())) {
+                throw new EntityAlreadyExistsException("You already have a request pending!");
+            }
+            PendingEdit pendingEdit = new PendingEdit(request.email(), request.name());
+            pendingEditRepository.save(pendingEdit);
+        }
+
+        if (request.image() != null) {
+            try (final InputStream inputStream = request.image().getInputStream()) {
+                final Blob image = lobCreator.createBlob(inputStream, request.image().getSize());
+                userInfo.setImage(image);
+                userInfoRepository.save(userInfo);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        if (request.password() != null && !request.password().equals("null")) {
+            user.setPassword(passwordEncoder.encode(request.password()));
+        }
+        userRepository.save(user);
+        return "Successfully changed the value(s)!";
+    }
+
+    @Override
+    public UserProfile getProfile(Long id) {
+        final User user = userRepository.findById(id).orElseThrow();
+        final UserInfo userInfo = userInfoRepository.findByUser(user).orElseThrow();
+        Base64.Encoder encoder = Base64.getEncoder();
+        try {
+            try {
+                return new UserProfile(user.getId(), userInfo.getName(), user.getEmail(),
+                        userInfo.getImage() != null ?
+                                encoder.encodeToString(userInfo.getImage().getBinaryStream().readAllBytes()) : null);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

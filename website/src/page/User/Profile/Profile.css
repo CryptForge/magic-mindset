@@ -2,10 +2,80 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 .column {
   flex-direction: column;
 }
 .flex {
   display: flex;
+}
+.profile-inner {
+  padding: 1rem;
+  background-color: whitesmoke;
+  border-radius: 25px;
+}
+.uploader-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 5vh;
+}
+
+.uploader-image-src {
+  border-radius: 50%;
+  min-width: 200px;
+  min-height: 200px;
+  max-width: 200px;
+  max-height: 200px;
+}
+
+.text-avatar {
+  min-width: 200px;
+  min-height: 200px;
+  margin: 0 auto;
+  vertical-align: middle;
+  text-align: center;
+  border-radius: 50%;
+  background: #46b5e5;
+  background: linear-gradient(45deg, #46b5e5 1%, #1e88e5 64%, #40baf5 97%);
+  background-image: -ms-linear-gradient(
+    45deg,
+    #46b5e5 1%,
+    #1e88e5 64%,
+    #40baf5 97%
+  );
+  background-image: -moz-linear-gradient(
+    45deg,
+    #46b5e5 1%,
+    #1e88e5 64%,
+    #40baf5 97%
+  );
+  background-image: -o-linear-gradient(
+    45deg,
+    #46b5e5 1%,
+    #1e88e5 64%,
+    #40baf5 97%
+  );
+  background-image: -webkit-linear-gradient(
+    45deg,
+    #46b5e5 1%,
+    #1e88e5 64%,
+    #40baf5 97%
+  );
+  background-image: linear-gradient(
+    45deg,
+    #46b5e5 1%,
+    #1e88e5 64%,
+    #40baf5 97%
+  );
+}
+
+.text-avatar span {
+  font-family: "Montserrat", sans-serif;
+  line-height: 200px;
+  color: #fff;
+  font-size: 5em;
+  text-transform: uppercase;
 }

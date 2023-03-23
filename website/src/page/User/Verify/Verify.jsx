@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { verifyUserAccount } from "../../../util";
 import { toast } from "react-toastify";
@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 const Verify = () => {
   const nav = useNavigate();
   const [isLoading, setLoading] = useState(true);
+  let isInitialCall = true;
 
   function getUrlParameter(name) {
     name = name.replace(/[[]/, "\\[").replace(/[\]]/, "\\]");
@@ -26,10 +27,11 @@ const Verify = () => {
       toast(data);
       setLoading(false);
     }
-    if (email && isLoading) {
+    if (email && isInitialCall) {
+      isInitialCall = false;
       verifyEmailTask();
     }
-  }, [email]);
+  }, [isInitialCall]);
 
   useEffect(() => {
     if (!isLoading) {
