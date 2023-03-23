@@ -9,5 +9,4 @@ public class MindsetApplication {
     public static void main(String[] args) {
         SpringApplication.run(MindsetApplication.class, args);
     }
-
 }

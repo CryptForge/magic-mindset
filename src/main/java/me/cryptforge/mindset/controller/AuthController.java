@@ -2,7 +2,6 @@ package me.cryptforge.mindset.controller;
 
 
 import me.cryptforge.mindset.dto.auth.LoginRequest;
-import me.cryptforge.mindset.model.Evaluation;
 import me.cryptforge.mindset.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

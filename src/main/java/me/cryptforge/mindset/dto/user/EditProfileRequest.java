@@ -6,5 +6,5 @@ public record EditProfileRequest(Long id,
                                  String name,
                                  String email,
                                  String password,
-                                 MultipartFile multipartFile) {
+                                 MultipartFile image) {
 }

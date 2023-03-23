@@ -9,13 +9,13 @@ import me.cryptforge.mindset.model.PendingEdit;
 import me.cryptforge.mindset.model.user.*;
 import me.cryptforge.mindset.repository.*;
 import me.cryptforge.mindset.util.LobHelper;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Base64;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -42,6 +42,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     private MailService mailService;
     @Autowired
     private LobHelper lobCreator;
+
     @Autowired
 
     @Override
@@ -148,27 +149,47 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public ResponseEntity<?> editProfile(EditProfileRequest editProfileRequest) {
+    public String editProfile(EditProfileRequest editProfileRequest) {
         UserInfo userInfo = userInfoRepository.findById(editProfileRequest.id()).orElseThrow();
         User user = userInfo.getUser();
         if (!Objects.equals(editProfileRequest.email(), user.getEmail()) || !Objects.equals(editProfileRequest.name(), userInfo.getName())) {
             if (pendingEditRepository.findByEmail(editProfileRequest.email()).isPresent()) {
-                return ResponseEntity.ok("You already have a pending request!");
+                throw new EntityAlreadyExistsException("You already have a request pending!");
             } else {
                 PendingEdit pendingEdit = new PendingEdit(editProfileRequest.email(), editProfileRequest.name());
                 pendingEditRepository.save(pendingEdit);
             }
         }
-        try {
-            userInfo.setImage(lobCreator.createBlob(editProfileRequest.multipartFile().getInputStream(), editProfileRequest.multipartFile().getSize()));
-            userInfoRepository.save(userInfo);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        if (editProfileRequest.image() != null) {
+            try {
+                userInfo.setImage(lobCreator.createBlob(editProfileRequest.image().getInputStream(), editProfileRequest.image().getSize()));
+                userInfoRepository.save(userInfo);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
-        if (editProfileRequest.password() != null) {
+        if (editProfileRequest.password() != null && !editProfileRequest.password().equals("null")) {
             user.setPassword(passwordEncoder.encode(editProfileRequest.password()));
         }
         userRepository.save(user);
-        return ResponseEntity.ok("Successfully changed the value(s)!");
+        return "Successfully changed the value(s)!";
+    }
+
+    @Override
+    public UserProfile getProfile(Long id) {
+        final User user = userRepository.findById(id).orElseThrow();
+        final UserInfo userInfo = userInfoRepository.findByUser(user).orElseThrow();
+        Base64.Encoder encoder = Base64.getEncoder();
+        try {
+            try {
+                return new UserProfile(user.getId(), userInfo.getName(), user.getEmail(),
+                        userInfo.getImage() != null ?
+                                encoder.encodeToString(userInfo.getImage().getBinaryStream().readAllBytes()) : null);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
