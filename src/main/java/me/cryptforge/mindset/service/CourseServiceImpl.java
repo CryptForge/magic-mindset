@@ -55,7 +55,7 @@ public class CourseServiceImpl implements CourseService {
         final var updatedCourses = StreamSupport.stream(allCourses.spliterator(), false)
                 .map(course -> new CourseResponseWithoutTrainee(
                         course.getId(), course.getName(), course.getSkill(),
-                        course.getProgress(), course.getCertification()
+                        course.getProgress(), course.getCertificationFileName()
                 )).toList();
         return ResponseEntity.ok(updatedCourses);
     }
@@ -95,7 +95,7 @@ public class CourseServiceImpl implements CourseService {
         }
         Course course = optionalCourse.get();
         course.setName(courseEditRequest.name());
-        course.setCertification(courseEditRequest.certification());
+        course.setCertificationFileName(courseEditRequest.certificationFileName());
         course.setSkill(skill.get());
         course.setProgress(courseEditRequest.progress());
 
