@@ -1,4 +1,4 @@
-.headergrid {
+.header-grid {
   display: grid;
   grid-template-columns: 33vw auto 33vw;
   margin: 0;
@@ -7,13 +7,13 @@
   max-height: 10vh;
 }
 
-.headergrid .header-side-one {
+.header-grid .header-side-one {
   display: flex;
   align-items: center;
   justify-content: space-around;
 }
 
-.headergrid .header-side-two {
+.header-grid .header-side-two {
   display: flex;
   align-items: center;
   justify-content: end;

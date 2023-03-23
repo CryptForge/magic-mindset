@@ -11,7 +11,7 @@ const Skill = (props) => {
     <div>
       <div className="flex skill">
         <h3>{props.name}</h3>
-        <div className="flex space-between buttonspacing">
+        <div className="flex space-between button-spacing">
           <button onClick={() => props.toggleButton(props.index)}>
             Show Courses
           </button>

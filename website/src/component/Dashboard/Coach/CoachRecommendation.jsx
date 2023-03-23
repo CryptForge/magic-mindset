@@ -5,7 +5,7 @@ const CoachRecommendation = (props) => {
     <li className="temp-divider">
       <div>{props.date}</div>
       <Popup modal trigger={<button>View</button>}>
-        <div className="whiteelement">{props.message}</div>
+        <div className="white-element">{props.message}</div>
       </Popup>
     </li>
   );

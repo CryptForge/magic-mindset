@@ -4,8 +4,8 @@ import AddUserForm from "../AddUserForm/AddUserForm";
 
 const HR = () => {
   return (
-    <div className="grid grid2x2">
-      <div className="gridelement element box1">
+    <div className="grid grid-2x2">
+      <div className="grid-element element box1">
         <div>
           <h2>Show students + button for single one</h2>
           <ul>
@@ -24,7 +24,7 @@ const HR = () => {
           </ul>
         </div>
       </div>
-      <div className="gridelement element box2 pointer">
+      <div className="grid-element element box2 pointer">
         <div>
           <Popup trigger={<h2>Add a new user.</h2>} modal>
             <AddUserForm />
@@ -47,7 +47,7 @@ const HR = () => {
         </div>
       </div>
 
-      <div className="gridelement element box3">
+      <div className="grid-element element box3">
         <div>
           <h2>Show progress reports</h2>
           <span>Progress reports sorted by most recent</span>
@@ -67,7 +67,7 @@ const HR = () => {
           </ul>
         </div>
       </div>
-      <div className="gridelement element box4">
+      <div className="grid-element element box4">
         <div>
           <h2>Current changes to accounts</h2>
           <span>List with all requests</span>
