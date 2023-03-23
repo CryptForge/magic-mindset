@@ -1,4 +1,3 @@
-import react from "react";
 import { postForm } from "../../util";
 import { API_BASE } from "../../main";
 

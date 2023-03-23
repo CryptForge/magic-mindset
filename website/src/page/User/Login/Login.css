@@ -1,16 +1,16 @@
-.loginflexcolumn {
+.login-flex-column {
   margin: auto;
   align-items: center;
   display: flex;
   flex-direction: column;
 }
-.inputfield {
+.input-field {
   width: 300px;
   font-size: 1.4em;
   padding: 10px 5px 10px 5px;
   color: #ffba08;
 }
-.inputbutton {
+.input-button {
   background: #2e294e;
   font-family: "Source Sans Pro", sans-serif;
   color: white;
@@ -22,7 +22,7 @@
   width: 200px;
   margin-top: 25px;
 }
-.inputbutton:hover {
+.input-button:hover {
   transform: scale(110%);
   cursor: pointer;
 }

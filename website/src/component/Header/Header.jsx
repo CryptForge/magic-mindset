@@ -9,7 +9,7 @@ const Header = () => {
   const auth = useAuthContext();
   return (
     <div>
-      <div className="headergrid">
+      <div className="header-grid">
         <div className="header-side-one">
           <AuthButton />
           <Protected role="TRAINEE">

@@ -63,8 +63,8 @@ const HR = () => {
   ];
   reportArray.sort((a, b) => a.date.getTime() - b.date.getTime());
   return (
-    <div className="grid grid2x2">
-      <div className="gridelement element box1">
+    <div className="grid grid-2x2">
+      <div className="grid-element element box1">
         <div>
           <h2>Students</h2>
           <ul>
@@ -79,7 +79,7 @@ const HR = () => {
           </ul>
         </div>
       </div>
-      <div className="gridelement element box2 pointer">
+      <div className="grid-element element box2 pointer">
         <div>
           <Popup trigger={<button>Add a new user.</button>} modal>
             <AddUserForm />
@@ -97,7 +97,7 @@ const HR = () => {
         </div>
       </div>
 
-      <div className="gridelement element box3">
+      <div className="grid-element element box3">
         <div>
           <h2>List of All Reports</h2>
           <ul>
@@ -111,7 +111,7 @@ const HR = () => {
           </ul>
         </div>
       </div>
-      <div className="gridelement element box4">
+      <div className="grid-element element box4">
         <div>
           <h2>Current changes to accounts</h2>
           <span>List with all requests</span>

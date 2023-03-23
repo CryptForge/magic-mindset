@@ -52,9 +52,9 @@ span {
 .space-between {
   justify-content: space-between;
 }
-.buttonspacing {
+.button-spacing {
   gap: 100px;
 }
-.alternatebackground:nth-child(even) {
+.alternate-background:nth-child(even) {
   background-color: rgb(167, 167, 167);
 }

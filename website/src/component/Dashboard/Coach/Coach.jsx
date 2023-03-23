@@ -64,8 +64,8 @@ const Coach = (props) => {
   ];
 
   return (
-    <div className="grid grid2x2">
-      <div className="gridelement element box1">
+    <div className="grid grid-2x2">
+      <div className="grid-element element box1">
         <div>
           <h2>Students</h2>
           <ul>
@@ -80,7 +80,7 @@ const Coach = (props) => {
           </ul>
         </div>
       </div>
-      <div className="gridelement element box2">
+      <div className="grid-element element box2">
         <div>
           <h2>Show invitations</h2>
           <ul>
@@ -93,7 +93,7 @@ const Coach = (props) => {
           </ul>
         </div>
       </div>
-      <div className="gridelement element box3">
+      <div className="grid-element element box3">
         <div>
           <h2>Recommendation to student</h2>
           <ul>
@@ -110,7 +110,7 @@ const Coach = (props) => {
           </Popup>
         </div>
       </div>
-      <div className="gridelement element box4">
+      <div className="grid-element element box4">
         <div>
           <h2>Plan Meeting</h2>
           <div>

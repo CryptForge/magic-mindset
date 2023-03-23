@@ -35,12 +35,12 @@ const TraineePage = (props) => {
   return (
     <div className="flex column element traineelist">
       <h2>Full list of students.</h2>
-      <div className="flex column spacearound">
+      <div className="flex column space-around">
         {traineeArray.map((trainee, index) => (
           <ListedTrainee key={index} name={trainee.name} id={trainee.id} />
         ))}
       </div>
-      <div className="flex spacearound buttonlist">
+      <div className="flex space-around button-list">
         <Link to="/dashboard">
           <button>Back to Dashboard</button>
         </Link>

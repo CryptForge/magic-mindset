@@ -75,8 +75,8 @@ const User = (props) => {
   courseArray.sort((a, b) => a.progress - b.progress);
 
   return (
-    <div className="grid grid2x2">
-      <div className="gridelement element box1">
+    <div className="grid grid-2x2">
+      <div className="grid-element element box1">
         <div>
           <h2>Skills</h2>
           <ul>
@@ -86,7 +86,7 @@ const User = (props) => {
           </ul>
         </div>
       </div>
-      <div className="gridelement element box2">
+      <div className="grid-element element box2">
         <div>
           <h2>Plan Meeting</h2>
           <div>
@@ -107,7 +107,7 @@ const User = (props) => {
           </ul>
         </div>
       </div>
-      <div className="gridelement element box3">
+      <div className="grid-element element box3">
         <div>
           <h2>Rapports</h2>
           <ul>
@@ -118,7 +118,7 @@ const User = (props) => {
           <div>BUTTON TO CREATE RAPPORT (POPUP)</div>
         </div>
       </div>
-      <div className="gridelement element box4">
+      <div className="grid-element element box4">
         <div>
           <h2>Training courses and certifications</h2>
           <ul>

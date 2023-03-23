@@ -1,3 +1,7 @@
+.hidden {
+  display: none;
+}
+
 .side-lines-divider {
   display: grid;
   grid-template-columns: 8vh auto 8vh;
@@ -79,4 +83,15 @@
   display: flex;
   justify-content: space-around;
   height: calc(100vh - 10vh - 1px - 6vh);
+}
+
+.popup-text-pointer {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: xx-large;
+  cursor: pointer;
+  transition: color 0.5s;
+}
+
+.popup-text-pointer:hover {
+  color: #ffba08;
 }

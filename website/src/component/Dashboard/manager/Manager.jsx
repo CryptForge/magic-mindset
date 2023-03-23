@@ -45,8 +45,8 @@ const Manager = (props) => {
   const answeredInvites = inviteArray.filter((invite) => invite.answered);
   const unansweredInvites = inviteArray.filter((invite) => !invite.answered);
   return (
-    <div className="grid grid2x2first1x2">
-      <div className="gridelement element box1">
+    <div className="grid grid-2x2first1x2">
+      <div className="grid-element element box1">
         <div>
           <h2>Students</h2>
           <ul>
@@ -61,7 +61,7 @@ const Manager = (props) => {
           </ul>
         </div>
       </div>
-      <div className="gridelement element box2">
+      <div className="grid-element element box2">
         <div>
           <h2>Show invites to feedback</h2>
           <ul>
@@ -74,7 +74,7 @@ const Manager = (props) => {
           </ul>
         </div>
       </div>
-      <div className="gridelement element box3">
+      <div className="grid-element element box3">
         <div>
           <h2>Plan Meeting</h2>
           <div>
