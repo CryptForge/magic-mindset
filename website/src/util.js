@@ -20,7 +20,7 @@ export const postForm = (event, url) => {
 };
 
 export const profileUpload = (token, formData) => {
-  return fetch(`${API_BASE}/user/edit/profile`, {
+  return fetch(`${API_BASE}/user/profile/edit`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,

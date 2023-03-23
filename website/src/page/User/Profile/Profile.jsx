@@ -58,26 +58,32 @@ const Profile = () => {
               <form>
                 <div className="flex">
                   <div className="flex column">
-                    {image && isLocalImage && (
-                      <div className="uploader-image">
+                    <div className="uploader-image">
+                      {image && isLocalImage && (
                         <img
                           alt="not found"
                           width={"250px"}
                           src={URL.createObjectURL(image)}
                           className="uploader-image-src"
                         />
-                      </div>
-                    )}
-                    {image && !isLocalImage && (
-                      <div className="uploader-image">
+                      )}
+                      {image && !isLocalImage && (
                         <img
                           alt="not found"
                           width={"250px"}
                           src={`data:image/jpeg;base64,${image}`}
                           className="uploader-image-src"
                         />
-                      </div>
-                    )}
+                      )}
+                      {!image && (
+                        <div className="text-avatar">
+                          <span>
+                            {auth.getUser().username &&
+                              auth.getUser().username[0]}
+                          </span>
+                        </div>
+                      )}
+                    </div>
                     <input
                       type="file"
                       name="myImage"
