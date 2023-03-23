@@ -1,7 +1,7 @@
 import React from "react";
 import Popup from "reactjs-popup";
 import AddUserForm from "../AddUserForm/AddUserForm";
-import DashBoardTraineeList from "../DashboardTraineeList";
+import DashboardTraineeList from "../DashboardTraineeList";
 import DashboardUserList from "./DashboardUserList";
 import ReportList from "../../ReportList";
 import PendingChange from "./PendingChange";
@@ -48,14 +48,17 @@ const HR = () => {
     {
       name: "report1",
       message: "haha",
+      date: "2011-10-10",
     },
     {
       name: "report2",
       message: "hihi",
+      date: "2018-10-10",
     },
     {
       name: "report3",
       message: "hoho",
+      date: "2016-10-10",
     },
   ];
   return (
@@ -65,7 +68,7 @@ const HR = () => {
           <h2>Students</h2>
           <ul>
             {traineeArray.map((trainee, index) => (
-              <DashBoardTraineeList
+              <DashboardTraineeList
                 key={index}
                 name={trainee.name}
                 id={trainee.id}
@@ -94,13 +97,18 @@ const HR = () => {
       </div>
 
       <div className="gridelement element box3">
-        <h2>List of All Reports</h2>
-        <ul>
-          {reportArray.map((report, index) => (
-            <ReportList name={report.name} message={report.message} />
-          ))}
-          <span>Progress reports sorted by most recent</span>
-        </ul>
+        <div>
+          <h2>List of All Reports</h2>
+          <ul>
+            {reportArray.map((report, index) => (
+              <ReportList
+                name={report.name}
+                message={report.message}
+                date={report.date}
+              />
+            ))}
+          </ul>
+        </div>
       </div>
       <div className="gridelement element box4">
         <div>

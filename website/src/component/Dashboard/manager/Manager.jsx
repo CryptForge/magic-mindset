@@ -1,6 +1,6 @@
 import React from "react";
-import DashBoardTraineeList from "../DashboardTraineeList";
-import DashBoardInvitation from "../DashBoardInvitation";
+import DashboardTraineeList from "../DashboardTraineeList";
+import DashboardInvitation from "../DashboardInvitation";
 import AddInvitationForm from "../AddInvitation/AddInvitiationForm";
 import Popup from "reactjs-popup";
 const Manager = (props) => {
@@ -51,7 +51,7 @@ const Manager = (props) => {
           <h2>Students</h2>
           <ul>
             {traineeArray.map((trainee, index) => (
-              <DashBoardTraineeList
+              <DashboardTraineeList
                 key={index}
                 name={trainee.name}
                 id={trainee.id}
@@ -66,7 +66,7 @@ const Manager = (props) => {
           <h2>Show invites to feedback</h2>
           <ul>
             {answeredInvites.map((invitation, index) => (
-              <DashBoardInvitation
+              <DashboardInvitation
                 key={index}
                 date={invitation.date.toLocaleDateString()}
               />
@@ -87,7 +87,7 @@ const Manager = (props) => {
           </div>
           <ul>
             {unansweredInvites.map((invitation, index) => (
-              <DashBoardInvitation
+              <DashboardInvitation
                 key={index}
                 date={invitation.date.toLocaleDateString()}
               />

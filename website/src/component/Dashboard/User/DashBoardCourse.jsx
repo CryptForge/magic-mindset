@@ -1,7 +1,7 @@
 import react from "react";
 import Popup from "reactjs-popup";
 
-const DashBoardCourse = (props) => {
+const DashboardCourse = (props) => {
   return (
     <li className="temp-divider">
       <div>{props.name}</div>
@@ -15,4 +15,4 @@ const DashBoardCourse = (props) => {
     </li>
   );
 };
-export default DashBoardCourse;
+export default DashboardCourse;

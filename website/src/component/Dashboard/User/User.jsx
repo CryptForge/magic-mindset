@@ -1,9 +1,9 @@
 import React from "react";
 import AddInvitationForm from "../AddInvitation/AddInvitiationForm";
-import DashBoardInvitation from "../DashBoardInvitation";
+import DashboardInvitation from "../DashboardInvitation";
 import Popup from "reactjs-popup";
 import AddTraineeInvitationForm from "./AddTraineeInvitationForm";
-import DashBoardCourse from "./DashBoardCourse";
+import DashboardCourse from "./DashboardCourse";
 import DashboardSkill from "./DashboardSkill";
 import ReportList from "../../ReportList";
 const User = (props) => {
@@ -11,14 +11,17 @@ const User = (props) => {
     {
       name: "report1",
       message: "haha",
+      date: "2011-10-10",
     },
     {
       name: "report2",
       message: "hihi",
+      date: "2018-10-10",
     },
     {
       name: "report3",
       message: "hoho",
+      date: "2016-10-10",
     },
   ];
   const skillArray = [
@@ -96,7 +99,7 @@ const User = (props) => {
           </div>
           <ul>
             {inviteArray.map((invitation, index) => (
-              <DashBoardInvitation
+              <DashboardInvitation
                 key={index}
                 date={invitation.date.toLocaleDateString()}
               />
@@ -111,7 +114,6 @@ const User = (props) => {
             {reportArray.map((report, index) => (
               <ReportList name={report.name} message={report.message} />
             ))}
-            <span>Progress reports sorted by most recent</span>
           </ul>
           <div>BUTTON TO CREATE RAPPORT (POPUP)</div>
         </div>
@@ -121,7 +123,7 @@ const User = (props) => {
           <h2>Training courses and certifications</h2>
           <ul>
             {courseArray.map((course, index) => (
-              <DashBoardCourse
+              <DashboardCourse
                 name={course.name}
                 progress={course.progress}
                 key={index}

@@ -1,6 +1,6 @@
 import Popup from "reactjs-popup";
 
-const DashBoardInvitation = (props) => {
+const DashboardInvitation = (props) => {
   return (
     <li className="temp-divider">
       <div>{props.date}</div>
@@ -10,4 +10,4 @@ const DashBoardInvitation = (props) => {
     </li>
   );
 };
-export default DashBoardInvitation;
+export default DashboardInvitation;

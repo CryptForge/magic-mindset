@@ -92,14 +92,17 @@ const reportArray = [
   {
     name: "report1",
     message: "haha",
+    date: "2011-10-10",
   },
   {
     name: "report2",
     message: "hihi",
+    date: "2018-10-10",
   },
   {
     name: "report3",
     message: "hoho",
+    date: "2016-10-10",
   },
 ];
 const pendingChangesArray = [
