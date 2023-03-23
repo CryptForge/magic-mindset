@@ -1,44 +1,92 @@
 import React from "react";
+import AddInvitationForm from "../AddInvitation/AddInvitiationForm";
+import DashBoardInvitation from "../DashBoardInvitation";
+import Popup from "reactjs-popup";
+import AddTraineeInvitationForm from "./AddTraineeInvitationForm";
+import DashBoardCourse from "./DashBoardCourse";
+import DashboardSkill from "./DashboardSkill";
 const User = (props) => {
+  const skillArray = [
+    {
+      name: "Woodcutting",
+    },
+    {
+      name: "Planning",
+    },
+    {
+      name: "Astral Projection",
+    },
+  ];
+  const courseArray = [
+    {
+      name: "course1",
+      progress: 1,
+    },
+    {
+      name: "course2",
+      progress: 0.75,
+    },
+    {
+      name: "course3",
+      progress: 0,
+    },
+  ];
+  const inviteArray = [
+    {
+      date: new Date("1994-10-21"),
+      answered: true,
+    },
+    {
+      date: new Date("2006-07-06"),
+      answered: true,
+    },
+    {
+      date: new Date("2003-04-03"),
+      answered: false,
+    },
+    {
+      date: new Date("2016-05-16"),
+      answered: true,
+    },
+    {
+      date: new Date("2020-01-12"),
+      answered: false,
+    },
+  ];
+
+  courseArray.sort((a, b) => a.progress - b.progress);
+
   return (
     <div className="grid grid2x2">
       <div className="gridelement element box1">
         <div>
-          <h2>Show all goals. ex:</h2>
+          <h2>Skills</h2>
           <ul>
-            <li className="temp-divider">
-              <div>1 - NAME</div>
-              <div>View OTHER PAGE</div>
-            </li>
-            <li className="temp-divider">
-              <div>2 - NAME</div>
-              <div>View OTHER PAGE</div>
-            </li>
-            <li className="temp-divider">
-              <div>3 - NAME</div>
-              <div>View OTHER PAGE</div>
-            </li>
+            {skillArray.map((skill, index) => (
+              <DashboardSkill name={skill.name} key={index} />
+            ))}
           </ul>
         </div>
       </div>
       <div className="gridelement element box2">
         <div>
-          <h2>Invite for feedback / coming up meetings</h2>
+          <h2>Plan Meeting</h2>
+          <div>
+            <Popup trigger={<button>Add Invitation</button>} modal>
+              <AddTraineeInvitationForm />
+            </Popup>
+          </div>
+          <div>
+            <span>List with awaiting response</span>
+          </div>
           <ul>
-            <li className="temp-divider">
-              <div>1 - MEETING 1</div>
-              <div>View (Popup)</div>
-            </li>
-            <li className="temp-divider">
-              <div>2 - MEETING 2</div>
-              <div>View (Popup)</div>
-            </li>
-            <li className="temp-divider">
-              <div>3 - MEETING 3</div>
-              <div>View (Popup)</div>
-            </li>
+            {inviteArray.map((invitation, index) => (
+              <DashBoardInvitation
+                key={index}
+                date={invitation.date.toLocaleDateString()}
+              />
+            ))}
           </ul>
-          <div>Button to popup to create meeting</div>
         </div>
       </div>
       <div className="gridelement element box3">
@@ -65,27 +113,13 @@ const User = (props) => {
         <div>
           <h2>Training courses and certifications</h2>
           <ul>
-            <li className="temp-divider">
-              <div>
-                1 - COURSE 1 SORTED BY COMPLETED (END IS COMPLETED, BEGINNING IS
-                TO DO)
-              </div>
-              <div>EDIT (POPUP)</div>
-            </li>
-            <li className="temp-divider">
-              <div>
-                2 - COURSE 2 SORTED BY COMPLETED (END IS COMPLETED, BEGINNING IS
-                TO DO)
-              </div>
-              <div>EDIT (POPUP)</div>
-            </li>
-            <li className="temp-divider">
-              <div>
-                3 - COURSE 3 SORTED BY COMPLETED (END IS COMPLETED, BEGINNING IS
-                TO DO)
-              </div>
-              <div>EDIT (POPUP)</div>
-            </li>
+            {courseArray.map((course, index) => (
+              <DashBoardCourse
+                name={course.name}
+                progress={course.progress}
+                key={index}
+              />
+            ))}
           </ul>
         </div>
       </div>
