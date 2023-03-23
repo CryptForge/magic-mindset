@@ -3,7 +3,9 @@ package me.cryptforge.mindset.service;
 import me.cryptforge.mindset.dto.course.CourseEditRequest;
 import me.cryptforge.mindset.dto.course.CourseRequest;
 import me.cryptforge.mindset.dto.course.CourseResponseWithoutTrainee;
+import me.cryptforge.mindset.exception.EntityNotFoundException;
 import me.cryptforge.mindset.model.Course;
+import me.cryptforge.mindset.model.File;
 import me.cryptforge.mindset.model.Skill;
 import me.cryptforge.mindset.model.user.Trainee;
 import me.cryptforge.mindset.model.user.User;
@@ -12,10 +14,15 @@ import me.cryptforge.mindset.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.StreamSupport;
 
 @Service
@@ -31,6 +38,8 @@ public class CourseServiceImpl implements CourseService {
     private UserRepository userRepository;
     @Autowired
     private UserInfoRepository userInfoRepository;
+    @Autowired
+    private FileService fileService;
 
     @Override
     public ResponseEntity<?> getSingleCourse(String id) {
@@ -107,6 +116,22 @@ public class CourseServiceImpl implements CourseService {
     public ResponseEntity<?> deleteCourse(Long id) {
         courseRepository.deleteById(id);
         return ResponseEntity.ok().body(true);
+    }
+
+    @Override
+    public void addCertification(Long id, MultipartFile multipartFile) {
+        String uuidString = fileService.saveFileUUIDBack(multipartFile);
+        Course course = courseRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("course"));
+        course.setCertificationFileName(uuidString);
+        courseRepository.save(course);
+    }
+
+    @Override
+    public File getCertification(String id) {
+        Course course = courseRepository.findById(Long.valueOf(id))
+                .orElseThrow(() -> new EntityNotFoundException("course"));
+        return fileService.getFile(course.getCertificationFileName());
     }
 
     private ResponseEntity<String> returnBadRequest(String type) {
