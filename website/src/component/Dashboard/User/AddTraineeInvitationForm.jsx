@@ -9,7 +9,7 @@ const AddTraineeInvitationForm = (props) => {
   return (
     <div>
       <form
-        className="flex column whiteelement"
+        className="flex column white-element"
         onSubmit={(event) =>
           authPostForm(
             event,

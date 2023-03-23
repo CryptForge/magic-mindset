@@ -5,7 +5,7 @@ const DashBoardInvitation = (props) => {
     <li className="temp-divider">
       <div>{props.date}</div>
       <Popup modal trigger={<button>view</button>}>
-        <div className="whiteelement">MOOIE INVITIATION INNIT</div>
+        <div className="white-element">MOOIE INVITIATION INNIT</div>
       </Popup>
     </li>
   );

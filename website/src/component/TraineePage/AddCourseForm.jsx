@@ -4,7 +4,7 @@ import { API_BASE } from "../../main";
 
 const AddCourseForm = () => {
   return (
-    <div className="whiteelement">
+    <div className="white-element">
       <form
         className="flex column"
         onSubmit={(event) => {

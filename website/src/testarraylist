@@ -70,3 +70,40 @@ const recommendationArray = [
     message: "What is this?",
   },
 ];
+const userArray = [
+  {
+    name: "HR",
+    role: "HR",
+  },
+  {
+    name: "Coach",
+    role: "COACH",
+  },
+  {
+    name: "Manager",
+    role: "MANAGER",
+  },
+  {
+    name: "Trainee",
+    role: "TRAINEE",
+  },
+];
+const reportArray = [
+  {
+    name: "report1",
+    message: "haha",
+  },
+  {
+    name: "report2",
+    message: "hihi",
+  },
+  {
+    name: "report3",
+    message: "hoho",
+  },
+];
+const pendingChangesArray = [
+  { name: "change1" },
+  { name: "change2" },
+  { name: "change3" },
+];

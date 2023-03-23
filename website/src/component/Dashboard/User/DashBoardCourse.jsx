@@ -10,7 +10,7 @@ const DashBoardCourse = (props) => {
         {props.progress}
       </div>
       <Popup trigger={<button>Add Certificate</button>} modal>
-        <div className="whiteelement">UPLOAD CERTIFICATE HERE</div>
+        <div className="white-element">UPLOAD CERTIFICATE HERE</div>
       </Popup>
     </li>
   );

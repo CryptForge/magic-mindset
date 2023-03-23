@@ -5,8 +5,23 @@ import { useState } from "react";
 import AddCourseForm from "../TraineePage/AddCourseForm";
 import Protected from "../Protected";
 import SkillCourseList from "../SkillCourseList";
+import ReportList from "../ReportList";
 
 const Skill = (props) => {
+  const reportArray = [
+    {
+      name: "report1",
+      message: "haha",
+    },
+    {
+      name: "report2",
+      message: "hihi",
+    },
+    {
+      name: "report3",
+      message: "hoho",
+    },
+  ];
   return (
     <div>
       <div className="flex skill">
@@ -20,7 +35,11 @@ const Skill = (props) => {
               <AddCourseForm />
             </Popup>
           </Protected>
-          <button>Show Reports</button>
+          <Popup trigger={<button>Show Reports</button>}>
+            {reportArray.map((report, index) => (
+              <ReportList name={report.name} message={report.message} />
+            ))}
+          </Popup>
         </div>
       </div>
       <div

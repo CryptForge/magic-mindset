@@ -5,7 +5,22 @@ import Popup from "reactjs-popup";
 import AddTraineeInvitationForm from "./AddTraineeInvitationForm";
 import DashBoardCourse from "./DashBoardCourse";
 import DashboardSkill from "./DashboardSkill";
+import ReportList from "../../ReportList";
 const User = (props) => {
+  const reportArray = [
+    {
+      name: "report1",
+      message: "haha",
+    },
+    {
+      name: "report2",
+      message: "hihi",
+    },
+    {
+      name: "report3",
+      message: "hoho",
+    },
+  ];
   const skillArray = [
     {
       name: "Woodcutting",
@@ -91,20 +106,12 @@ const User = (props) => {
       </div>
       <div className="gridelement element box3">
         <div>
-          <h2>Create a rapport button</h2>
+          <h2>Rapports</h2>
           <ul>
-            <li className="temp-divider">
-              <div>1 - RAPPORT 1 (One send earlier)</div>
-              <div>View (OTHER PAGE)</div>
-            </li>
-            <li className="temp-divider">
-              <div>2 - RAPPORT 2 (One send earlier)</div>
-              <div>View (OTHER PAGE)</div>
-            </li>
-            <li className="temp-divider">
-              <div>3 - RAPPORT 3 (One send earlier)</div>
-              <div>View (OTHER PAGE)</div>
-            </li>
+            {reportArray.map((report, index) => (
+              <ReportList name={report.name} message={report.message} />
+            ))}
+            <span>Progress reports sorted by most recent</span>
           </ul>
           <div>BUTTON TO CREATE RAPPORT (POPUP)</div>
         </div>

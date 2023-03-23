@@ -20,7 +20,7 @@ const Login = () => {
   };
 
   return (
-    <div className="whiteelement">
+    <div className="white-element">
       <form className="loginflexcolumn" onSubmit={login}>
         <div className="flex column">
           <h3>

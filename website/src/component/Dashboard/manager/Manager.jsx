@@ -48,7 +48,6 @@ const Manager = (props) => {
     <div className="grid grid2x2first1x2">
       <div className="gridelement element box1">
         <div>
-          <h2>Show all students and also button for single one</h2>
           <h2>Students</h2>
           <ul>
             {traineeArray.map((trainee, index) => (
