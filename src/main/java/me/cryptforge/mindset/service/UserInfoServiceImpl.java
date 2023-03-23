@@ -14,6 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.Base64;
 import java.util.Objects;
@@ -149,27 +151,29 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public String editProfile(EditProfileRequest editProfileRequest) {
-        UserInfo userInfo = userInfoRepository.findById(editProfileRequest.id()).orElseThrow();
+    public String editProfile(EditProfileRequest request) {
+        UserInfo userInfo = userInfoRepository.findById(request.id())
+                .orElseThrow(() -> new EntityNotFoundException("user"));
         User user = userInfo.getUser();
-        if (!Objects.equals(editProfileRequest.email(), user.getEmail()) || !Objects.equals(editProfileRequest.name(), userInfo.getName())) {
-            if (pendingEditRepository.findByEmail(editProfileRequest.email()).isPresent()) {
+        if (!Objects.equals(request.email(), user.getEmail()) || !Objects.equals(request.name(), userInfo.getName())) {
+            if (pendingEditRepository.existsByEmail(request.email())) {
                 throw new EntityAlreadyExistsException("You already have a request pending!");
-            } else {
-                PendingEdit pendingEdit = new PendingEdit(editProfileRequest.email(), editProfileRequest.name());
-                pendingEditRepository.save(pendingEdit);
             }
+            PendingEdit pendingEdit = new PendingEdit(request.email(), request.name());
+            pendingEditRepository.save(pendingEdit);
         }
-        if (editProfileRequest.image() != null) {
-            try {
-                userInfo.setImage(lobCreator.createBlob(editProfileRequest.image().getInputStream(), editProfileRequest.image().getSize()));
+
+        if (request.image() != null) {
+            try (final InputStream inputStream = request.image().getInputStream()) {
+                final Blob image = lobCreator.createBlob(inputStream, request.image().getSize());
+                userInfo.setImage(image);
                 userInfoRepository.save(userInfo);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
-        if (editProfileRequest.password() != null && !editProfileRequest.password().equals("null")) {
-            user.setPassword(passwordEncoder.encode(editProfileRequest.password()));
+        if (request.password() != null && !request.password().equals("null")) {
+            user.setPassword(passwordEncoder.encode(request.password()));
         }
         userRepository.save(user);
         return "Successfully changed the value(s)!";
