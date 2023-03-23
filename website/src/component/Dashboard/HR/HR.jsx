@@ -48,19 +48,20 @@ const HR = () => {
     {
       name: "report1",
       message: "haha",
-      date: "2011-10-10",
+      date: new Date("2011-10-10"),
     },
     {
       name: "report2",
       message: "hihi",
-      date: "2018-10-10",
+      date: new Date("2018-10-10"),
     },
     {
       name: "report3",
       message: "hoho",
-      date: "2016-10-10",
+      date: new Date("2016-10-10"),
     },
   ];
+  reportArray.sort((a, b) => a.date.getTime() - b.date.getTime());
   return (
     <div className="grid grid2x2">
       <div className="gridelement element box1">
@@ -104,7 +105,7 @@ const HR = () => {
               <ReportList
                 name={report.name}
                 message={report.message}
-                date={report.date}
+                date={report.date.toLocaleDateString()}
               />
             ))}
           </ul>
