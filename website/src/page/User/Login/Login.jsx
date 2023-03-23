@@ -9,7 +9,7 @@ const Login = () => {
   const auth = useContext(AuthContext);
 
   if (auth.userIsAuthenticated()) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/dashboard" replace />;
   }
 
   const login = async (event) => {
