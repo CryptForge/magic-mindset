@@ -1,7 +1,7 @@
 import react from "react";
 import { Link } from "react-router-dom";
 
-const CoachTraineeList = (props) => {
+const DashboardTraineeList = (props) => {
   return (
     <li className="temp-divider">
       <div>
@@ -13,4 +13,4 @@ const CoachTraineeList = (props) => {
     </li>
   );
 };
-export default CoachTraineeList;
+export default DashboardTraineeList;
