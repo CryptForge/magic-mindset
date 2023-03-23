@@ -1,8 +1,8 @@
 import React from "react";
 import Popup from "reactjs-popup";
-import CoachInvitation from "./CoachInvitation";
+import DashBoardInvitation from "../DashBoardInvitation";
 import CoachRecommendation from "./CoachRecommendation";
-import CoachTraineeList from "./CoachTraineeList";
+import DashBoardTraineeList from "../DashboardTraineeList";
 import AddRecommendationForm from "../AddRecommendationForm/RecommendationForm.jsx";
 import AddInvitationForm from "../AddInvitation/AddInvitiationForm.jsx";
 
@@ -70,7 +70,7 @@ const Coach = (props) => {
           <h2>Students</h2>
           <ul>
             {traineeArray.map((trainee, index) => (
-              <CoachTraineeList
+              <DashBoardTraineeList
                 key={index}
                 name={trainee.name}
                 id={trainee.id}
@@ -85,7 +85,7 @@ const Coach = (props) => {
           <h2>Show invitations</h2>
           <ul>
             {answeredInvites.map((invitation, index) => (
-              <CoachInvitation
+              <DashBoardInvitation
                 key={index}
                 date={invitation.date.toLocaleDateString()}
               />
@@ -123,7 +123,7 @@ const Coach = (props) => {
           </div>
           <ul>
             {unansweredInvites.map((invitation, index) => (
-              <CoachInvitation
+              <DashBoardInvitation
                 key={index}
                 date={invitation.date.toLocaleDateString()}
               />
