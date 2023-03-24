@@ -4,6 +4,7 @@ import AuthContext from "../../../AuthContext";
 import { API_BASE } from "../../../main";
 import { postForm } from "../../../util";
 import "./Login.css";
+import { ToastContainer, toast } from "react-toastify";
 
 const Login = () => {
   const auth = useContext(AuthContext);
@@ -13,21 +14,29 @@ const Login = () => {
   }
 
   const login = async (event) => {
-    const response = await postForm(event, `${API_BASE}/auth/login`);
-    const data = await response.json();
+    try {
+      const response = await postForm(event, `${API_BASE}/auth/login`);
+      console.log(response);
+      if (response.status === 401) {
+        toast.error("Failed to login! Invalid User Credentials", {
+          position: "bottom-center",
+        });
+      }
+      toast.success("Login succesful, redirecting to dashboard!");
+      const data = await response.json();
 
-    auth.userLogin(data);
+      auth.userLogin(data);
+    } catch (error) {
+      toast.warn("Cannot connect to server!", {
+        position: "bottom-center",
+      });
+    }
   };
 
   return (
     <div className="white-element">
       <form className="login-flex-column" onSubmit={login}>
         <div className="flex column">
-          <h3>
-            You are currently {auth.authenticated ? "" : "not"} logged in.
-          </h3>
-          <h3>{auth.authenticated ? "You are a " + auth.info.role : ""}</h3>
-
           <label htmlFor="email">E-mail</label>
           <input
             id="email"
