@@ -1,15 +1,17 @@
-import react from "react";
 import Popup from "reactjs-popup";
 
 const DashboardCourse = (props) => {
   return (
-    <li className="temp-divider">
+    <li className="divider min-width-0">
       <div>{props.name}</div>
       <div>
         <span>Progress: </span>
         {props.progress}
       </div>
-      <Popup trigger={<button>Add Certificate</button>} modal>
+      <Popup
+        trigger={<button className="button">Add Certificate</button>}
+        modal
+      >
         <div className="white-element">UPLOAD CERTIFICATE HERE</div>
       </Popup>
     </li>

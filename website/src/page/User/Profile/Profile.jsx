@@ -52,12 +52,12 @@ const Profile = () => {
         </div>
       </div>
       <div className="side-lines-middle">
-        <div className="profileflexcolumn">
+        <div className="split-flex">
           <div className="profile-inner">
             {(isLoading === true && <h2>Loading...</h2>) || (
               <form>
                 <div className="flex">
-                  <div className="flex column">
+                  <div className="flex flex-column">
                     <div className="uploader-image">
                       {image && isLocalImage && (
                         <img
@@ -95,8 +95,10 @@ const Profile = () => {
                       accept="image/*"
                     />
                   </div>
-                  <div className="flex column">
-                    <label htmlFor="name">Name</label>
+                  <div className="flex flex-column text-profile">
+                    <label htmlFor="name" className="black">
+                      Name
+                    </label>
                     <input
                       id="name"
                       value={name}
@@ -104,7 +106,9 @@ const Profile = () => {
                         setName(event.target.value);
                       }}
                     ></input>
-                    <label htmlFor="email">E-Mail</label>
+                    <label htmlFor="email" className="black">
+                      E-Mail
+                    </label>
                     <input
                       id="email"
                       value={email}
@@ -113,7 +117,9 @@ const Profile = () => {
                       }}
                       //type="email"
                     ></input>
-                    <label htmlFor="password">Password</label>
+                    <label htmlFor="password" className="black">
+                      Password
+                    </label>
                     <input
                       id="password"
                       type="password"
@@ -124,11 +130,14 @@ const Profile = () => {
                     ></input>
                   </div>
                 </div>
-                <div className="flex">
-                  <button>Back to Dashboard!</button>
+                <div className="flex space-between margin-top-1vh">
+                  <NavLink to="/dashboard">
+                    <button className="button">Back to Dashboard!</button>
+                  </NavLink>
                   <input
+                    className="button"
                     type="submit"
-                    value="save"
+                    value="Save"
                     onClick={onFormSubmit}
                   ></input>
                 </div>

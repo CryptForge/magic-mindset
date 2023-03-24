@@ -1,18 +1,20 @@
 import { useContext } from "react";
+import { useNavigate } from "react-router";
 import AuthContext from "../../AuthContext";
-import "./AuthButton.css";
-import Popup from "reactjs-popup";
-import ConfirmLogout from "./ConfirmLogout";
 
 const LogoutButton = () => {
   const auth = useContext(AuthContext);
+  const nav = useNavigate();
+
+  const logout = () => {
+    auth.userLogout();
+    nav("/login");
+  };
 
   return (
-    <div className="navigation-link">
-      <Popup trigger={<div>Logout</div>} modal>
-        <ConfirmLogout />
-      </Popup>
-    </div>
+    <a className="navigation-link" onClick={() => logout()}>
+      Log Out
+    </a>
   );
 };
 

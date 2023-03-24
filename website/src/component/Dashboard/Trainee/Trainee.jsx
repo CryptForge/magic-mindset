@@ -1,12 +1,12 @@
 import React from "react";
-import AddInvitationForm from "../AddInvitation/AddInvitiationForm";
 import DashboardInvitation from "../DashboardInvitation";
 import Popup from "reactjs-popup";
 import AddTraineeInvitationForm from "./AddTraineeInvitationForm";
 import DashboardCourse from "./DashboardCourse";
 import DashboardSkill from "./DashboardSkill";
-import ReportList from "../../ReportList";
-const User = (props) => {
+import ReportList from "../../Report/ReportList";
+import CreateReport from "../Popup/CreateReport";
+const User = () => {
   const reportArray = [
     {
       name: "report1",
@@ -77,9 +77,9 @@ const User = (props) => {
   return (
     <div className="grid grid-2x2">
       <div className="grid-element element box1">
-        <div>
+        <div className="min-width-0">
           <h2>Skills</h2>
-          <ul>
+          <ul className="alternating-ul flex flex-column padding-bottom-alternating-ul">
             {skillArray.map((skill, index) => (
               <DashboardSkill name={skill.name} key={index} />
             ))}
@@ -90,18 +90,22 @@ const User = (props) => {
         <div>
           <h2>Plan Meeting</h2>
           <div>
-            <Popup trigger={<button>Add Invitation</button>} modal>
+            <Popup
+              trigger={<button className="button">Add Invitation</button>}
+              modal
+            >
               <AddTraineeInvitationForm />
             </Popup>
           </div>
           <div>
             <span>List with awaiting response</span>
           </div>
-          <ul>
+          <ul className="alternating-ul flex flex-column padding-bottom-alternating-ul">
             {inviteArray.map((invitation, index) => (
               <DashboardInvitation
                 key={index}
                 date={invitation.date.toLocaleDateString()}
+                mine={true}
               />
             ))}
           </ul>
@@ -109,19 +113,24 @@ const User = (props) => {
       </div>
       <div className="grid-element element box3">
         <div>
-          <h2>Rapports</h2>
-          <ul>
+          <h2>Report</h2>
+          <ul className="alternating-ul flex flex-column padding-bottom-alternating-ul">
             {reportArray.map((report, index) => (
               <ReportList name={report.name} message={report.message} />
             ))}
           </ul>
-          <div>BUTTON TO CREATE RAPPORT (POPUP)</div>
+          <Popup
+            modal
+            trigger={<button className="button">Create report</button>}
+          >
+            <CreateReport />
+          </Popup>
         </div>
       </div>
       <div className="grid-element element box4">
         <div>
           <h2>Training courses and certifications</h2>
-          <ul>
+          <ul className="alternating-ul flex flex-column padding-bottom-alternating-ul">
             {courseArray.map((course, index) => (
               <DashboardCourse
                 name={course.name}

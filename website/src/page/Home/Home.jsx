@@ -26,7 +26,7 @@ const Home = () => {
         </div>
       </div>
       <div className="side-lines-middle">
-        <div className="home-split-flex">
+        <div className="split-flex">
           <div className="home-column-flex">
             <h1>The Magic Starts Here</h1>
             <h2>

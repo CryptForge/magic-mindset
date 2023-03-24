@@ -1,8 +1,7 @@
-.listed-element {
-  padding: 5px;
-  background-color: aliceblue;
-  justify-content: space-around;
-}
 .trainee-list-buttons {
   gap: 40px;
+}
+
+.trainee-button {
+  margin-left: 4vw;
 }

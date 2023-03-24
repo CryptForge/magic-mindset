@@ -5,7 +5,7 @@ const AddCourseForm = () => {
   return (
     <div className="white-element">
       <form
-        className="flex column"
+        className="flex flex-column"
         onSubmit={(event) => {
           postForm(event, `${API_BASE}/course/create`);
         }}

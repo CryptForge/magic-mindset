@@ -1,11 +1,12 @@
 import Popup from "reactjs-popup";
+import InvitationPopup from "./Popup/InvitationPopup";
 
 const DashboardInvitation = (props) => {
   return (
-    <li className="temp-divider">
+    <li className="divider min-width-0">
       <div>{props.date}</div>
       <Popup modal trigger={<button>view</button>}>
-        <div className="white-element">MOOIE INVITIATION INNIT</div>
+        <InvitationPopup id={0} mine={props.mine} />
       </Popup>
     </li>
   );

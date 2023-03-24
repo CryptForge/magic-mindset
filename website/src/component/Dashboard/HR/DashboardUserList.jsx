@@ -1,8 +1,7 @@
-import react from "react";
 import Popup from "reactjs-popup";
 const DashboardUserList = (props) => {
   return (
-    <div>
+    <div className="div divider min-width-0">
       <li>{props.name}</li>
       <Popup trigger={<button>View User</button>} modal>
         <div className="white-element">

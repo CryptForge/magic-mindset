@@ -1,20 +1,29 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&family=Source+Sans+Pro&display=swap");
 body {
   margin: 0;
-  width: auto;
-  height: 100vh;
+  min-width: 100vw;
+  min-height: 100vh;
   background: rgb(97, 67, 133);
   background: linear-gradient(
     116.64deg,
     rgba(97, 67, 133, 1) 0%,
     rgba(81, 99, 149, 1) 100%
   );
+  background-size: 200vw 200vh;
+}
+
+.flex {
+  display: flex;
+}
+
+.min-width-0 {
+  min-width: 0;
 }
 
 .element {
   background: rgba(217, 217, 217, 0.75);
   border-radius: 25px;
-  padding: 20px;
+  padding: 4vw;
 }
 .white-element {
   background-color: #fbfef9;
@@ -33,15 +42,8 @@ p,
 span {
   font-family: "Source Sans Pro", sans-serif;
 }
-.columncenter {
-  align-items: center;
-}
 .pointer:hover {
   cursor: pointer;
-}
-.listelement {
-  background-color: #e3e8f1;
-  padding: 1px;
 }
 .list {
   gap: 10px;
@@ -52,9 +54,62 @@ span {
 .space-between {
   justify-content: space-between;
 }
+.align-center {
+  align-items: center;
+}
 .button-spacing {
-  gap: 100px;
+  padding-left: 10vw;
 }
 .alternate-background:nth-child(even) {
-  background-color: rgb(167, 167, 167);
+  background: rgba(217, 217, 217, 0.75);
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.center {
+  justify-content: center;
+}
+
+.padding-bottom-alternating-ul {
+  padding-bottom: 2vh;
+}
+
+.search-input {
+  padding: 10px 10px;
+  height: 52px;
+  position: relative;
+}
+
+.search-input::before {
+  content: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAAAXNSR0IArs4c6QAAAQJJREFUKBWVkr2uQUEUhf3ET6GRaC5aFRoJKrf1BKpb8SwqovYGXkCj00k0QnRKEYkILYobvpUYmeMMyVnJl7P3mjN7Zu9zwiGv2qRFyMMSRrAFp6JPN8XzBj+wgDkUYAg7WINTYdwpDECxrRLJHeq2accdkgm8bzTvNAg2EDOGeUYI1KNO1gkuzTA1g8T7ojbn4ONQWPuHPWgeHmnzCqoe15tkSNPgPEAn68oVcOmA2XMtGK9FoE/VhOTTVNExqLCGZnxCv2pYauEC6lF0oQxX6IOvb7yX9NPEQafan+aPXDdQC18LsO6Tip5BBY6gIQaSbnMCFRCBZRcIvFkbsvCr4AFGOCxQy+JdGQAAAABJRU5ErkJggg==");
+  display: block;
+  position: absolute;
+  width: 15px;
+  z-index: 3;
+  height: 15px;
+  font-size: 20px;
+  top: 11px;
+  left: 16px;
+  line-height: 32px;
+  opacity: 0.6;
+}
+
+.search-input > input {
+  width: 100%;
+  font-size: 18px;
+  border: none;
+  line-height: 22px;
+  padding: 5px 10px 5px 25px;
+  height: 32px;
+  position: relative;
+}
+
+.search-input > input:focus {
+  outline: none;
 }

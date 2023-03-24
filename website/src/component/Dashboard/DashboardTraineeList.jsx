@@ -1,9 +1,8 @@
-import react from "react";
 import { Link } from "react-router-dom";
 
 const DashboardTraineeList = (props) => {
   return (
-    <li className="temp-divider">
+    <li className="divider min-width-0">
       <div>
         {props.index} - {props.name}
       </div>

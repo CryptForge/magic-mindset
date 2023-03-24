@@ -1,47 +1,19 @@
-.home-column-flex {
-  display: flex;
-  flex-direction: column;
-}
-.home-split-flex {
-  max-width: 80vw;
-  display: flex;
-  flex-direction: row;
-  border-radius: 25px;
-  padding: 3em;
-  color: whitesmoke;
-}
-.home-split-flex img {
-  max-height: calc(100vh - 30vh);
-  object-fit: fill;
-  rotate: -90deg;
-}
+@media screen and (min-width: 426px) {
+  .split-flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+  }
 
-.home-column-flex h1 {
-  font-family: "Montserrat", sans-serif;
-  font-weight: 700;
-  font-size: 6.25em;
-  margin-bottom: 0;
-}
+  .home-column-flex .login {
+    width: 40vw;
+    font-size: 2em;
+  }
 
-.home-column-flex h2 {
-  font-family: "Source Sans Pro", sans-serif;
-  font-weight: 400;
-  font-size: 2.5em;
-}
-
-.home-column-flex .login {
-  width: fit-content;
-  font-family: "Source Sans Pro", sans-serif;
-  font-weight: 400;
-  font-size: 2.5em;
-  letter-spacing: 0.2em;
-  padding: 1vh 1vw;
-  background-color: #2e294e;
-  color: whitesmoke;
-  text-decoration: none;
-  transition: background-color 0.5s;
-}
-
-.home-column-flex .login:hover {
-  background-color: #171427;
+  .split-flex img {
+    max-width: 40vw;
+    max-height: 40vw;
+  }
 }

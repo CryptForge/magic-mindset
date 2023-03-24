@@ -1,23 +1,35 @@
+.header {
+  padding-left: 5vw;
+  min-width: 0;
+}
+
+.hamburger-header {
+  position: relative;
+}
+
+.hamburger-header #hamburger-links {
+  display: none;
+}
+
+.hamburger-header a.icon {
+  display: block;
+  position: absolute;
+  right: 5vw;
+  top: 0;
+  color: #ffba08;
+  transition: color 0.5s;
+}
+
+.hamburger-header a.icon:hover {
+  color: #ffba08;
+}
+
+.hamburger-header .title {
+  border-bottom: 1px solid whitesmoke;
+}
+
 .header-grid {
-  display: grid;
-  grid-template-columns: 33vw auto 33vw;
-  margin: 0;
-  border-bottom: solid 1px whitesmoke;
-  padding: 4px 2.5vh;
-  max-height: 10vh;
-}
-
-.header-grid .header-side-one {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-
-.header-grid .header-side-two {
-  display: flex;
-  align-items: center;
-  justify-content: end;
-  justify-content: space-around;
+  display: none;
 }
 
 .navigation-link {
@@ -28,7 +40,7 @@
   letter-spacing: 0.25em;
   font-family: "Montserrat", sans-serif;
   font-weight: 700;
-  font-size: 24px;
+  font-size: 0.5rem;
 }
 
 .navigation-link:hover {
@@ -49,10 +61,61 @@ a.title {
   letter-spacing: 0.1em;
   font-family: "Montserrat", sans-serif;
   font-weight: 700;
-  font-size: 3.5em;
+  font-size: 0.8rem;
 }
 
 a.title:hover {
   color: #ffba08;
   cursor: pointer;
+}
+
+@media screen and (min-width: 426px) {
+  .header {
+    padding-left: 0;
+  }
+
+  .hamburger-header {
+    display: none;
+  }
+
+  .header-grid {
+    display: grid;
+    grid-template-columns: 35vw auto 35vw;
+    margin: 0;
+    border-bottom: solid 1px whitesmoke;
+    padding: 4px 0;
+    max-height: 10vh;
+    min-width: 0;
+  }
+
+  .header-grid .header-side-one {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  .header-grid .header-side-two {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    justify-content: space-around;
+  }
+}
+
+@media screen and (min-width: 910px) {
+  .navigation-link {
+    font-size: 0.9em;
+  }
+  a.title {
+    font-size: 2em;
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  .navigation-link {
+    font-size: 1.5em;
+  }
+  a.title {
+    font-size: 2.5em;
+  }
 }

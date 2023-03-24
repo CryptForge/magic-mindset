@@ -1,17 +1,19 @@
-.flex {
-  display: flex;
-}
 .skill {
   justify-content: space-between;
   margin: 5px;
   background-color: #fbfef950;
   padding: 2px 10px 2px 10px;
 }
-.popup {
-  background-color: blue;
-  padding: 50px;
-}
 .skill .skill-button {
   background: none;
   color: black;
+}
+
+.skill-course-item {
+  margin-left: 1vw;
+  margin-right: 1vw;
+}
+
+.skill-course-list-padding {
+  padding-left: 5vw;
 }

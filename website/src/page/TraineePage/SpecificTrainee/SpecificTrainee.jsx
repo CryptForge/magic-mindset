@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import Popup from "reactjs-popup";
 import "./SpecificTrainee.css";
-import AddCourseForm from "../../../component/TraineePage/AddCourseForm";
 import Skill from "../../../component/Skill/Skill";
 
 const SpecificTrainee = () => {
@@ -43,10 +41,9 @@ const SpecificTrainee = () => {
   ];
 
   return (
-    <div>
-      <h1>{traineeId}</h1>
-      <h2>Trainee name and skilllist</h2>
-      <div className="element flex column ">
+    <div className="flex center align-center trainee-page-margin">
+      <h2 className="white">{"TRAINEE NAME"}'s Skill List</h2>
+      <div className="element flex flex-column ">
         {skillArray.map((skill, index) => (
           <Skill
             name={skill.name}
@@ -58,8 +55,8 @@ const SpecificTrainee = () => {
           />
         ))}
       </div>
-      <Link to="/traineepage">
-        <button>Back to Traineepage!</button>
+      <Link to="/traineepage" className="back-button-top">
+        <button className="button">Back to Traineepage!</button>
       </Link>
     </div>
   );
