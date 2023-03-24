@@ -43,7 +43,11 @@ const Skill = (props) => {
             </div>
           </Protected>
           <div className="flex space-between button-spacing">
-            <Popup trigger={<button className="button">Show Reports</button>}>
+            <Popup
+              trigger={<button className="button">Show Reports</button>}
+              modal
+              nested
+            >
               {reportArray.map((report, index) => (
                 <ReportListPopup name={report.name} message={report.message} />
               ))}

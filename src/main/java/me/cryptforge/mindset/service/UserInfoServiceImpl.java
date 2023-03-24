@@ -155,11 +155,12 @@ public class UserInfoServiceImpl implements UserInfoService {
         UserInfo userInfo = userInfoRepository.findById(request.id())
                 .orElseThrow(() -> new EntityNotFoundException("user"));
         User user = userInfo.getUser();
-        if (!Objects.equals(request.email(), user.getEmail()) || !Objects.equals(request.name(), userInfo.getName())) {
+        if (!Objects.equals(request.email(), user.getEmail()) || !Objects.equals(request.name(), userInfo.getName()) ||
+                !Objects.equals(request.address(), userInfo.getAddress()) || !Objects.equals(request.city(), userInfo.getCity())) {
             if (pendingEditRepository.existsByEmail(request.email())) {
                 throw new EntityAlreadyExistsException("You already have a request pending!");
             }
-            PendingEdit pendingEdit = new PendingEdit(request.email(), request.name());
+            PendingEdit pendingEdit = new PendingEdit(request.email(), request.name(), request.address(), request.city());
             pendingEditRepository.save(pendingEdit);
         }
 
@@ -186,7 +187,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         Base64.Encoder encoder = Base64.getEncoder();
         try {
             try {
-                return new UserProfile(user.getId(), userInfo.getName(), user.getEmail(),
+                return new UserProfile(user.getId(), userInfo.getName(), user.getEmail(), userInfo.getAddress(), userInfo.getCity(),
                         userInfo.getImage() != null ?
                                 encoder.encodeToString(userInfo.getImage().getBinaryStream().readAllBytes()) : null);
             } catch (IOException e) {
