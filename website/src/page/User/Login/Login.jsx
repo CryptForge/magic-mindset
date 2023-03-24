@@ -21,11 +21,12 @@ const Login = () => {
         toast.error("Failed to login! Invalid User Credentials", {
           position: "bottom-center",
         });
-      }
-      toast.success("Login succesful, redirecting to dashboard!");
-      const data = await response.json();
+      } else {
+        toast.success("Login succesful, redirecting to dashboard!");
+        const data = await response.json();
 
-      auth.userLogin(data);
+        auth.userLogin(data);
+      }
     } catch (error) {
       toast.warn("Cannot connect to server!", {
         position: "bottom-center",
