@@ -43,7 +43,6 @@ public class Setup {
         long testCoach1 = createTestUser("TestCoach 1", User.Role.COACH);
         long testCoach2 = createTestUser("TestCoach 2", User.Role.COACH);
         long testManager = createTestUser("TestManagerMan", User.Role.MANAGER);
-        long testHR = createTestUser("TestHRMan", User.Role.HR);
 
         linkCoach(testTrainee1, testCoach2);
         linkCoach(testTrainee2, testCoach1);
@@ -51,8 +50,6 @@ public class Setup {
         linkManager(testTrainee1, testManager);
         linkManager(testTrainee2, testManager);
         linkManager(testTrainee3, testManager);
-
-
     }
 
     private long createTestUser(String name, User.Role role) {
