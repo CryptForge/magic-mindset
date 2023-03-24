@@ -47,9 +47,9 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests()
                 .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers("/api/user/profile/**").authenticated()
-                .requestMatchers("/api/user/get/profile/**").authenticated()
-                .requestMatchers("/api/user/**").hasRole(User.Role.HR.asString())
+                .requestMatchers("/api/course/get/certification/**", "/api/course/edit/certification").permitAll()
+                .requestMatchers("/get/profile/**").authenticated()
+                .requestMatchers("/api/user/**").authenticated()
                 .anyRequest().authenticated();
 
         http.addFilterBefore(requestFilter, UsernamePasswordAuthenticationFilter.class);

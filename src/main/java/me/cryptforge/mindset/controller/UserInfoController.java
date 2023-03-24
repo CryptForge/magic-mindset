@@ -4,9 +4,12 @@ import me.cryptforge.mindset.dto.user.*;
 import me.cryptforge.mindset.model.user.Trainee;
 import me.cryptforge.mindset.model.user.User;
 import me.cryptforge.mindset.model.user.UserInfo;
+import me.cryptforge.mindset.security.EntityUserDetails;
 import me.cryptforge.mindset.service.UserInfoService;
+import me.cryptforge.mindset.util.AuthUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,7 +27,8 @@ public class UserInfoController {
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<UserInfo> getUserFromId(@PathVariable Long id) {
+    public ResponseEntity<UserInfo> getUserFromId(@PathVariable Long id, @AuthenticationPrincipal EntityUserDetails user) {
+        AuthUtil.checkAccess(id, user, User.Role.TRAINEE);
         return ResponseEntity.of(userInfoService.getUserFromId(id));
     }
 

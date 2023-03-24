@@ -5,6 +5,6 @@ public record CourseEditRequest(
         String name,
         Long skillId,
         float progress,
-        String certification
+        String certificationFileName
 ) {
 }
