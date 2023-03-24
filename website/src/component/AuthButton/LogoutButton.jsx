@@ -1,6 +1,4 @@
 import { useContext } from "react";
-import { useNavigate } from "react-router";
-import AuthContext from "../../AuthContext";
 import Popup from "reactjs-popup";
 import ConfirmLogout from "./ConfirmLogout";
 
@@ -13,3 +11,5 @@ const LogoutButton = () => {
     </div>
   );
 };
+
+export default LogoutButton;
