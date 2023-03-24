@@ -80,6 +80,7 @@
   font-family: "Montserrat", sans-serif;
   transition: background-color 0.5s;
   border: none;
+  cursor: pointer;
 }
 
 .button:hover {
