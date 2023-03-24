@@ -2,20 +2,19 @@ package me.cryptforge.mindset.service;
 
 import me.cryptforge.mindset.dto.skill.SkillEditRequest;
 import me.cryptforge.mindset.dto.skill.SkillRequest;
-import me.cryptforge.mindset.dto.skill.SkillResponseWithoutTrainee;
-import me.cryptforge.mindset.model.Course;
+import me.cryptforge.mindset.dto.skill.SkillResponse;
+import me.cryptforge.mindset.exception.EntityNotFoundException;
 import me.cryptforge.mindset.model.Skill;
 import me.cryptforge.mindset.model.user.Trainee;
 import me.cryptforge.mindset.model.user.User;
 import me.cryptforge.mindset.model.user.UserInfo;
 import me.cryptforge.mindset.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 @Service
 public class SkillServiceImpl implements SkillService {
@@ -32,90 +31,57 @@ public class SkillServiceImpl implements SkillService {
     private UserInfoRepository userInfoRepository;
 
     @Override
-    public ResponseEntity<?> getSingleSkill(String id) {
-        Optional<Skill> singleSkill = skillRepository.findById(Long.valueOf(id));
-        if (singleSkill.isPresent()) {
-            return ResponseEntity.ok(singleSkill.get());
-        }
-        return ResponseEntity.notFound().build();
+    public Optional<SkillResponse> getSingleSkill(Long id) {
+        return skillRepository.findById(id).map(SkillResponse::fromSkill);
     }
 
     @Override
-    public ResponseEntity<List<Skill>> getAllSkills() {
-        List<Skill> allSkills = new ArrayList<>();
-        skillRepository.findAll().iterator().forEachRemaining(allSkills::add);
-        return ResponseEntity.ok(allSkills);
+    public Iterable<SkillResponse> getAllSkills() {
+        return StreamSupport.stream(skillRepository.findAll().spliterator(), false)
+                .map(SkillResponse::fromSkill)
+                .toList();
     }
 
     @Override
-    public ResponseEntity<List<SkillResponseWithoutTrainee>> getAllSkillsUser(String id) {
-        List<Skill> allSkills = new ArrayList<>();
-        skillRepository.findAllByTrainee_User_User_Id(Long.valueOf(id)).iterator().forEachRemaining(allSkills::add);
-
-        List<SkillResponseWithoutTrainee> updatedSkills = new ArrayList<>();
-        allSkills.forEach(value -> updatedSkills.add(
-                new SkillResponseWithoutTrainee(
-                        value.getId(), value.isType(),
-                        value.getName(), value.getDescription(),
-                        value.getCourses()
-                )));
-        return ResponseEntity.ok(updatedSkills);
+    public Iterable<SkillResponse> getAllUserSkills(Long id) {
+        final Iterable<Skill> skills = skillRepository.findAllByTrainee_User_User_Id(id);
+        return StreamSupport.stream(skills.spliterator(),false)
+                .map(SkillResponse::fromSkill)
+                .toList();
     }
 
     @Override
-    public ResponseEntity<?> createNewSkill(SkillRequest skillRequest) {
-        List<Course> courses = new ArrayList<>();
-        skillRequest.courseIds().forEach(value -> courses.add(courseRepository.findById(value).get()));
-        Optional<User> user = userRepository.findById(skillRequest.traineeId());
-        if (user.isEmpty()) {
-            return returnBadRequest("user");
-        }
-        Optional<UserInfo> userInfo = userInfoRepository.findByUser(user.get());
-        if (userInfo.isEmpty()) {
-            return returnBadRequest("userInfo");
-        }
-        Optional<Trainee> trainee = traineeRepository.findByUser(userInfo.get());
-        if (trainee.isEmpty()) {
-            return returnBadRequest("trainee");
-        }
+    public SkillResponse createNewSkill(SkillRequest request) {
+        final User user = userRepository.findById(request.traineeId())
+                .orElseThrow(() -> new EntityNotFoundException("user"));
+        final UserInfo userInfo = userInfoRepository.findByUser(user)
+                .orElseThrow(() -> new EntityNotFoundException("userInfo"));
+        final Trainee trainee = traineeRepository.findByUser(userInfo)
+                .orElseThrow(() -> new EntityNotFoundException("trainee"));
 
-        Skill skill = new Skill(skillRequest.type(), skillRequest.name(),
-                skillRequest.description(), courses,
-                trainee.get()
+        final Skill skill = new Skill(
+                request.type(), request.name(),
+                request.description(), new ArrayList<>(),
+                trainee
         );
-        Skill savedSkill = skillRepository.save(skill);
-        return ResponseEntity.ok(savedSkill);
+        return SkillResponse.fromSkill(skillRepository.save(skill));
     }
 
     @Override
-    public ResponseEntity<?> editSkill(SkillEditRequest skillEditRequest) {
-        Optional<Skill> optionalSkill = skillRepository.findById(skillEditRequest.id());
+    public SkillResponse editSkill(SkillEditRequest request) {
+        final Skill skill = skillRepository.findById(request.id())
+                .orElseThrow(() -> new EntityNotFoundException("skill"));
 
-        if (optionalSkill.isEmpty()) {
-            return returnBadRequest("skill");
-        }
-        List<Course> courses = new ArrayList<>();
-        skillEditRequest.courseIds().forEach(value -> courses.add(courseRepository.findById(value).get()));
+        skill.setName(request.name());
+        skill.setDescription(request.description());
+        skill.setType(request.type());
 
-        Skill skill = optionalSkill.get();
-        skill.setCourses(courses);
-        skill.setName(skillEditRequest.name());
-        skill.setDescription(skillEditRequest.description());
-        skill.setType(skillEditRequest.type());
-
-        Skill savedSkill = skillRepository.save(skill);
-
-        return ResponseEntity.ok(savedSkill);
+        return SkillResponse.fromSkill(skillRepository.save(skill));
     }
 
     @Override
-    public ResponseEntity<?> deleteSkillAndCoursesAssociatedWithSkill(Long id) {
+    public void deleteSkillAndCoursesAssociatedWithSkill(Long id) {
         courseRepository.deleteBySkill_id(id);
         skillRepository.deleteById(id);
-        return ResponseEntity.ok().body(true);
-    }
-
-    private ResponseEntity<String> returnBadRequest(String type) {
-        return ResponseEntity.badRequest().body("No " + type + " with that id could be found!");
     }
 }
