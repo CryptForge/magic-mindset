@@ -3,7 +3,7 @@ import AuthContext from "../../AuthContext";
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
 
-const AuthButton = (props) => {
+const AuthButton = () => {
   const auth = useContext(AuthContext);
 
   if (auth.userIsAuthenticated()) {

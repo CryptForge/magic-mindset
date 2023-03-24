@@ -2,7 +2,7 @@ import { useAuthContext } from "../../../AuthContext";
 import { authPostForm } from "../../../util";
 import { API_BASE } from "../../../main";
 
-const AddTraineeInvitationForm = (props) => {
+const AddTraineeInvitationForm = () => {
   const auth = useAuthContext();
 
   return (

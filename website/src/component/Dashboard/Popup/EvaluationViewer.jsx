@@ -1,7 +1,7 @@
 import Popup from "reactjs-popup";
 import FileViewer from "./FileViewer";
 
-const EvaluationViewer = (props) => {
+const EvaluationViewer = () => {
   return (
     <div className="popup-container">
       <div className="float-right small-text">
