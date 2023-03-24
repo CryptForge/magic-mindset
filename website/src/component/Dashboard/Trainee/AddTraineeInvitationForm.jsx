@@ -1,4 +1,3 @@
-import react from "react";
 import { useAuthContext } from "../../../AuthContext";
 import { authPostForm } from "../../../util";
 import { API_BASE } from "../../../main";
@@ -9,7 +8,7 @@ const AddTraineeInvitationForm = (props) => {
   return (
     <div>
       <form
-        className="flex column white-element"
+        className="flex flex-column white-element"
         onSubmit={(event) =>
           authPostForm(
             event,

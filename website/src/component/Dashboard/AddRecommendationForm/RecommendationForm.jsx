@@ -6,7 +6,7 @@ const RecommendationForm = (props) => {
   const auth = useAuthContext();
   return (
     <form
-      className="flex column white-element"
+      className="flex flex-column white-element"
       onSubmit={(event) =>
         authPostForm(
           event,
@@ -24,7 +24,7 @@ const RecommendationForm = (props) => {
       <label htmlFor="date">Date</label>
       <input type="date" name="date" id="date"></input>
       <label htmlFor="message">Message</label>
-      <input name="message" id="message"></input>
+      <textarea id="message"></textarea>
       <input type="submit" value="Make recommendation"></input>
     </form>
   );

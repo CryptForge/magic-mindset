@@ -6,7 +6,7 @@ const AddInvitationForm = (props) => {
   const auth = useAuthContext();
   return (
     <form
-      className="flex column white-element"
+      className="flex flex-column white-element"
       onSubmit={(event) =>
         authPostForm(
           event,

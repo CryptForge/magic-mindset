@@ -3,8 +3,9 @@ import Popup from "reactjs-popup";
 import DashboardInvitation from "../DashboardInvitation";
 import CoachRecommendation from "./CoachRecommendation";
 import DashboardTraineeList from "../DashboardTraineeList";
-import AddRecommendationForm from "../AddRecommendationForm/RecommendationForm.jsx";
-import AddInvitationForm from "../AddInvitation/AddInvitiationForm.jsx";
+import AddRecommendationForm from "../AddRecommendationForm/RecommendationForm";
+import AddInvitationForm from "../AddInvitation/AddInvitiationForm";
+import { Link } from "react-router-dom";
 
 const Coach = (props) => {
   let traineeArray = [
@@ -66,9 +67,9 @@ const Coach = (props) => {
   return (
     <div className="grid grid-2x2">
       <div className="grid-element element box1">
-        <div>
+        <div className="min-width-0">
           <h2>Students</h2>
-          <ul>
+          <ul className="alternating-ul flex flex-column padding-bottom-alternating-ul">
             {traineeArray.map((trainee, index) => (
               <DashboardTraineeList
                 key={index}
@@ -78,12 +79,15 @@ const Coach = (props) => {
               />
             ))}
           </ul>
+          <Link to="/traineepage">
+            <button className="button">View all</button>
+          </Link>
         </div>
       </div>
       <div className="grid-element element box2">
-        <div>
+        <div className="min-width-0">
           <h2>Show invitations</h2>
-          <ul>
+          <ul className="alternating-ul flex flex-column padding-bottom-alternating-ul">
             {answeredInvites.map((invitation, index) => (
               <DashboardInvitation
                 key={index}
@@ -94,38 +98,46 @@ const Coach = (props) => {
         </div>
       </div>
       <div className="grid-element element box3">
-        <div>
+        <div className="min-width-0">
           <h2>Recommendation to student</h2>
-          <ul>
+          <ul className="alternating-ul flex flex-column padding-bottom-alternating-ul">
             {recommendationArray.map((recommendation, index) => (
               <CoachRecommendation
+                user={"Bob"}
                 date={recommendation.date}
                 message={recommendation.message}
                 key={index}
               />
             ))}
           </ul>
-          <Popup modal trigger={<button>Add Recommendation</button>}>
+          <Popup
+            modal
+            trigger={<button className="button">Add Recommendation</button>}
+          >
             <AddRecommendationForm traineeArray={traineeArray} />
           </Popup>
         </div>
       </div>
       <div className="grid-element element box4">
-        <div>
+        <div className="min-width-0">
           <h2>Plan Meeting</h2>
           <div>
-            <Popup trigger={<button>Add Invitation</button>} modal>
+            <Popup
+              trigger={<button className="button">Add Invitation</button>}
+              modal
+            >
               <AddInvitationForm traineeArray={traineeArray} />
             </Popup>
           </div>
           <div>
             <span>List with awaiting response</span>
           </div>
-          <ul>
+          <ul className="alternating-ul flex flex-column padding-bottom-alternating-ul">
             {unansweredInvites.map((invitation, index) => (
               <DashboardInvitation
                 key={index}
                 date={invitation.date.toLocaleDateString()}
+                mine={true}
               />
             ))}
           </ul>

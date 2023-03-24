@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Protected from "../../component/Protected";
 import ListedTrainee from "../../component/TraineePage/ListedTrainee";
-
+import SearchInput, { createFilter } from "react-search-input";
 import "./TraineePage.css";
 
 const TraineePage = (props) => {
@@ -19,6 +18,18 @@ const TraineePage = (props) => {
       name: "Rebecca",
       id: 2,
     },
+    {
+      name: "Rob",
+      id: 3,
+    },
+    {
+      name: "Bob",
+      id: 4,
+    },
+    {
+      name: "David",
+      id: 5,
+    },
   ];
   const courseArray = [
     {
@@ -31,19 +42,32 @@ const TraineePage = (props) => {
       name: "course3",
     },
   ];
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const KEYS_TO_FILTERS = ["name"];
+
+  const filteredList = traineeArray.filter(
+    createFilter(searchTerm, KEYS_TO_FILTERS)
+  );
 
   return (
-    <div className="flex column element traineelist">
-      <h2>Full list of students.</h2>
-      <div className="flex column space-around">
-        {traineeArray.map((trainee, index) => (
-          <ListedTrainee key={index} name={trainee.name} id={trainee.id} />
-        ))}
-      </div>
-      <div className="flex space-around button-list">
-        <Link to="/dashboard">
-          <button>Back to Dashboard</button>
-        </Link>
+    <div className="flex center align-center trainee-page-margin">
+      <div className="flex flex-column element">
+        <h2>Full list of students.</h2>
+        <div className="flex flex-column space-around">
+          <SearchInput
+            className="search-input"
+            onChange={(value) => setSearchTerm(value)}
+          />
+          {filteredList.map((trainee, index) => (
+            <ListedTrainee key={index} name={trainee.name} id={trainee.id} />
+          ))}
+        </div>
+        <div className="flex space-around button-list">
+          <Link to="/dashboard">
+            <button className="button">Back to Dashboard</button>
+          </Link>
+        </div>
       </div>
     </div>
   );

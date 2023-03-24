@@ -26,7 +26,7 @@
   transform: scale(110%);
   cursor: pointer;
 }
-.loginflexcolumn label {
+.login-flex-column label {
   font-family: "Source Sans Pro", sans-serif;
   color: #ffba08;
   font-size: 1.4em;

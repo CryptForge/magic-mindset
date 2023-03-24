@@ -1,15 +1,16 @@
-.flex {
-  display: flex;
-}
-.column {
-  flex-direction: column;
-}
-.space-around {
-  justify-content: space-around;
-}
 .skill-list {
   margin: 20px;
 }
 .button-list {
   margin-bottom: 20px;
+}
+
+.trainee-page-margin {
+  margin-top: 5vh;
+}
+
+.trainee-page-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

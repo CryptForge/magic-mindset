@@ -1,25 +1,76 @@
 import React, { useContext } from "react";
-import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
+import "./Info.css";
 import AuthContext from "../../AuthContext";
-import Protected from "../../component/Protected";
+import { NavLink, Link } from "react-router-dom";
 
 const Info = () => {
+  const auth = useContext(AuthContext);
+
+  const isLoggedIn = auth.userIsAuthenticated();
+
   return (
-    <div>
-      <div>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus
-        tempore nulla quis mollitia magni illum ea, hic porro dolores
-        repellendus, molestiae doloremque neque itaque illo deserunt, unde alias
-        ducimus. Odio cumque eos nihil repudiandae dolore! Repellat ab eligendi
-        in, facere officia totam ea maxime accusantium voluptatibus? Similique
-        mollitia consequatur natus. Corporis ut voluptas sed impedit quo fugit
-        placeat odit perspiciatis hic, corrupti dolorum accusamus nostrum libero
-        quis iste velit incidunt natus, distinctio expedita error veniam vitae
-        sit eum! In maxime ad, quos enim tenetur nesciunt omnis ipsam quibusdam
-        dignissimos suscipit consequuntur temporibus rerum eos similique saepe
-        pariatur quas, amet quia.
+    <div className="side-lines-divider">
+      <div className="side-lines-left">
+        {isLoggedIn ? (
+          <NavLink to="/profile" className="link">
+            Profile
+          </NavLink>
+        ) : (
+          <NavLink to="/login" className="link">
+            Login
+          </NavLink>
+        )}
+        <div className="line-container">
+          <div className="line"></div>
+        </div>
       </div>
-      <button className="bluebutton">Click here!</button>
+      <div className="side-lines-middle">
+        <div className="split-flex">
+          <div className="home-column-flex">
+            <h1>Info</h1>
+            <h2>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
+              natus dolores repellat recusandae est, dicta rem doloremque
+              ratione quis reiciendis explicabo cupiditate, mollitia placeat
+              nisi voluptatibus velit optio deserunt. Debitis. Lorem ipsum dolor
+              sit amet consectetur adipisicing elit. Quisquam natus dolores
+              repellat recusandae est, dicta rem doloremque ratione quis
+              reiciendis explicabo cupiditate, mollitia placeat nisi
+              voluptatibus velit optio deserunt. Debitis. Lorem ipsum dolor sit
+              amet consectetur adipisicing elit. Quisquam natus dolores repellat
+              recusandae est, dicta rem doloremque ratione quis reiciendis
+              explicabo cupiditate, mollitia placeat nisi voluptatibus velit
+              optio deserunt. Debitis. Lorem ipsum dolor sit amet consectetur
+              adipisicing elit. Quisquam natus dolores repellat recusandae est,
+              dicta rem doloremque ratione quis reiciendis explicabo cupiditate,
+              mollitia placeat nisi voluptatibus velit optio deserunt. Debitis.
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
+              natus dolores repellat recusandae est, dicta rem doloremque
+              ratione quis reiciendis explicabo cupiditate, mollitia placeat
+              nisi voluptatibus velit optio deserunt. Debitis. Lorem ipsum dolor
+              sit amet consectetur adipisicing elit. Quisquam natus dolores
+              repellat recusandae est, dicta rem doloremque ratione quis
+              reiciendis explicabo cupiditate, mollitia placeat nisi
+              voluptatibus velit optio deserunt. Debitis.
+            </h2>
+            {!isLoggedIn && (
+              <Link to="/login" className="login">
+                Login Now
+              </Link>
+            )}
+            {isLoggedIn && (
+              <Link to="/dashboard" className="login">
+                Go To Dashboard
+              </Link>
+            )}
+          </div>
+        </div>
+      </div>
+      <div className="side-lines-right">
+        <div className="side-lines-right-text">
+          Let your magical adventure begin
+        </div>
+      </div>
     </div>
   );
 };

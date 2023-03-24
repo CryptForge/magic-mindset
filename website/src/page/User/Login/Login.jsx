@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 import AuthContext from "../../../AuthContext";
 import { API_BASE } from "../../../main";
 import { postForm } from "../../../util";
+import { NavLink } from "react-router-dom";
 import "./Login.css";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -35,29 +36,52 @@ const Login = () => {
   };
 
   return (
-    <div className="white-element">
-      <form className="login-flex-column" onSubmit={login}>
-        <div className="flex column">
-          <label htmlFor="email">E-mail</label>
-          <input
-            id="email"
-            name="email"
-            required
-            className="input-field"
-          ></input>
+    <div className="side-lines-divider">
+      <div className="side-lines-left">
+        <NavLink to="/" className="link">
+          Welcome
+        </NavLink>
+        <div className="line-container">
+          <div className="line"></div>
         </div>
-        <div className="flex column">
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            name="password"
-            required
-            className="input-field"
-            type="password"
-          ></input>
+      </div>
+      <div className="side-lines-middle">
+        <div className="split-flex">
+          <div className="home-column-flex"></div>
+          <form className="login-flex-column" onSubmit={login}>
+            <div className="flex flex-column text">
+              <h3>
+                You are currently {auth.authenticated ? "" : "not"} logged in.
+              </h3>
+              <h3>{auth.authenticated ? "You are a " + auth.info.role : ""}</h3>
+
+              <label htmlFor="email">E-mail</label>
+              <input
+                id="email"
+                name="email"
+                required
+                className="input-field"
+              ></input>
+            </div>
+            <div className="flex flex-column">
+              <label htmlFor="password">Password</label>
+              <input
+                id="password"
+                name="password"
+                required
+                className="input-field"
+                type="password"
+              ></input>
+            </div>
+            <input type="submit" value="Login" className="input-button"></input>
+          </form>
         </div>
-        <input type="submit" value="Login" className="input-button"></input>
-      </form>
+      </div>
+      <div className="side-lines-right">
+        <div className="side-lines-right-text">
+          Let your magical adventure begin
+        </div>
+      </div>
     </div>
   );
 };

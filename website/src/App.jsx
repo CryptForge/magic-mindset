@@ -33,9 +33,7 @@ function App() {
           pauseOnHover
           theme="light"
         />
-        <div>
-          <Header />
-        </div>
+        <Header />
 
         <Routes>
           <Route path="/" element={<Home />} />

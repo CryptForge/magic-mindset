@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { API_BASE } from "../../../main";
 import { authPostForm } from "../../../util";
 import "./AddUserForm.css";
@@ -12,7 +12,7 @@ const AddUserForm = () => {
         authPostForm(event, `${API_BASE}/user/create`, auth.getUser().token)
       }
     >
-      <div className="flex column form">
+      <div className="flex flex-column form">
         <label htmlFor="name">Name</label>
         <input id="name" name="name" required></input>
         <label htmlFor="role">Role</label>

@@ -1,50 +1,129 @@
+.dashboard {
+  min-width: 0;
+  width: calc(100vw - 6vw);
+  margin: 5vh 0 0 2vw;
+  height: calc(100vh - 5vh - 10vh - 1vh);
+}
+
 .grid {
   display: grid;
-  gap: 20px;
-}
-.grid-element {
-  padding: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-/* Styling for 2x2 grid, used in User and Coach */
-.grid-2x2 {
-  grid-template-areas:
-    "topleft topright"
-    "bottomleft bottomright";
-}
-.grid-2x2 .box1 {
-  grid-area: topleft;
-}
-.grid-2x2 .box2 {
-  grid-area: topright;
-}
-.grid-2x2 .box3 {
-  grid-area: bottomleft;
-}
-.grid-2x2 .box4 {
-  grid-area: bottomright;
+  gap: 5vw;
+  height: inherit;
 }
 
-/* Styling for 2x2 grid with the first element 1x2, used in Manager and HR */
-.grid-2x2first1x2 {
-  grid-template-areas:
-    "left topright"
-    "left bottomright";
+.alternating-ul {
+  margin: 0;
+  padding: 0;
+  font-family: "Source Sans Pro", sans-serif;
+  width: 100%;
 }
 
-.grid-2x2first1x2 .box1 {
-  grid-area: left;
-}
-.grid-2x2first1x2 .box2 {
-  grid-area: topright;
-}
-.grid-2x2first1x2 .box3 {
-  grid-area: bottomright;
+.alternating-ul li:nth-child(even) {
+  background: rgba(217, 217, 217, 0.75);
 }
 
-.temp-divider {
+.alternating-ul .div:nth-child(even) {
+  background: rgba(217, 217, 217, 0.75);
+}
+
+.alternating-ul li {
+  list-style: none;
+}
+
+.divider {
   display: flex;
   justify-content: space-between;
+  border-bottom: 1px #171427 solid;
+  min-width: 90vw;
+  max-width: 90vw;
+}
+
+.divider button {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  color: whitesmoke;
+  background-color: #2e294e;
+  transition: background-color 0.5s;
+  border: none;
+  height: 100%;
+}
+
+.divider button:hover {
+  background-color: #171427;
+}
+
+.grid-element table {
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+.grid-element table tr {
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.8em;
+}
+
+.grid-element table tr:nth-child(even) {
+  background: rgba(217, 217, 217, 0.75);
+}
+
+@media screen and (min-width: 426px) {
+  .divider button {
+    font-size: 1em;
+  }
+}
+
+@media screen and (min-width: 910px) {
+  .grid {
+    gap: 2vw;
+  }
+
+  .grid-element {
+    padding: 20px;
+    min-width: 0;
+    min-height: 0;
+    font-size: 1.2em;
+  }
+
+  .grid-element h2 {
+    font-size: 1.5em;
+    margin: 0;
+  }
+  /* Styling for 2x2 grid, used in User and Coach */
+  .grid-2x2 {
+    grid-template-areas:
+      "topleft topright"
+      "bottomleft bottomright";
+  }
+  .grid-2x2 .box1 {
+    grid-area: topleft;
+  }
+  .grid-2x2 .box2 {
+    grid-area: topright;
+  }
+  .grid-2x2 .box3 {
+    grid-area: bottomleft;
+  }
+  .grid-2x2 .box4 {
+    grid-area: bottomright;
+  }
+
+  /* Styling for 2x2 grid with the first element 1x2, used in Manager and HR */
+  .grid-2x2first1x2 {
+    grid-template-areas:
+      "left topright"
+      "left bottomright";
+  }
+
+  .grid-2x2first1x2 .box1 {
+    grid-area: left;
+  }
+  .grid-2x2first1x2 .box2 {
+    grid-area: topright;
+  }
+  .grid-2x2first1x2 .box3 {
+    grid-area: bottomright;
+  }
+
+  .padding-th {
+    padding: 0 2vw 0 0;
+  }
 }
