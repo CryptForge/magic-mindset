@@ -4,7 +4,10 @@ import me.cryptforge.mindset.dto.course.CourseEditRequest;
 import me.cryptforge.mindset.dto.course.CourseRequest;
 import me.cryptforge.mindset.dto.course.CourseResponseWithoutTrainee;
 import me.cryptforge.mindset.model.Course;
+import me.cryptforge.mindset.model.File;
+import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -55,4 +58,8 @@ public interface CourseService {
      * @return - Returns a ok response after deletion.
      */
     ResponseEntity<?> deleteCourse(Long id);
+
+    void addCertification(Long id, MultipartFile multipartFile);
+
+    File getCertification(String id);
 }

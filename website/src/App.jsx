@@ -7,8 +7,6 @@ import Profile from "./page/User/Profile/Profile";
 import Info from "./page/Info/Info";
 import Login from "./page/User/Login/Login";
 import { AuthProvider } from "./AuthContext";
-import { isTokenValid, useLocalStorage } from "./util";
-import { useEffect } from "react";
 import ProtectedRoute from "./component/ProtectedRoute";
 import TraineePage from "./page/TraineePage/TraineePage";
 import SpecificTrainee from "./page/TraineePage/SpecificTrainee/SpecificTrainee";
@@ -16,6 +14,7 @@ import Verify from "./page/User/Verify/Verify";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SkillPage from "./page/Skillpage/SkillPage";
+import CertificationViewer from "./page/FileViewer/CertificationViewer";
 
 function App() {
   return (
@@ -69,6 +68,14 @@ function App() {
             element={
               <ProtectedRoute role="TRAINEE">
                 <SkillPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/view/certification/:courseId"
+            element={
+              <ProtectedRoute>
+                <CertificationViewer />
               </ProtectedRoute>
             }
           />

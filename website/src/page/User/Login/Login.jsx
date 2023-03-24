@@ -9,7 +9,7 @@ const Login = () => {
   const auth = useContext(AuthContext);
 
   if (auth.userIsAuthenticated()) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/dashboard" replace />;
   }
 
   const login = async (event) => {
@@ -20,8 +20,8 @@ const Login = () => {
   };
 
   return (
-    <div className="whiteelement">
-      <form className="loginflexcolumn" onSubmit={login}>
+    <div className="white-element">
+      <form className="login-flex-column" onSubmit={login}>
         <div className="flex column">
           <h3>
             You are currently {auth.authenticated ? "" : "not"} logged in.
@@ -33,7 +33,7 @@ const Login = () => {
             id="email"
             name="email"
             required
-            className="inputfield"
+            className="input-field"
           ></input>
         </div>
         <div className="flex column">
@@ -42,11 +42,11 @@ const Login = () => {
             id="password"
             name="password"
             required
-            className="inputfield"
+            className="input-field"
             type="password"
           ></input>
         </div>
-        <input type="submit" value="Login" className="inputbutton"></input>
+        <input type="submit" value="Login" className="input-button"></input>
       </form>
     </div>
   );

@@ -31,11 +31,11 @@ public class Report {
     private Date date;
 
     @Column(name = "content", nullable = false)
-    private String content;
+    private String reportFileName;
 
-    public Report(Evaluation evaluation, Date date, String content) {
+    public Report(Evaluation evaluation, Date date, String reportFileName) {
         this.evaluation = evaluation;
         this.date = date;
-        this.content = content;
+        this.reportFileName = reportFileName;
     }
 }

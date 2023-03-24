@@ -1,91 +1,134 @@
 import React from "react";
+import AddInvitationForm from "../AddInvitation/AddInvitiationForm";
+import DashboardInvitation from "../DashboardInvitation";
+import Popup from "reactjs-popup";
+import AddTraineeInvitationForm from "./AddTraineeInvitationForm";
+import DashboardCourse from "./DashboardCourse";
+import DashboardSkill from "./DashboardSkill";
+import ReportList from "../../ReportList";
 const User = (props) => {
+  const reportArray = [
+    {
+      name: "report1",
+      message: "haha",
+      date: "2011-10-10",
+    },
+    {
+      name: "report2",
+      message: "hihi",
+      date: "2018-10-10",
+    },
+    {
+      name: "report3",
+      message: "hoho",
+      date: "2016-10-10",
+    },
+  ];
+  const skillArray = [
+    {
+      name: "Woodcutting",
+    },
+    {
+      name: "Planning",
+    },
+    {
+      name: "Astral Projection",
+    },
+  ];
+  const courseArray = [
+    {
+      name: "course1",
+      progress: 1,
+    },
+    {
+      name: "course2",
+      progress: 0.75,
+    },
+    {
+      name: "course3",
+      progress: 0,
+    },
+  ];
+  const inviteArray = [
+    {
+      date: new Date("1994-10-21"),
+      answered: true,
+    },
+    {
+      date: new Date("2006-07-06"),
+      answered: true,
+    },
+    {
+      date: new Date("2003-04-03"),
+      answered: false,
+    },
+    {
+      date: new Date("2016-05-16"),
+      answered: true,
+    },
+    {
+      date: new Date("2020-01-12"),
+      answered: false,
+    },
+  ];
+
+  courseArray.sort((a, b) => a.progress - b.progress);
+
   return (
-    <div className="grid grid2x2">
-      <div className="gridelement element box1">
+    <div className="grid grid-2x2">
+      <div className="grid-element element box1">
         <div>
-          <h2>Show all goals. ex:</h2>
+          <h2>Skills</h2>
           <ul>
-            <li className="temp-divider">
-              <div>1 - NAME</div>
-              <div>View OTHER PAGE</div>
-            </li>
-            <li className="temp-divider">
-              <div>2 - NAME</div>
-              <div>View OTHER PAGE</div>
-            </li>
-            <li className="temp-divider">
-              <div>3 - NAME</div>
-              <div>View OTHER PAGE</div>
-            </li>
+            {skillArray.map((skill, index) => (
+              <DashboardSkill name={skill.name} key={index} />
+            ))}
           </ul>
         </div>
       </div>
-      <div className="gridelement element box2">
+      <div className="grid-element element box2">
         <div>
-          <h2>Invite for feedback / coming up meetings</h2>
+          <h2>Plan Meeting</h2>
+          <div>
+            <Popup trigger={<button>Add Invitation</button>} modal>
+              <AddTraineeInvitationForm />
+            </Popup>
+          </div>
+          <div>
+            <span>List with awaiting response</span>
+          </div>
           <ul>
-            <li className="temp-divider">
-              <div>1 - MEETING 1</div>
-              <div>View (Popup)</div>
-            </li>
-            <li className="temp-divider">
-              <div>2 - MEETING 2</div>
-              <div>View (Popup)</div>
-            </li>
-            <li className="temp-divider">
-              <div>3 - MEETING 3</div>
-              <div>View (Popup)</div>
-            </li>
+            {inviteArray.map((invitation, index) => (
+              <DashboardInvitation
+                key={index}
+                date={invitation.date.toLocaleDateString()}
+              />
+            ))}
           </ul>
-          <div>Button to popup to create meeting</div>
         </div>
       </div>
-      <div className="gridelement element box3">
+      <div className="grid-element element box3">
         <div>
-          <h2>Create a rapport button</h2>
+          <h2>Rapports</h2>
           <ul>
-            <li className="temp-divider">
-              <div>1 - RAPPORT 1 (One send earlier)</div>
-              <div>View (OTHER PAGE)</div>
-            </li>
-            <li className="temp-divider">
-              <div>2 - RAPPORT 2 (One send earlier)</div>
-              <div>View (OTHER PAGE)</div>
-            </li>
-            <li className="temp-divider">
-              <div>3 - RAPPORT 3 (One send earlier)</div>
-              <div>View (OTHER PAGE)</div>
-            </li>
+            {reportArray.map((report, index) => (
+              <ReportList name={report.name} message={report.message} />
+            ))}
           </ul>
           <div>BUTTON TO CREATE RAPPORT (POPUP)</div>
         </div>
       </div>
-      <div className="gridelement element box4">
+      <div className="grid-element element box4">
         <div>
           <h2>Training courses and certifications</h2>
           <ul>
-            <li className="temp-divider">
-              <div>
-                1 - COURSE 1 SORTED BY COMPLETED (END IS COMPLETED, BEGINNING IS
-                TO DO)
-              </div>
-              <div>EDIT (POPUP)</div>
-            </li>
-            <li className="temp-divider">
-              <div>
-                2 - COURSE 2 SORTED BY COMPLETED (END IS COMPLETED, BEGINNING IS
-                TO DO)
-              </div>
-              <div>EDIT (POPUP)</div>
-            </li>
-            <li className="temp-divider">
-              <div>
-                3 - COURSE 3 SORTED BY COMPLETED (END IS COMPLETED, BEGINNING IS
-                TO DO)
-              </div>
-              <div>EDIT (POPUP)</div>
-            </li>
+            {courseArray.map((course, index) => (
+              <DashboardCourse
+                name={course.name}
+                progress={course.progress}
+                key={index}
+              />
+            ))}
           </ul>
         </div>
       </div>
