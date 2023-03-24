@@ -7,7 +7,7 @@ import AddRecommendationForm from "../AddRecommendationForm/RecommendationForm";
 import AddInvitationForm from "../AddInvitation/AddInvitiationForm";
 import { Link } from "react-router-dom";
 
-const Coach = (props) => {
+const Coach = () => {
   let traineeArray = [
     {
       name: "Victor",

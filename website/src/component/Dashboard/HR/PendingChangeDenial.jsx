@@ -1,4 +1,4 @@
-const PendingChangeDenial = (props) => {
+const PendingChangeDenial = () => {
   return (
     <div className="popup-container">
       <div className="float-right small-text">
