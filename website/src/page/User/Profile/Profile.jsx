@@ -12,6 +12,8 @@ const Profile = () => {
   const [isLoading, setLoading] = useState(true);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
   const [password, setPassword] = useState("");
   const [image, setImage] = useState("");
   const [isLocalImage, setLocalImage] = useState(false);
@@ -22,6 +24,8 @@ const Profile = () => {
       const data = await response.json();
       setName(data.name);
       setEmail(data.email);
+      setAddress(data.address);
+      setCity(data.city);
       setImage(data.image);
       setLoading(false);
     }
@@ -35,6 +39,8 @@ const Profile = () => {
     formData.append("name", name);
     formData.append("email", email);
     formData.append("password", password === "" ? null : password);
+    formData.append("address", address);
+    formData.append("city", city);
     formData.append("image", image);
     formData.get("password");
     profileUpload(auth.getUser().token, formData);
@@ -116,6 +122,26 @@ const Profile = () => {
                         setEmail(event.target.value);
                       }}
                       //type="email"
+                    ></input>
+                    <label htmlFor="address" className="black">
+                      Address
+                    </label>
+                    <input
+                      id="address"
+                      value={address}
+                      onChange={(event) => {
+                        setAddress(event.target.value);
+                      }}
+                    ></input>
+                    <label htmlFor="city" className="black">
+                      City
+                    </label>
+                    <input
+                      id="city"
+                      value={city}
+                      onChange={(event) => {
+                        setCity(event.target.value);
+                      }}
                     ></input>
                     <label htmlFor="password" className="black">
                       Password

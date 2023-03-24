@@ -52,8 +52,10 @@ public class UserInfoController {
                               @RequestParam(value = "name", required = false) String name,
                               @RequestParam(value = "email", required = false) String email,
                               @RequestParam(value = "password", required = false) String password,
+                              @RequestParam(value = "address", required = false) String address,
+                              @RequestParam(value = "city", required = false) String city,
                               @RequestParam(value = "image", required = false) MultipartFile image) {
-        return userInfoService.editProfile(new EditProfileRequest(id, name, email, password, image));
+        return userInfoService.editProfile(new EditProfileRequest(id, name, email, password, address, city, image));
     }
 
     @GetMapping(value = "/get/profile/{id}")

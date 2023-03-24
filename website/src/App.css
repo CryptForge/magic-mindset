@@ -55,6 +55,7 @@
 .split-flex img {
   max-width: 250px;
   max-height: 250px;
+  transform: rotate(-90deg);
 }
 
 .text {

@@ -12,6 +12,7 @@ const ReportListPopup = (props) => {
           <td>{props.date}</td>
           <Popup
             modal
+            nested
             trigger={
               <td>
                 <div className="flex center">
@@ -37,6 +38,7 @@ const ReportListPopup = (props) => {
           </Popup>
           <Popup
             modal
+            nested
             trigger={
               <td>
                 <div className="flex center">
