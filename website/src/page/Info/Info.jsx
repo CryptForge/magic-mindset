@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
+import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
+import AuthContext from "../../AuthContext";
+import Protected from "../../component/Protected";
 
-const Info = (props) => {
+const Info = () => {
   return (
     <div>
       <div>

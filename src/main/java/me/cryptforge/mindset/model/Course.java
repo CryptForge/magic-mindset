@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import me.cryptforge.mindset.model.user.Trainee;
 
+import java.sql.Blob;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -28,17 +30,17 @@ public class Course {
     private float progress;
 
     @Column(name = "certification")
-    private String certification;
+    private String certificationFileName;
 
     @ManyToOne
     @JoinColumn(name = "trainee_id")
     private Trainee trainee;
 
-    public Course(String name, Skill skill, float progress, String certification, Trainee trainee) {
+    public Course(String name, Skill skill, float progress, String certificationFileName, Trainee trainee) {
         this.name = name;
         this.skill = skill;
         this.progress = progress;
-        this.certification = certification;
+        this.certificationFileName = certificationFileName;
         this.trainee = trainee;
     }
 
