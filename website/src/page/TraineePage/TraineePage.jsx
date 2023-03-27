@@ -1,52 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ListedTrainee from "../../component/TraineePage/ListedTrainee";
 import SearchInput, { createFilter } from "react-search-input";
 import "./TraineePage.css";
+import { API_BASE } from "../../main";
+import { useAuthContext } from "../../AuthContext";
 
 const TraineePage = (props) => {
-  let traineeArray = [
-    {
-      name: "Victor",
-      id: 0,
-    },
-    {
-      name: "Tijs",
-      id: 1,
-    },
-    {
-      name: "Rebecca",
-      id: 2,
-    },
-    {
-      name: "Rob",
-      id: 3,
-    },
-    {
-      name: "Bob",
-      id: 4,
-    },
-    {
-      name: "David",
-      id: 5,
-    },
-  ];
-  const courseArray = [
-    {
-      name: "course1",
-    },
-    {
-      name: "course2",
-    },
-    {
-      name: "course3",
-    },
-  ];
+  const auth = useAuthContext();
+  const [trainees, setTrainees] = useState([]);
+
+  useEffect(() => {
+    async function fetchAllUsers() {
+      const request = await fetch(`${API_BASE}/user/get/all`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${auth.getUser().token}`,
+        },
+      });
+      const data = await request.json();
+      const trainees = data.filter((a) => a.user.role === "TRAINEE");
+      console.log(trainees);
+      setTrainees(trainees);
+    }
+
+    fetchAllUsers();
+  }, []);
+
   const [searchTerm, setSearchTerm] = useState("");
 
-  const KEYS_TO_FILTERS = ["name"];
+  const KEYS_TO_FILTERS = ["name", "user.email"];
 
-  const filteredList = traineeArray.filter(
+  const filteredList = trainees.filter(
     createFilter(searchTerm, KEYS_TO_FILTERS)
   );
 

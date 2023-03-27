@@ -17,14 +17,13 @@ const Login = () => {
   const login = async (event) => {
     try {
       const response = await postForm(event, `${API_BASE}/auth/login`);
-      console.log(response);
       if (response.status === 401) {
         toast.error("Failed to login! Invalid User Credentials", {
           position: "bottom-center",
         });
       } else if (response.status === 400) {
         toast.error("Unverified user!", { position: "bottom-center" });
-      } else if (response.status === 200) {
+      } else if (response.status === 202) {
         toast.success("Login succesful, redirecting to dashboard!");
         const data = await response.json();
         auth.userLogin(data);

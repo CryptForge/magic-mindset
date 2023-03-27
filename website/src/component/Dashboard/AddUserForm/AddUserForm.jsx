@@ -4,14 +4,17 @@ import { authPostForm } from "../../../util";
 import "./AddUserForm.css";
 import { useAuthContext } from "../../../AuthContext";
 
-const AddUserForm = () => {
+const AddUserForm = (props) => {
   const auth = useAuthContext();
+
+  async function postForm(event) {
+    await authPostForm(event, `${API_BASE}/user/create`, auth.getUser().token);
+    props.callClose();
+    props.changeValues(true);
+  }
+
   return (
-    <form
-      onSubmit={(event) =>
-        authPostForm(event, `${API_BASE}/user/create`, auth.getUser().token)
-      }
-    >
+    <form onSubmit={(event) => postForm(event)}>
       <div className="flex flex-column form">
         <label htmlFor="name">Name</label>
         <input id="name" name="name" required></input>

@@ -14,40 +14,15 @@ const HR = () => {
   const auth = useContext(AuthContext);
 
   const [pendingChanges, setPendingChanges] = useState([]);
+  const [users, setUsers] = useState([]);
   const [recallPendingRequests, setRecallPendingRequests] = useState(true);
+  const [recallUsers, setRecallUsers] = useState(true);
 
-  const traineeArray = [
-    {
-      name: "Victor",
-      id: 0,
-    },
-    {
-      name: "Tijs",
-      id: 1,
-    },
-    {
-      name: "Rebecca",
-      id: 2,
-    },
-  ];
-  const userArray = [
-    {
-      name: "HR",
-      role: "HR",
-    },
-    {
-      name: "Coach",
-      role: "COACH",
-    },
-    {
-      name: "Manager",
-      role: "MANAGER",
-    },
-    {
-      name: "Trainee",
-      role: "TRAINEE",
-    },
-  ];
+  const [trainees, setTrainees] = useState([]);
+
+  const [openAddUserForm, setOpenAddUserForm] = useState(false);
+  const closeAddUserForm = () => setOpenAddUserForm(false);
+
   const reportArray = [
     {
       name: "report1",
@@ -84,6 +59,30 @@ const HR = () => {
     }
   }, [recallPendingRequests]);
 
+  useEffect(() => {
+    async function fetchAllUsers() {
+      const request = await fetch(`${API_BASE}/user/get/all`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${auth.getUser().token}`,
+        },
+      });
+      const data = await request.json();
+      setUsers(data);
+      const trainees = data.filter((a) => a.user.role === "TRAINEE");
+      if (trainees.length > 3) {
+        setTrainees(trainees.slice(0, 3));
+      } else {
+        setTrainees(trainees);
+      }
+    }
+    if (recallUsers) {
+      setRecallUsers(false);
+      fetchAllUsers();
+    }
+  }, [recallUsers]);
+
   reportArray.sort((a, b) => a.date.getTime() - b.date.getTime());
 
   const [searchTermUsers, setSearchTermUsers] = useState("");
@@ -92,7 +91,7 @@ const HR = () => {
   const KEYS_TO_FILTERS_USERS = ["name"];
   const KEYS_TO_FILTERS_REPORTS = ["name"];
 
-  const filteredListUsers = userArray.filter(
+  const filteredListUsers = users.filter(
     createFilter(searchTermUsers, KEYS_TO_FILTERS_USERS)
   );
   const filteredListReports = reportArray.filter(
@@ -105,11 +104,11 @@ const HR = () => {
         <div className="min-width-0">
           <h2>Trainees</h2>
           <ul className="alternating-ul flex flex-column padding-bottom-alternating-ul">
-            {traineeArray.map((trainee, index) => (
+            {trainees.map((trainee, index) => (
               <DashboardTraineeList
                 key={index}
-                name={trainee.name}
-                id={trainee.id}
+                trainee={trainee}
+                id={trainee.user.id}
                 index={index}
               />
             ))}
@@ -120,7 +119,7 @@ const HR = () => {
         </div>
       </div>
       <div className="grid-element element box2">
-        <div className="min-width-0">
+        <div className="min-width-0 overflow-hidden max-height-fit flex flex-column">
           <div className="flex flex-row space-between align-center">
             <h2>List with current users</h2>
             <Popup
@@ -128,21 +127,23 @@ const HR = () => {
                 <button className="button button-100">Add a new user</button>
               }
               modal
+              open={openAddUserForm}
+              closeOnDocumentClick
+              onClose={closeAddUserForm}
             >
-              <AddUserForm />
+              <AddUserForm
+                changeValues={setRecallUsers}
+                callClose={closeAddUserForm}
+              />
             </Popup>
           </div>
-          <ul className="alternating-ul flex flex-column">
-            <SearchInput
-              className="search-input"
-              onChange={(value) => setSearchTermUsers(value)}
-            />
+          <SearchInput
+            className="search-input"
+            onChange={(value) => setSearchTermUsers(value)}
+          />
+          <ul className="alternating-ul flex flex-column scroll-size">
             {filteredListUsers.map((user, index) => (
-              <DashboardUserList
-                name={user.name}
-                role={user.role}
-                key={index}
-              />
+              <DashboardUserList user={user} key={index} />
             ))}
           </ul>
         </div>
