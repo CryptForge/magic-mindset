@@ -21,10 +21,6 @@ const TraineePage = (props) => {
       .then((response) => response.json())
       .then((data) => setTraineeList(data));
   }, []);
-  useEffect(() => {
-    console.log(traineeList);
-    console.log(filteredList);
-  }, [traineeList]);
 
   const courseArray = [
     {
