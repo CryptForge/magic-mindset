@@ -1,38 +1,40 @@
 package me.cryptforge.mindset.service;
 
 import me.cryptforge.mindset.dto.recommendation.RecommendationRequest;
-import org.springframework.http.ResponseEntity;
+import me.cryptforge.mindset.dto.recommendation.RecommendationResponse;
+
+import java.util.Optional;
 
 public interface RecommendationService {
 
     /**
+     * Get a specific recommendation
+     *
+     * @param id The recommendation id
+     * @return The recommendation
+     */
+    Optional<RecommendationResponse> getRecommendation(Long id);
+
+    /**
      * Get all recommendations in the database
      *
-     * @return - Return all recommendations or none
+     * @return All recommendations or none
      */
-    ResponseEntity<?> getAllRecommendations();
+    Iterable<RecommendationResponse> getAllRecommendations();
 
     /**
      * Get all recommendations of a specific user
      *
-     * @param id - The userId
-     * @return - Return all recommendations of that user or none
+     * @param id The userId
+     * @return All recommendations of that user or none
      */
-    ResponseEntity<?> getAllRecommendationsSpecificUser(String id);
-
-    /**
-     * Get a specific recommendation
-     *
-     * @param id - The recommendation id
-     * @return - Return the recommendation or bad request
-     */
-    ResponseEntity<?> getSpecificRecommendation(String id);
+    Iterable<RecommendationResponse> getAllByUser(Long id);
 
     /**
      * Create a recommendation
      *
-     * @param recommendationRequest - The request with all the values
-     * @return - Returns the recommendation or bad request
+     * @param recommendationRequest The request with all the values
+     * @return The created recommendation
      */
-    ResponseEntity<?> createRecommendation(RecommendationRequest recommendationRequest);
+    RecommendationResponse createRecommendation(RecommendationRequest recommendationRequest);
 }
