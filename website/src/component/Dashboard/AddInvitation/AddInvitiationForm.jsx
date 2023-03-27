@@ -17,8 +17,8 @@ const AddInvitationForm = (props) => {
     >
       <label htmlFor="trainee">Trainees</label>
       <select id="trainee" name="trainee">
-        {props.traineeArray.map((trainee, index) => (
-          <option value={trainee.id}>{trainee.name}</option>
+        {props.traineeList.map((trainee, index) => (
+          <option value={trainee.id}>{trainee.username}</option>
         ))}
       </select>
       <label htmlFor="date">Date</label>

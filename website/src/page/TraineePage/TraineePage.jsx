@@ -1,36 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ListedTrainee from "../../component/TraineePage/ListedTrainee";
 import SearchInput, { createFilter } from "react-search-input";
+import AuthContext, { useAuthContext } from "../../AuthContext";
+import { API_BASE } from "../../main";
+import { authFetch } from "../../util";
 import "./TraineePage.css";
 
 const TraineePage = (props) => {
-  let traineeArray = [
-    {
-      name: "Victor",
-      id: 0,
-    },
-    {
-      name: "Tijs",
-      id: 1,
-    },
-    {
-      name: "Rebecca",
-      id: 2,
-    },
-    {
-      name: "Rob",
-      id: 3,
-    },
-    {
-      name: "Bob",
-      id: 4,
-    },
-    {
-      name: "David",
-      id: 5,
-    },
-  ];
+  const auth = useAuthContext();
+  const [traineeList, setTraineeList] = useState([]);
+
+  useEffect(() => {
+    authFetch(
+      `${API_BASE}/trainee/all/${auth.getUser().role.toLowerCase()}/${
+        auth.getUser().id
+      }`,
+      auth.getUser().token
+    )
+      .then((response) => response.json())
+      .then((data) => setTraineeList(data));
+  }, []);
+
   const courseArray = [
     {
       name: "course1",
@@ -44,9 +35,9 @@ const TraineePage = (props) => {
   ];
   const [searchTerm, setSearchTerm] = useState("");
 
-  const KEYS_TO_FILTERS = ["name"];
+  const KEYS_TO_FILTERS = ["username"];
 
-  const filteredList = traineeArray.filter(
+  const filteredList = traineeList.filter(
     createFilter(searchTerm, KEYS_TO_FILTERS)
   );
 
@@ -60,7 +51,11 @@ const TraineePage = (props) => {
             onChange={(value) => setSearchTerm(value)}
           />
           {filteredList.map((trainee, index) => (
-            <ListedTrainee key={index} name={trainee.name} id={trainee.id} />
+            <ListedTrainee
+              key={index}
+              name={trainee.username}
+              id={trainee.id}
+            />
           ))}
         </div>
         <div className="flex space-around button-list">

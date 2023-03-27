@@ -36,7 +36,7 @@ public class RecommendationServiceImpl implements RecommendationService {
 
     @Override
     public Iterable<RecommendationResponse> getAllByUser(Long id) {
-        final Trainee trainee = traineeRepository.findByUser_User_Id(id)
+        final Trainee trainee = traineeRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("trainee"));
 
         return StreamSupport.stream(recommendationRepository.findAllByTrainee(trainee).spliterator(),false)
@@ -47,7 +47,7 @@ public class RecommendationServiceImpl implements RecommendationService {
 
     @Override
     public RecommendationResponse createRecommendation(RecommendationRequest request) {
-        final Trainee trainee = traineeRepository.findByUser_User_Id(request.traineeId())
+        final Trainee trainee = traineeRepository.findById(request.traineeId())
                 .orElseThrow(() -> new EntityNotFoundException("trainee"));
 
         final Recommendation recommendation = new Recommendation(

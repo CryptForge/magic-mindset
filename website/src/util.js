@@ -73,7 +73,7 @@ export const authPostForm = (event, url, token) => {
   return authFetch(url, token, JSON.stringify(request), "POST");
 };
 
-export const authFetch = (url, token, body, method = "GET") => {
+export const authFetch = (url, token, body = undefined, method = "GET") => {
   return fetch(url, {
     method,
     headers: {
