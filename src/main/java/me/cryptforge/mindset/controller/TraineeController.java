@@ -1,5 +1,7 @@
 package me.cryptforge.mindset.controller;
 
+import me.cryptforge.mindset.dto.user.trainee.EditCoachRequest;
+import me.cryptforge.mindset.dto.user.trainee.EditManagerRequest;
 import me.cryptforge.mindset.dto.user.trainee.CompactTraineeResponse;
 import me.cryptforge.mindset.dto.user.trainee.TraineeResponse;
 import me.cryptforge.mindset.service.TraineeService;
@@ -33,6 +35,16 @@ public class TraineeController {
     @GetMapping("/all/manager/{id}")
     public Iterable<CompactTraineeResponse> getAllByManager(@PathVariable Long id) {
         return service.getAllByManager(id);
+    }
+
+    @PutMapping("/coach")
+    public TraineeResponse editCoach(@RequestBody EditCoachRequest editCoachRequest) {
+        return service.editCoach(editCoachRequest);
+    }
+
+    @PutMapping("/manager")
+    public TraineeResponse editManager(@RequestBody EditManagerRequest editManagerRequest) {
+        return service.editManager(editManagerRequest);
     }
 
 }

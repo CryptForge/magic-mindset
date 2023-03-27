@@ -4,7 +4,6 @@ import jakarta.mail.MessagingException;
 import me.cryptforge.mindset.dto.user.*;
 import me.cryptforge.mindset.exception.EntityAlreadyExistsException;
 import me.cryptforge.mindset.exception.EntityNotFoundException;
-import me.cryptforge.mindset.exception.RoleMismatchException;
 import me.cryptforge.mindset.model.PendingEdit;
 import me.cryptforge.mindset.model.user.*;
 import me.cryptforge.mindset.repository.*;
@@ -53,12 +52,12 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public Optional<UserInfo> getUserFromId(Long id) {
-        return userInfoRepository.findById(id);
+    public Optional<UserInfoResponse> getUserFromId(Long id) {
+        return userInfoRepository.findById(id).map(UserInfoResponse::fromUserInfo);
     }
 
     @Override
-    public UserInfo createUser(UserRequest userRequest) {
+    public UserInfoResponse createUser(UserRequest userRequest) {
         if (userRepository.existsByEmail(userRequest.email())) {
             throw new EntityAlreadyExistsException("User with email \"" + userRequest.email() + "\" already exists!");
         }
@@ -78,7 +77,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
-        return userInfo;
+        return UserInfoResponse.fromUserInfo(userInfo);
     }
 
     private void createEntityFromRole(UserInfo userInfo, User.Role role) {
@@ -92,7 +91,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public UserInfo editUserInfo(EditUserInfoRequest request) {
-        final User user = userRepository.findById(request.userId())
+        final User user = userRepository.findById(request.id())
                 .orElseThrow(() -> new EntityNotFoundException("user"));
         final UserInfo userInfo = userInfoRepository.findByUser(user)
                 .orElseThrow(() -> new EntityNotFoundException("userInfo"));
@@ -111,43 +110,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 
         user.setEmail(editUserRequest.email());
         user.setPassword(passwordEncoder.encode(editUserRequest.password()));
-        user.setRole(editUserRequest.role());
 
         return userRepository.save(user);
-    }
-
-    @Override
-    public Trainee changeCoachTrainee(EditCoachInTraineeRequest request) {
-        final UserInfo traineeUser = userInfoRepository.findById(request.traineeId())
-                .orElseThrow(() -> new EntityNotFoundException("trainee"));
-        final UserInfo coachUser = userInfoRepository.findById(request.coachId())
-                .orElseThrow(() -> new EntityNotFoundException(("coach")));
-
-        final Trainee trainee = traineeRepository.findByUser(traineeUser)
-                .orElseThrow(RoleMismatchException::new);
-        final Coach coach = coachRepository.findByUser(coachUser)
-                .orElseThrow(RoleMismatchException::new);
-
-        trainee.setCoach(coach);
-
-        return traineeRepository.save(trainee);
-    }
-
-    @Override
-    public Trainee changeManagerTrainee(EditManagerInTraineeRequest request) {
-        final UserInfo traineeUser = userInfoRepository.findById(request.traineeId())
-                .orElseThrow(() -> new EntityNotFoundException("trainee"));
-        final UserInfo managerUser = userInfoRepository.findById(request.managerId())
-                .orElseThrow(() -> new EntityNotFoundException("manager"));
-
-        final Trainee trainee = traineeRepository.findByUser(traineeUser)
-                .orElseThrow(RoleMismatchException::new);
-        final Manager manager = managerRepository.findByUser(managerUser)
-                .orElseThrow(RoleMismatchException::new);
-
-        trainee.setManager(manager);
-
-        return traineeRepository.save(trainee);
     }
 
     @Override

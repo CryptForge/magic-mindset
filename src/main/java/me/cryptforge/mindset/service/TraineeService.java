@@ -1,5 +1,7 @@
 package me.cryptforge.mindset.service;
 
+import me.cryptforge.mindset.dto.user.trainee.EditCoachRequest;
+import me.cryptforge.mindset.dto.user.trainee.EditManagerRequest;
 import me.cryptforge.mindset.dto.user.trainee.CompactTraineeResponse;
 import me.cryptforge.mindset.dto.user.trainee.TraineeResponse;
 
@@ -38,4 +40,19 @@ public interface TraineeService {
      */
     Iterable<CompactTraineeResponse> getAllByManager(Long managerId);
 
+    /**
+     * Changes the coach of a trainee
+     *
+     * @param editCoachRequest Edit request
+     * @return Edited trainee
+     */
+    TraineeResponse editCoach(EditCoachRequest editCoachRequest);
+
+    /**
+     * Changes the manager of a trainee
+     *
+     * @param editManagerRequest Edit request
+     * @return Edited trainee
+     */
+    TraineeResponse editManager(EditManagerRequest editManagerRequest);
 }

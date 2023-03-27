@@ -1,10 +1,11 @@
 package me.cryptforge.mindset.security;
 
-import me.cryptforge.mindset.dto.user.EditCoachInTraineeRequest;
-import me.cryptforge.mindset.dto.user.EditManagerInTraineeRequest;
+import me.cryptforge.mindset.dto.user.trainee.EditCoachRequest;
+import me.cryptforge.mindset.dto.user.trainee.EditManagerRequest;
 import me.cryptforge.mindset.dto.user.UserRequest;
 import me.cryptforge.mindset.model.user.User;
 import me.cryptforge.mindset.service.AuthService;
+import me.cryptforge.mindset.service.TraineeService;
 import me.cryptforge.mindset.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -17,6 +18,9 @@ public class Setup {
 
     @Autowired
     UserInfoService userService;
+
+    @Autowired
+    TraineeService traineeService;
 
     @Autowired
     AuthService authService;
@@ -37,6 +41,7 @@ public class Setup {
             ));
             authService.verify(username);
         }
+
         long testTrainee1 = createTestUser("TestTraineeMan 1", User.Role.TRAINEE);
         long testTrainee2 = createTestUser("TestTraineeMan 2", User.Role.TRAINEE);
         long testTrainee3 = createTestUser("TestTraineeMan 3", User.Role.TRAINEE);
@@ -55,15 +60,15 @@ public class Setup {
     private long createTestUser(String name, User.Role role) {
         var user = userService.createUser(new UserRequest(name, name, role, name, name + " Street", name + " City"));
         authService.verify(name);
-        return user.getId();
+        return user.id();
     }
 
     private void linkCoach(long traineeId, long coachId) {
-        userService.changeCoachTrainee(new EditCoachInTraineeRequest(traineeId, coachId));
+        traineeService.editCoach(new EditCoachRequest(traineeId, coachId));
     }
 
     private void linkManager(long traineeId, long managerId) {
-        userService.changeManagerTrainee(new EditManagerInTraineeRequest(traineeId, managerId));
+        traineeService.editManager(new EditManagerRequest(traineeId, managerId));
     }
 
 }

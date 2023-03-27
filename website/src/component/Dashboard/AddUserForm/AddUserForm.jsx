@@ -9,7 +9,7 @@ const AddUserForm = () => {
   return (
     <form
       onSubmit={(event) =>
-        authPostForm(event, `${API_BASE}/user/create`, auth.getUser().token)
+        authPostForm(event, `${API_BASE}/user`, auth.getUser().token)
       }
     >
       <div className="flex flex-column form">
