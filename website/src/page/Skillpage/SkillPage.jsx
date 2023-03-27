@@ -48,28 +48,6 @@ const SkillPage = () => {
     }
     activateSkill(index);
   }
-  const skillArray = [
-    {
-      name: "Woodcutting",
-    },
-    {
-      name: "Planning",
-    },
-    {
-      name: "Astral Projection",
-    },
-  ];
-  const courseArray = [
-    {
-      name: "course1",
-    },
-    {
-      name: "course2",
-    },
-    {
-      name: "course3",
-    },
-  ];
   return (
     <div>
       <h2>
