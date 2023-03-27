@@ -1,12 +1,38 @@
 import react from "react";
 import AuthContext, { useAuthContext } from "../../AuthContext";
 import Skill from "../../component/Skill/Skill";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { API_BASE } from "../../main";
+import { authFetch } from "../../util";
 
 const SkillPage = () => {
   const auth = useAuthContext();
   const userName = auth.getUser().username;
+  const [skillList, setSkillList] = useState([]);
   const [activeSkill, activateSkill] = useState();
+  const [courseList, setCourseList] = useState([]);
+
+  useEffect(() => {
+    authFetch(
+      `${API_BASE}/skill/all/user/${auth.getUser().id}`,
+      auth.getUser().token
+    )
+      .then((response) => response.json())
+      .then((data) => setSkillList(data));
+  }, []);
+
+  useEffect(() => {
+    setCourseList([]);
+    if (activeSkill !== undefined) {
+      authFetch(
+        `${API_BASE}/course/all/skill/${activeSkill + 1}`,
+        auth.getUser().token
+      )
+        .then((response) => response.json())
+        .then((data) => setCourseList(data));
+    }
+  }, [activeSkill]);
+
   function toggleButton(index) {
     if (activeSkill === index) {
       activateSkill(null);
@@ -14,28 +40,6 @@ const SkillPage = () => {
     }
     activateSkill(index);
   }
-  const skillArray = [
-    {
-      name: "Woodcutting",
-    },
-    {
-      name: "Planning",
-    },
-    {
-      name: "Astral Projection",
-    },
-  ];
-  const courseArray = [
-    {
-      name: "course1",
-    },
-    {
-      name: "course2",
-    },
-    {
-      name: "course3",
-    },
-  ];
   return (
     <div>
       <h2>
@@ -43,11 +47,11 @@ const SkillPage = () => {
       </h2>
       <div>
         <div>
-          {skillArray.map((skill, index) => (
+          {skillList.map((skill, index) => (
             <Skill
               name={skill.name}
               key={index}
-              courseArray={courseArray}
+              courseArray={courseList}
               toggleButton={toggleButton}
               activeSkill={activeSkill}
               index={index}

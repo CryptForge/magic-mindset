@@ -10,11 +10,11 @@ const SkillCourseList = (props) => {
         <Popup
           modal
           trigger={
-            <td className="skill-course-list-padding">
+            <div className="skill-course-list-padding">
               <div className="flex center">
                 <button className="button">View Certification</button>
               </div>
-            </td>
+            </div>
           }
         >
           <FileViewer fileId={0} />
