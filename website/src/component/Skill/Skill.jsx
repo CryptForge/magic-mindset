@@ -73,7 +73,7 @@ const Skill = (props) => {
               </tr>
             </thead>
             <tbody>
-              {props.courseArray.map((course, index) => (
+              {props.courseList.map((course, index) => (
                 <SkillCourseList
                   key={index}
                   name={course.name}

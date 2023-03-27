@@ -51,7 +51,7 @@ const SkillPage = () => {
             <Skill
               name={skill.name}
               key={index}
-              courseArray={courseList}
+              courseList={courseList}
               toggleButton={toggleButton}
               activeSkill={activeSkill}
               index={index}
