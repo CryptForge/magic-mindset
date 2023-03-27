@@ -13,31 +13,23 @@ const SkillPage = () => {
   const [courseList, setCourseList] = useState([]);
 
   useEffect(() => {
-    console.log(auth.getUser().id);
     authFetch(
       `${API_BASE}/skill/all/user/${auth.getUser().id}`,
       auth.getUser().token
     )
       .then((response) => response.json())
       .then((data) => setSkillList(data));
-    console.log(skillList);
   }, []);
-
-  useEffect(() => {
-    console.log(skillList);
-  }, [skillList]);
 
   useEffect(() => {
     setCourseList([]);
     if (activeSkill !== undefined) {
-      console.log(activeSkill + 1);
       authFetch(
         `${API_BASE}/course/all/skill/${activeSkill + 1}`,
         auth.getUser().token
       )
         .then((response) => response.json())
         .then((data) => setCourseList(data));
-      console.log(courseList);
     }
   }, [activeSkill]);
 
