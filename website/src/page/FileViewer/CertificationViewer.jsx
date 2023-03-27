@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import "./FileViewer.css";
 import AuthContext from "../../AuthContext";
 import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
+import { API_BASE } from "../../main";
 
 const CertificationViewer = () => {
   const { courseId } = useParams();
@@ -15,9 +16,7 @@ const CertificationViewer = () => {
     token = auth.getUser().token;
   }
 
-  const docs = [
-    { uri: `http://localhost:8083/api/course/get/certification/${courseId}` },
-  ];
+  const docs = [{ uri: `${API_BASE}/course/get/certification/${courseId}` }];
 
   return (
     <DocViewer
