@@ -34,10 +34,6 @@ const User = () => {
     console.log(courseList);
   }, []);
 
-  useEffect(() => {
-    console.log(skillList);
-  }, [skillList]);
-
   const reportArray = [
     {
       name: "report1",
