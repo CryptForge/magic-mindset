@@ -11,6 +11,7 @@ const Profile = () => {
 
   const [isLoading, setLoading] = useState(true);
   const [name, setName] = useState("");
+  const [initialEmail, setInitialEmail] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
@@ -24,6 +25,7 @@ const Profile = () => {
       const data = await response.json();
       setName(data.name);
       setEmail(data.email);
+      setInitialEmail(data.email);
       setAddress(data.address);
       setCity(data.city);
       setImage(data.image);
@@ -37,8 +39,11 @@ const Profile = () => {
     const formData = new FormData();
     formData.append("id", auth.getUser().id);
     formData.append("name", name);
+    formData.append("oldEmail", initialEmail);
     formData.append("email", email);
-    formData.append("password", password === "" ? null : password);
+    if (password) {
+      formData.append("password", password);
+    }
     formData.append("address", address);
     formData.append("city", city);
     formData.append("image", image);

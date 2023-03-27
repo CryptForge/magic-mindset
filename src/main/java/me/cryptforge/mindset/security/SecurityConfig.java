@@ -50,6 +50,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/course/get/certification/**", "/api/course/edit/certification").permitAll()
                 .requestMatchers("/get/profile/**").authenticated()
                 .requestMatchers("/api/user/**").authenticated()
+                .requestMatchers("/api/changes/**").hasRole(User.Role.HR.asString())
                 .anyRequest().authenticated();
 
         http.addFilterBefore(requestFilter, UsernamePasswordAuthenticationFilter.class);

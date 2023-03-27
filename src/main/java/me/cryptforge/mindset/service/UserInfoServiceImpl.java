@@ -160,7 +160,7 @@ public class UserInfoServiceImpl implements UserInfoService {
             if (pendingEditRepository.existsByEmail(request.email())) {
                 throw new EntityAlreadyExistsException("You already have a request pending!");
             }
-            PendingEdit pendingEdit = new PendingEdit(request.email(), request.name(), request.address(), request.city());
+            PendingEdit pendingEdit = new PendingEdit(request.oldEmail(), request.email(), request.name(), request.address(), request.city());
             pendingEditRepository.save(pendingEdit);
         }
 
@@ -173,7 +173,7 @@ public class UserInfoServiceImpl implements UserInfoService {
                 throw new RuntimeException(e);
             }
         }
-        if (request.password() != null && !request.password().equals("null")) {
+        if (request.password() != null) {
             user.setPassword(passwordEncoder.encode(request.password()));
         }
         userRepository.save(user);

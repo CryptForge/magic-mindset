@@ -2,6 +2,7 @@ package me.cryptforge.mindset.service;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import me.cryptforge.mindset.dto.user.UserChangeInfo;
 import me.cryptforge.mindset.model.user.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -58,16 +59,16 @@ public class MailServiceImpl implements MailService {
     }
 
     @Override
-    public void sendRequestAccepted(String to, String reason, UserInfo oldUser, UserInfo newUser) throws MessagingException {
+    public void sendRequestAccepted(String to, UserChangeInfo oldUser, UserChangeInfo newUser) throws MessagingException {
         Map<String, Object> templateModel = Map.of("to", to,
-                "oldEmail", oldUser.getUser().getEmail(),
-                "newEmail", newUser.getUser().getEmail(),
-                "oldName", oldUser.getName(),
-                "newName", newUser.getName(),
-                "oldAddress", oldUser.getAddress(),
-                "newAddress", newUser.getAddress(),
-                "oldCity", oldUser.getCity(),
-                "newCity", newUser.getCity());
+                "oldEmail", oldUser.email(),
+                "newEmail", newUser.email(),
+                "oldName", oldUser.name(),
+                "newName", newUser.name(),
+                "oldAddress", oldUser.address(),
+                "newAddress", newUser.address(),
+                "oldCity", oldUser.city(),
+                "newCity", newUser.city());
 
         String htmlBody = thymeleafTemplateEngine.process("mail/request_accepted_mail.html", createContext((templateModel)));
 
