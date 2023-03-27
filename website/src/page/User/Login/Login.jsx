@@ -22,10 +22,11 @@ const Login = () => {
         toast.error("Failed to login! Invalid User Credentials", {
           position: "bottom-center",
         });
-      } else {
+      } else if (response.status === 400) {
+        toast.error("Unverified user!", { position: "bottom-center" });
+      } else if (response.status === 200) {
         toast.success("Login succesful, redirecting to dashboard!");
         const data = await response.json();
-
         auth.userLogin(data);
       }
     } catch (error) {
