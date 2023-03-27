@@ -16,7 +16,7 @@ const CertificationViewer = () => {
   }
 
   const docs = [
-    { uri: `http://localhost:8080/api/course/get/certification/${courseId}` },
+    { uri: `http://localhost:8083/api/course/get/certification/${courseId}` },
   ];
 
   return (
