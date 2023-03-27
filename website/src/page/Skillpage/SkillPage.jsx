@@ -1,12 +1,46 @@
 import react from "react";
 import AuthContext, { useAuthContext } from "../../AuthContext";
 import Skill from "../../component/Skill/Skill";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { API_BASE } from "../../main";
+import { authFetch } from "../../util";
 
 const SkillPage = () => {
   const auth = useAuthContext();
   const userName = auth.getUser().username;
+  const [skillList, setSkillList] = useState([]);
   const [activeSkill, activateSkill] = useState();
+  const [courseList, setCourseList] = useState([]);
+
+  useEffect(() => {
+    console.log(auth.getUser().id);
+    authFetch(
+      `${API_BASE}/skill/all/user/${auth.getUser().id}`,
+      auth.getUser().token
+    )
+      .then((response) => response.json())
+      .then((data) => setSkillList(data));
+    console.log(skillList);
+  }, []);
+
+  useEffect(() => {
+    console.log(skillList);
+  }, [skillList]);
+
+  useEffect(() => {
+    setCourseList([]);
+    if (activeSkill !== undefined) {
+      console.log(activeSkill + 1);
+      authFetch(
+        `${API_BASE}/course/all/skill/${activeSkill + 1}`,
+        auth.getUser().token
+      )
+        .then((response) => response.json())
+        .then((data) => setCourseList(data));
+      console.log(courseList);
+    }
+  }, [activeSkill]);
+
   function toggleButton(index) {
     if (activeSkill === index) {
       activateSkill(null);
@@ -43,11 +77,11 @@ const SkillPage = () => {
       </h2>
       <div>
         <div>
-          {skillArray.map((skill, index) => (
+          {skillList.map((skill, index) => (
             <Skill
               name={skill.name}
               key={index}
-              courseArray={courseArray}
+              courseArray={courseList}
               toggleButton={toggleButton}
               activeSkill={activeSkill}
               index={index}

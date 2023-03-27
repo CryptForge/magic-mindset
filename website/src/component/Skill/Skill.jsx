@@ -49,7 +49,11 @@ const Skill = (props) => {
               nested
             >
               {reportArray.map((report, index) => (
-                <ReportListPopup name={report.name} message={report.message} />
+                <ReportListPopup
+                  name={report.name}
+                  message={report.message}
+                  key={index}
+                />
               ))}
             </Popup>
           </div>
@@ -73,7 +77,7 @@ const Skill = (props) => {
                 <SkillCourseList
                   key={index}
                   name={course.name}
-                  progress={99.99}
+                  progress={course.progress}
                 />
               ))}
             </tbody>
