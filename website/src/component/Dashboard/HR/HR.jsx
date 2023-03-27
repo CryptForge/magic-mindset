@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Popup from "reactjs-popup";
 import AddUserForm from "../AddUserForm/AddUserForm";
 import DashboardTraineeList from "../DashboardTraineeList";
@@ -7,13 +7,15 @@ import ReportList from "../../Report/ReportList";
 import PendingChange from "./PendingChange";
 import { Link } from "react-router-dom";
 import SearchInput, { createFilter } from "react-search-input";
+import { API_BASE } from "../../../main";
+import AuthContext from "../../../AuthContext";
 
 const HR = () => {
-  const pendingChangesArray = [
-    { name: "change1" },
-    { name: "change2" },
-    { name: "change3" },
-  ];
+  const auth = useContext(AuthContext);
+
+  const [pendingChanges, setPendingChanges] = useState([]);
+  const [recallPendingRequests, setRecallPendingRequests] = useState(true);
+
   const traineeArray = [
     {
       name: "Victor",
@@ -63,6 +65,25 @@ const HR = () => {
       date: new Date("2016-10-10"),
     },
   ];
+
+  useEffect(() => {
+    async function fetchPendingRequests() {
+      const request = await fetch(`${API_BASE}/changes/get/all`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${auth.getUser().token}`,
+        },
+      });
+      const data = await request.json();
+      setPendingChanges(data);
+    }
+    if (recallPendingRequests) {
+      setRecallPendingRequests(false);
+      fetchPendingRequests();
+    }
+  }, [recallPendingRequests]);
+
   reportArray.sort((a, b) => a.date.getTime() - b.date.getTime());
 
   const [searchTermUsers, setSearchTermUsers] = useState("");
@@ -163,9 +184,15 @@ const HR = () => {
           <h2>Current changes to accounts</h2>
           <span>List with all requests</span>
           <ul className="alternating-ul flex flex-column">
-            {pendingChangesArray.map((change, index) => (
-              <PendingChange name={change.name} key={index} />
-            ))}
+            {pendingChanges.length > 0
+              ? pendingChanges.map((change, index) => (
+                  <PendingChange
+                    value={change}
+                    key={index}
+                    changeValues={setRecallPendingRequests}
+                  />
+                ))
+              : "No current changes"}
           </ul>
         </div>
       </div>

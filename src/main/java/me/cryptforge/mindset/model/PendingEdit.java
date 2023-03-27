@@ -17,7 +17,10 @@ public class PendingEdit {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "old_email", nullable = false, unique = true)
+    private String oldEmail;
+
+    @Column(name = "email", nullable = false)
     private String email;
 
     @Column(name = "name", nullable = false)
@@ -29,7 +32,8 @@ public class PendingEdit {
     @Column(name = "city", nullable = false)
     private String city;
 
-    public PendingEdit(String email, String name, String address, String city) {
+    public PendingEdit(String oldEmail, String email, String name, String address, String city) {
+        this.oldEmail = oldEmail;
         this.email = email;
         this.name = name;
         this.address = address;
