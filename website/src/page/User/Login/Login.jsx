@@ -24,7 +24,7 @@ const Login = () => {
         });
       } else if (response.status === 400) {
         toast.error("Unverified user!", { position: "bottom-center" });
-      } else if (response.status === 200) {
+      } else if (response.status === 202) {
         toast.success("Login succesful, redirecting to dashboard!");
         const data = await response.json();
         auth.userLogin(data);

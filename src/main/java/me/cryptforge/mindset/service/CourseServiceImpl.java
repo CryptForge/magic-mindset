@@ -64,7 +64,7 @@ public class CourseServiceImpl implements CourseService {
                 .orElseThrow(() -> new EntityNotFoundException("skill"));
         final Trainee trainee = skill.getTrainee();
 
-        final Course course = new Course(request.name(), skill, 0, request.certification(), trainee);
+        final Course course = new Course(request.name(), skill, 0, null, trainee);
         return CourseResponse.fromCourse(courseRepository.save(course));
     }
 
@@ -72,12 +72,8 @@ public class CourseServiceImpl implements CourseService {
     public CourseResponse editCourse(CourseEditRequest request) {
         final Course course = courseRepository.findById(request.id())
                 .orElseThrow(() -> new EntityNotFoundException("course"));
-        final Skill skill = skillRepository.findById(request.skill())
-                .orElseThrow(() -> new EntityNotFoundException("skill"));
 
         course.setName(request.name());
-        course.setCertificationFileName(request.certificationFileName());
-        course.setSkill(skill);
         course.setProgress(request.progress());
 
         return CourseResponse.fromCourse(courseRepository.save(course));

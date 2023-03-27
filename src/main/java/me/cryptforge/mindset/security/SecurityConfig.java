@@ -49,7 +49,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/api/course/get/certification/**", "/api/course/edit/certification").permitAll()
                 .requestMatchers("/get/profile/**").authenticated()
-                .requestMatchers("/api/user/**").authenticated()
+                .requestMatchers("/api/user/**", "/api/course/**").authenticated()
                 .requestMatchers("/api/changes/**").hasRole(User.Role.HR.asString())
                 .anyRequest().authenticated();
 
