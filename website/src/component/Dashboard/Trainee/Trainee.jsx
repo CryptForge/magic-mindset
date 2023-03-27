@@ -17,21 +17,18 @@ const User = () => {
   const [courseList, setCourseList] = useState([]);
 
   useEffect(() => {
-    console.log(auth.getUser().id);
     authFetch(
       `${API_BASE}/skill/all/user/${auth.getUser().id}`,
       auth.getUser().token
     )
       .then((response) => response.json())
       .then((data) => setSkillList(data));
-    console.log(skillList);
     authFetch(
       `${API_BASE}/course/all/user/${auth.getUser().id}`,
       auth.getUser().token
     )
       .then((response) => response.json())
       .then((data) => setCourseList(data));
-    console.log(courseList);
   }, []);
 
   const reportArray = [
