@@ -19,6 +19,21 @@ export const postForm = (event, url) => {
   });
 };
 
+export const postFormCustomValues = (event, values, url, token) => {
+  event.preventDefault();
+  event.currentTarget.reset();
+
+  return fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    redirect: "follow",
+    body: JSON.stringify(values),
+  });
+};
+
 export const profileUpload = (token, formData) => {
   return fetch(`${API_BASE}/user/profile/edit`, {
     method: "POST",

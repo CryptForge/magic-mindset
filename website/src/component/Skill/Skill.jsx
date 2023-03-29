@@ -1,12 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Popup from "reactjs-popup";
 import "./Skill.css";
 import AddCourseForm from "../TraineePage/AddCourseForm";
 import Protected from "../Protected";
 import SkillCourseList from "./SkillCourseList";
 import ReportListPopup from "../Report/ReportListPopup";
+import { useAuthContext } from "../../AuthContext";
+import { API_BASE } from "../../main";
 
 const Skill = (props) => {
+  const auth = useAuthContext();
+  const [courses, setCourses] = useState([]);
+  const [reloadCourses, setReloadCourses] = useState(true);
+  const [openAddCourse, setOpenAddCourse] = useState(false);
+
+  useEffect(() => {
+    async function fetchCourses() {
+      const request = await fetch(`${API_BASE}/course/all/skill/${props.id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${auth.getUser().token}`,
+        },
+      });
+      const data = await request.json();
+      setCourses(data);
+    }
+    if (reloadCourses) {
+      setReloadCourses(false);
+      fetchCourses();
+    }
+  }, [reloadCourses]);
+
   const reportArray = [
     {
       name: "report1",
@@ -37,8 +62,15 @@ const Skill = (props) => {
               <Popup
                 trigger={<button className="button">Add Course</button>}
                 modal
+                open={openAddCourse}
+                onClose={() => setOpenAddCourse(false)}
+                closeOnDocumentClick
               >
-                <AddCourseForm />
+                <AddCourseForm
+                  setOpen={setOpenAddCourse}
+                  setReloadCourses={setReloadCourses}
+                  skillId={props.id}
+                />
               </Popup>
             </div>
           </Protected>
@@ -70,14 +102,17 @@ const Skill = (props) => {
                 <th>Name</th>
                 <th className="skill-course-list-padding">Progress</th>
                 <th>Certification</th>
+                <Protected role="COACH|MANAGER">
+                  <th>Edit Course</th>
+                </Protected>
               </tr>
             </thead>
             <tbody>
-              {props.courseArray.map((course, index) => (
+              {courses.map((course, index) => (
                 <SkillCourseList
                   key={index}
-                  name={course.name}
-                  progress={course.progress}
+                  course={course}
+                  setReloadCourses={setReloadCourses}
                 />
               ))}
             </tbody>
