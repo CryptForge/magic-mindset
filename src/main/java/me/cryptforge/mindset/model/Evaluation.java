@@ -28,8 +28,8 @@ public class Evaluation {
     @Column(name = "location")
     private String location;
 
-    @Column(name = "conclusion")
-    private String conclusion;
+    @Column(name = "conclusion_file_name")
+    private String conclusionFileName;
 
     @ManyToOne
     @JoinColumn(name = "evaluator_id")
@@ -45,10 +45,10 @@ public class Evaluation {
     @OneToMany(mappedBy = "evaluation")
     private List<EvaluationInvitation> invitations;
 
-    public Evaluation(Date date, String location, String conclusion, UserInfo evaluator, Trainee trainee) {
+    public Evaluation(Date date, String location, String conclusionFileName, UserInfo evaluator, Trainee trainee) {
         this.date = date;
         this.location = location;
-        this.conclusion = conclusion;
+        this.conclusionFileName = conclusionFileName;
         this.evaluator = evaluator;
         this.trainee = trainee;
     }

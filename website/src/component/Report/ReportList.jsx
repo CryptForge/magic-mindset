@@ -13,7 +13,7 @@ const ReportList = (props) => {
         trigger={
           <td>
             <div className="flex center">
-              <button className="button">View</button>
+              <button className="button">View Skill Report</button>
             </div>
           </td>
         }
@@ -26,24 +26,12 @@ const ReportList = (props) => {
         trigger={
           <td>
             <div className="flex center">
-              <button className="button">View</button>
+              <button className="button">View Content</button>
             </div>
           </td>
         }
       >
         <EvaluationViewer message={props.messsage} />
-      </Popup>
-      <Popup
-        modal
-        trigger={
-          <td>
-            <div className="flex center">
-              <button className="button">View</button>
-            </div>
-          </td>
-        }
-      >
-        <FileViewer fileId={0} />
       </Popup>
     </tr>
   );
