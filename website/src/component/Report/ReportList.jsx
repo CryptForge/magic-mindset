@@ -26,24 +26,12 @@ const ReportList = (props) => {
         trigger={
           <td>
             <div className="flex center">
-              <button className="button">View Evaluation</button>
-            </div>
-          </td>
-        }
-      >
-        <EvaluationViewer message={props.messsage} />
-      </Popup>
-      <Popup
-        modal
-        trigger={
-          <td>
-            <div className="flex center">
               <button className="button">View Content</button>
             </div>
           </td>
         }
       >
-        <FileViewer fileId={0} />
+        <EvaluationViewer message={props.messsage} />
       </Popup>
     </tr>
   );
