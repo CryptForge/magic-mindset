@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import Popup from "reactjs-popup";
-import AddUserForm from "../AddUserForm/AddUserForm";
-import DashboardTraineeList from "../DashboardTraineeList";
+import AddUserForm from "./AddUserForm";
+import DashboardTraineeList from "../common/DashboardTraineeList";
 import DashboardUserList from "./DashboardUserList";
 import ReportList from "../../Report/ReportList";
 import PendingChange from "./PendingChange";

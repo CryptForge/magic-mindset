@@ -1,5 +1,5 @@
 import React from "react";
-import DashboardInvitation from "../DashboardInvitation";
+import DashboardInvitation from "../common/DashboardInvitation";
 import Popup from "reactjs-popup";
 import AddTraineeInvitationForm from "./AddTraineeInvitationForm";
 import DashboardCourse from "./DashboardCourse";
@@ -10,11 +10,13 @@ import { useState, useEffect } from "react";
 import { authFetch } from "../../../util";
 import { useAuthContext } from "../../../AuthContext";
 import { API_BASE } from "../../../main";
+import SearchInput, { createFilter } from "react-search-input";
 
-const User = () => {
+const Trainee = () => {
   const auth = useAuthContext();
   const [skillList, setSkillList] = useState([]);
   const [courseList, setCourseList] = useState([]);
+  const [searchTermReports, setSearchTermReports] = useState("");
 
   useEffect(() => {
     authFetch(
@@ -35,17 +37,17 @@ const User = () => {
     {
       name: "report1",
       message: "haha",
-      date: "2011-10-10",
+      date: new Date("2011-10-10"),
     },
     {
       name: "report2",
       message: "hihi",
-      date: "2018-10-10",
+      date: new Date("2018-10-10"),
     },
     {
       name: "report3",
       message: "hoho",
-      date: "2016-10-10",
+      date: new Date("2016-10-10"),
     },
   ];
   const courseArray = [
@@ -87,6 +89,12 @@ const User = () => {
 
   courseArray.sort((a, b) => a.progress - b.progress);
 
+  const KEYS_TO_FILTERS_REPORTS = ["name"];
+
+  const filteredListReports = reportArray.filter(
+    createFilter(searchTermReports, KEYS_TO_FILTERS_REPORTS)
+  );
+
   return (
     <div className="grid grid-2x2">
       <div className="grid-element element box1">
@@ -126,12 +134,34 @@ const User = () => {
       </div>
       <div className="grid-element element box3">
         <div>
-          <h2>Report</h2>
-          <ul className="alternating-ul flex flex-column padding-bottom-alternating-ul">
-            {reportArray.map((report, index) => (
-              <ReportList name={report.name} message={report.message} />
-            ))}
-          </ul>
+          <div className="min-width-0">
+            <h2>List of All Reports</h2>
+            <SearchInput
+              className="search-input"
+              onChange={(value) => setSearchTermReports(value)}
+            />
+            <table>
+              <thead>
+                <tr>
+                  <th className="padding-th">Name</th>
+                  <th className="padding-th">Date</th>
+                  <th>View Skill-reports</th>
+                  <th>View Evaluation</th>
+                  <th>View Content</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredListReports.map((report, index) => (
+                  <ReportList
+                    key={index}
+                    name={report.name}
+                    message={report.message}
+                    date={report.date.toLocaleDateString()}
+                  />
+                ))}
+              </tbody>
+            </table>
+          </div>
           <Popup
             modal
             trigger={<button className="button">Create report</button>}
@@ -158,4 +188,4 @@ const User = () => {
   );
 };
 
-export default User;
+export default Trainee;

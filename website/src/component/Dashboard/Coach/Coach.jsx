@@ -1,10 +1,10 @@
 import React from "react";
 import Popup from "reactjs-popup";
-import DashboardInvitation from "../DashboardInvitation";
+import DashboardInvitation from "../common/DashboardInvitation";
 import CoachRecommendation from "./CoachRecommendation";
-import DashboardTraineeList from "../DashboardTraineeList";
-import AddRecommendationForm from "../AddRecommendationForm/RecommendationForm";
-import AddInvitationForm from "../AddInvitation/AddInvitiationForm";
+import DashboardTraineeList from "../common/DashboardTraineeList";
+import AddRecommendationForm from "../common/RecommendationForm";
+import AddInvitationForm from "../common/AddInvitiationForm";
 import { Link } from "react-router-dom";
 import { authFetch } from "../../../util";
 import { useEffect, useState } from "react";

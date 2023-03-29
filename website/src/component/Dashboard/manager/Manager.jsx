@@ -1,7 +1,7 @@
 import React from "react";
-import DashboardTraineeList from "../DashboardTraineeList";
-import DashboardInvitation from "../DashboardInvitation";
-import AddInvitationForm from "../AddInvitation/AddInvitiationForm";
+import DashboardTraineeList from "../common/DashboardTraineeList";
+import DashboardInvitation from "../common/DashboardInvitation";
+import AddInvitationForm from "../common/AddInvitiationForm";
 import Popup from "reactjs-popup";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../../../AuthContext";
