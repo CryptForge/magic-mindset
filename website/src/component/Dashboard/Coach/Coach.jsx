@@ -71,12 +71,12 @@ const Coach = () => {
     <div className="grid grid-2x2">
       <div className="grid-element element box1">
         <div className="min-width-0">
-          <h2>Students</h2>
+          <h2>Your Trainee's</h2>
           <ul className="alternating-ul flex flex-column padding-bottom-alternating-ul">
             {traineeList.map((trainee, index) => (
               <DashboardTraineeList
                 key={index}
-                name={trainee.username}
+                trainee={trainee}
                 id={trainee.id}
                 index={index}
               />

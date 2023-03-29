@@ -1,9 +1,8 @@
-import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import AuthContext from "../../AuthContext";
+import { useAuthContext } from "../../AuthContext";
 
 const ConfirmLogout = () => {
-  const auth = useContext(AuthContext);
+  const auth = useAuthContext();
   const nav = useNavigate();
 
   return (

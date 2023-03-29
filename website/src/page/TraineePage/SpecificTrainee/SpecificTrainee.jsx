@@ -5,6 +5,9 @@ import "./SpecificTrainee.css";
 import Skill from "../../../component/Skill/Skill";
 import { API_BASE } from "../../../main";
 import { useAuthContext } from "../../../AuthContext";
+import Popup from "reactjs-popup";
+import Protected from "../../../component/Protected";
+import AddSkill from "../../../component/Dashboard/Popup/AddSkill";
 
 const SpecificTrainee = () => {
   const { traineeId } = useParams();
@@ -76,6 +79,15 @@ const SpecificTrainee = () => {
         <div className="element flex flex-column header-text">
           No Skills Yet!
         </div>
+        <Protected role="COACH|MANAGER">
+          <Popup
+            trigger={
+              <button className="button back-button-top">Add Skill</button>
+            }
+          >
+            <AddSkill id={traineeId} setRecallValues={setRecallValues} />
+          </Popup>
+        </Protected>
         <Link to="/traineepage" className="back-button-top">
           <button className="button">Back to Traineepage!</button>
         </Link>
@@ -101,6 +113,11 @@ const SpecificTrainee = () => {
           />
         ))}
       </div>
+      <Protected role="COACH|MANAGER">
+        <Popup trigger={<button className="button">Add Skill</button>}>
+          <AddSkill id={traineeId} setRecallValues={setRecallValues} />
+        </Popup>
+      </Protected>
       <Link to="/traineepage" className="back-button-top">
         <button className="button">Back to Traineepage!</button>
       </Link>

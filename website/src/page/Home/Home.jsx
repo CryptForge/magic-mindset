@@ -1,11 +1,11 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import { Link, NavLink } from "react-router-dom";
-import AuthContext from "../../AuthContext";
+import { useAuthContext } from "../../AuthContext";
 import wand from "../../img/wand.png";
 import "./Home.css";
 
 const Home = () => {
-  const auth = useContext(AuthContext);
+  const auth = useAuthContext();
 
   const isLoggedIn = auth.userIsAuthenticated();
 

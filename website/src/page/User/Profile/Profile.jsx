@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Profile.css";
 import { NavLink, useNavigate } from "react-router-dom";
-import AuthContext from "../../../AuthContext";
+import { useAuthContext } from "../../../AuthContext";
 import { getUser, profileUpload } from "../../../util";
 
 const Profile = () => {
-  const auth = useContext(AuthContext);
+  const auth = useAuthContext();
 
   const nav = useNavigate();
 

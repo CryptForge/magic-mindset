@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Popup from "reactjs-popup";
 import AddUserForm from "../Common/AddUserForm";
 import DashboardTraineeList from "../Common/DashboardTraineeList";
@@ -8,10 +8,11 @@ import PendingChange from "./PendingChange";
 import { Link } from "react-router-dom";
 import SearchInput, { createFilter } from "react-search-input";
 import { API_BASE } from "../../../main";
-import AuthContext from "../../../AuthContext";
+import { useAuthContext } from "../../../AuthContext";
+import { authFetch } from "../../../util";
 
 const HR = () => {
-  const auth = useContext(AuthContext);
+  const auth = useAuthContext();
 
   const [pendingChanges, setPendingChanges] = useState([]);
   const [users, setUsers] = useState([]);
@@ -70,11 +71,11 @@ const HR = () => {
       });
       const data = await request.json();
       setUsers(data);
-      const trainees = data.filter((a) => a.user.role === "TRAINEE");
-      if (trainees.length > 3) {
+      authFetch(`${API_BASE}/trainee/all`, auth.getUser().token)
+        .then((response) => response.json())
+        .then((data) => setTrainees(data));
+      if (trainees.lenth > 3) {
         setTrainees(trainees.slice(0, 3));
-      } else {
-        setTrainees(trainees);
       }
     }
     if (recallUsers) {
@@ -108,7 +109,7 @@ const HR = () => {
               <DashboardTraineeList
                 key={index}
                 trainee={trainee}
-                id={trainee.user.id}
+                id={trainee.id}
                 index={index}
               />
             ))}
