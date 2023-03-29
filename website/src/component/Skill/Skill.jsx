@@ -7,7 +7,6 @@ import SkillCourseList from "./SkillCourseList";
 import ReportListPopup from "../Report/ReportListPopup";
 import { useAuthContext } from "../../AuthContext";
 import { API_BASE } from "../../main";
-import AddReportForm from "./AddReportForm";
 
 const Skill = (props) => {
   const auth = useAuthContext();
