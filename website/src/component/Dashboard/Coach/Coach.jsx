@@ -3,13 +3,13 @@ import Popup from "reactjs-popup";
 import DashboardInvitation from "../Common/DashboardInvitation";
 import CoachRecommendation from "./CoachRecommendation";
 import DashboardTraineeList from "../Common/DashboardTraineeList";
-import AddRecommendationForm from "../Common/RecommendationForm";
 import AddInvitationForm from "../Common/AddInvitiationForm";
 import { Link } from "react-router-dom";
 import { authFetch } from "../../../util";
 import { useEffect, useState } from "react";
 import { API_BASE } from "../../../main";
 import { useAuthContext } from "../../../AuthContext";
+import RecommendationForm from "../Common/RecommendationForm";
 
 const Coach = () => {
   const auth = useAuthContext();
@@ -117,7 +117,7 @@ const Coach = () => {
             modal
             trigger={<button className="button">Add Recommendation</button>}
           >
-            <AddRecommendationForm traineeList={traineeList} />
+            <RecommendationForm traineeList={traineeList} />
           </Popup>
         </div>
       </div>

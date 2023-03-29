@@ -1,6 +1,5 @@
 import Popup from "reactjs-popup";
 import EvaluationViewer from "../Dashboard/Popup/EvaluationViewer";
-import FileViewer from "../Dashboard/Popup/FileViewer";
 import SkillReportViewer from "../Skill/SkillReportViewer";
 
 const ReportList = (props) => {
