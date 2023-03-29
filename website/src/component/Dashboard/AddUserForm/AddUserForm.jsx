@@ -14,7 +14,11 @@ const AddUserForm = (props) => {
   }
 
   return (
-    <form onSubmit={(event) => postForm(event)}>
+     <form
+      onSubmit={(event) =>
+        authPostForm(event, `${API_BASE}/user/create`, auth.getUser().token)
+      }
+    >
       <div className="flex flex-column form">
         <label htmlFor="name">Name</label>
         <input id="name" name="name" required></input>
