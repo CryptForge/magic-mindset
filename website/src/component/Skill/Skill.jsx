@@ -25,7 +25,6 @@ const Skill = (props) => {
       });
       const data = await request.json();
       setCourses(data);
-      console.log(data);
     }
     if (reloadCourses) {
       setReloadCourses(false);
