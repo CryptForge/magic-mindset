@@ -42,10 +42,9 @@ public class Evaluation {
     @OneToMany(mappedBy = "evaluation")
     private List<EvaluationInvitation> invitations;
 
-    public Evaluation(Date date, String location, String conclusion, UserInfo evaluator, Trainee trainee) {
+    public Evaluation(Date date, String location, UserInfo evaluator, Trainee trainee) {
         this.date = date;
         this.location = location;
-        this.conclusion = conclusion;
         this.evaluator = evaluator;
         this.trainee = trainee;
     }

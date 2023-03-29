@@ -95,7 +95,6 @@ public class EvaluationServiceImpl implements EvaluationService {
         final Evaluation evaluation = evaluationRepository.save(new Evaluation(
                 request.date(),
                 request.location(),
-                request.conclusion(),
                 evaluator,
                 trainee
         ));
