@@ -1,6 +1,5 @@
 import Popup from "reactjs-popup";
 import EvaluationViewer from "../Dashboard/Popup/EvaluationViewer";
-import FileViewer from "../Dashboard/Popup/FileViewer";
 import SkillReportViewer from "../Skill/SkillReportViewer";
 
 const ReportListPopup = (props) => {
@@ -16,7 +15,7 @@ const ReportListPopup = (props) => {
             trigger={
               <td>
                 <div className="flex center">
-                  <button className="button">View Skill Reports</button>
+                  <button className="button">View Skill Report</button>
                 </div>
               </td>
             }
@@ -29,25 +28,12 @@ const ReportListPopup = (props) => {
             trigger={
               <td>
                 <div className="flex center">
-                  <button className="button">View Evaluations</button>
-                </div>
-              </td>
-            }
-          >
-            <EvaluationViewer message={props.messsage} />
-          </Popup>
-          <Popup
-            modal
-            nested
-            trigger={
-              <td>
-                <div className="flex center">
                   <button className="button">View Content</button>
                 </div>
               </td>
             }
           >
-            <FileViewer fileId={0} />
+            <EvaluationViewer message={props.messsage} />
           </Popup>
         </tr>
       </table>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { json, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import "./SpecificTrainee.css";
 import Skill from "../../../component/Skill/Skill";

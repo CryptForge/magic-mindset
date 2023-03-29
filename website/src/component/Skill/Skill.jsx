@@ -32,17 +32,17 @@ const Skill = (props) => {
     }
   }, [reloadCourses]);
 
-  const reportArray = [
+  const evaluationArray = [
     {
-      name: "report1",
+      name: "Evaluation 1",
       message: "haha",
     },
     {
-      name: "report2",
+      name: "Evaluation 2",
       message: "hihi",
     },
     {
-      name: "report3",
+      name: "Evaluation 3",
       message: "hoho",
     },
   ];
@@ -76,14 +76,14 @@ const Skill = (props) => {
           </Protected>
           <div className="flex space-between button-spacing">
             <Popup
-              trigger={<button className="button">Show Reports</button>}
+              trigger={<button className="button">Show Evaluations</button>}
               modal
               nested
             >
-              {reportArray.map((report, index) => (
+              {evaluationArray.map((evaluation, index) => (
                 <ReportListPopup
-                  name={report.name}
-                  message={report.message}
+                  name={evaluation.name}
+                  message={evaluation.message}
                   key={index}
                 />
               ))}

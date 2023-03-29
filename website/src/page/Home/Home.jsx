@@ -34,9 +34,13 @@ const Home = () => {
               Mindset! And yes, this is completely fake. So all info is
               protected and life will not be better by trying this :)
             </h2>
-            {!isLoggedIn && (
+            {!isLoggedIn ? (
               <Link to="/login" className="login">
                 Login Now
+              </Link>
+            ) : (
+              <Link to="/dashboard" className="login">
+                Dashboard
               </Link>
             )}
           </div>

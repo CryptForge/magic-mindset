@@ -28,8 +28,8 @@ public class Evaluation {
     @Column(name = "location")
     private String location;
 
-    @Column(name = "conclusion")
-    private String conclusion;
+    @Column(name = "conclusion_file_name")
+    private String conclusionFileName;
 
     @ManyToOne
     @JoinColumn(name = "evaluator_id")

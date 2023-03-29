@@ -71,7 +71,7 @@ public class EvaluationServiceImpl implements EvaluationService {
 
         evaluation.setDate(request.date());
         evaluation.setLocation(request.location());
-        evaluation.setConclusion(request.conclusion());
+        evaluation.setConclusionFileName(request.conclusionFileName());
         evaluation.setEvaluator(evaluator);
         evaluation.setTrainee(trainee);
 

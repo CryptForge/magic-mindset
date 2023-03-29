@@ -10,11 +10,13 @@ public record CompactTraineeResponse(
 ) {
 
     public static CompactTraineeResponse fromTrainee(Trainee trainee) {
+        final Long coachId = trainee.getCoach() == null ? null : trainee.getCoach().getId();
+        final Long managerId = trainee.getManager() == null ? null : trainee.getManager().getId();
         return new CompactTraineeResponse(
                 trainee.getId(),
                 trainee.getUser().getName(),
-                trainee.getCoach().getId(),
-                trainee.getManager().getId()
+                coachId,
+                managerId
         );
     }
 

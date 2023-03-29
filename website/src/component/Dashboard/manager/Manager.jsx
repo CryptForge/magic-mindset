@@ -58,7 +58,7 @@ const Manager = () => {
             {traineeList.map((trainee, index) => (
               <DashboardTraineeList
                 key={index}
-                name={trainee.username}
+                trainee={trainee}
                 id={trainee.id}
                 index={index}
               />
