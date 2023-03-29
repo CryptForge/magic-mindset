@@ -6,8 +6,6 @@ import AuthContext, { useAuthContext } from "../../AuthContext";
 import { API_BASE } from "../../main";
 import { authFetch } from "../../util";
 import "./TraineePage.css";
-import { API_BASE } from "../../main";
-import { useAuthContext } from "../../AuthContext";
 
 const TraineePage = (props) => {
   const auth = useAuthContext();
