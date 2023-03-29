@@ -2,7 +2,7 @@ import React from "react";
 import Popup from "reactjs-popup";
 import DashboardInvitation from "../Common/DashboardInvitation";
 import CoachRecommendation from "./CoachRecommendation";
-import DashboardTraineeList from "../DashboardTraineeList";
+import DashboardTraineeList from "../Common/DashboardTraineeList";
 import AddRecommendationForm from "../Common/RecommendationForm";
 import AddInvitationForm from "../Common/AddInvitiationForm";
 import { Link } from "react-router-dom";
