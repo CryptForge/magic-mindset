@@ -50,6 +50,7 @@ const SkillPage = () => {
           {skillList.map((skill, index) => (
             <Skill
               name={skill.name}
+              id={skill.id}
               key={index}
               courseArray={courseList}
               toggleButton={toggleButton}
