@@ -1,5 +1,5 @@
 import Popup from "reactjs-popup";
-import InvitationPopup from "./Popup/InvitationPopup";
+import InvitationPopup from "../Popup/InvitationPopup";
 
 const DashboardInvitation = (props) => {
   return (

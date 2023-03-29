@@ -1,5 +1,5 @@
 import React from "react";
-import DashboardInvitation from "../DashboardInvitation";
+import DashboardInvitation from "../Common/DashboardInvitation";
 import Popup from "reactjs-popup";
 import AddTraineeInvitationForm from "./AddTraineeInvitationForm";
 import DashboardCourse from "./DashboardCourse";
