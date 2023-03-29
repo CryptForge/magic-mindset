@@ -39,9 +39,6 @@ public class Evaluation {
     @JoinColumn(name = "trainee_id")
     private Trainee trainee;
 
-    @OneToOne(mappedBy = "evaluation")
-    private Report report;
-
     @OneToMany(mappedBy = "evaluation")
     private List<EvaluationInvitation> invitations;
 
@@ -51,5 +48,9 @@ public class Evaluation {
         this.conclusion = conclusion;
         this.evaluator = evaluator;
         this.trainee = trainee;
+    }
+
+    public boolean isDone() {
+        return date.getTime() < System.currentTimeMillis();
     }
 }

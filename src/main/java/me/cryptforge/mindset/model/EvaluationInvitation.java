@@ -20,20 +20,20 @@ public class EvaluationInvitation {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "trainee_id")
+    @JoinColumn(name = "trainee_id", nullable = false)
     private Trainee trainee;
 
     @ManyToOne
-    @JoinColumn(name = "evaluation_id")
+    @JoinColumn(name = "evaluation_id", nullable = false)
     private Evaluation evaluation;
 
-    @Column(name = "reminder_date")
+    @Column(name = "reminder_date", nullable = false)
     private Date reminder;
 
-    @Column(name = "reminder_sent")
+    @Column(name = "reminder_sent", nullable = false)
     private boolean reminderSent;
 
-    @Column(name = "answered")
+    @Column(name = "answered", nullable = false)
     private boolean answered;
 
     public EvaluationInvitation(Trainee trainee, Evaluation evaluation, Date reminder) {

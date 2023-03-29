@@ -2,7 +2,6 @@ package me.cryptforge.mindset.controller;
 
 import me.cryptforge.mindset.dto.evaluation.EditEvaluationRequest;
 import me.cryptforge.mindset.dto.evaluation.EvaluationRequest;
-import me.cryptforge.mindset.exception.EntityNotFoundException;
 import me.cryptforge.mindset.model.Evaluation;
 import me.cryptforge.mindset.service.EvaluationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,20 +32,12 @@ public class EvaluationController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createEvaluation(@RequestBody EvaluationRequest evaluationRequest) {
-        try {
-            return ResponseEntity.ok(evaluationService.createEvaluation(evaluationRequest));
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    public Evaluation createEvaluation(@RequestBody EvaluationRequest evaluationRequest) {
+        return evaluationService.createEvaluation(evaluationRequest);
     }
 
     @PutMapping("/edit")
-    public ResponseEntity<?> editEvaluation(@RequestBody EditEvaluationRequest editEvaluationRequest) {
-        try {
-            return ResponseEntity.ok(evaluationService.editEvaluation(editEvaluationRequest));
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    public Evaluation editEvaluation(@RequestBody EditEvaluationRequest editEvaluationRequest) {
+        return evaluationService.editEvaluation(editEvaluationRequest);
     }
 }

@@ -4,16 +4,15 @@ import me.cryptforge.mindset.dto.evaluation.EditEvaluationRequest;
 import me.cryptforge.mindset.dto.evaluation.EvaluationRequest;
 import me.cryptforge.mindset.exception.EntityNotFoundException;
 import me.cryptforge.mindset.model.Evaluation;
+import me.cryptforge.mindset.model.EvaluationInvitation;
 import me.cryptforge.mindset.model.user.Trainee;
 import me.cryptforge.mindset.model.user.User;
 import me.cryptforge.mindset.model.user.UserInfo;
-import me.cryptforge.mindset.repository.EvaluationRepository;
-import me.cryptforge.mindset.repository.TraineeRepository;
-import me.cryptforge.mindset.repository.UserInfoRepository;
-import me.cryptforge.mindset.repository.UserRepository;
+import me.cryptforge.mindset.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -21,6 +20,8 @@ public class EvaluationServiceImpl implements EvaluationService {
 
     @Autowired
     private EvaluationRepository evaluationRepository;
+    @Autowired
+    private InvitationRepository invitationRepository;
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -80,14 +81,24 @@ public class EvaluationServiceImpl implements EvaluationService {
         final UserInfo evaluator = userInfoRepository.findByUser(evaluatorUser)
                 .orElseThrow(() -> new EntityNotFoundException("evaluator userInfo"));
 
-        final Evaluation evaluation = new Evaluation(
+
+        final Evaluation evaluation = evaluationRepository.save(new Evaluation(
                 request.date(),
                 request.location(),
                 request.conclusion(),
                 evaluator,
                 trainee
-        );
+        ));
 
-        return evaluationRepository.save(evaluation);
+        final long timeDifference = System.currentTimeMillis() - request.date().getTime();
+        final Date reminderDate = new Date(timeDifference);
+        final EvaluationInvitation invitation = new EvaluationInvitation(
+                trainee,
+                evaluation,
+                reminderDate
+        );
+        invitationRepository.save(invitation);
+
+        return evaluation;
     }
 }

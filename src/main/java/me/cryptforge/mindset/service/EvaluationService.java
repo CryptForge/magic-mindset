@@ -41,7 +41,7 @@ public interface EvaluationService {
     Evaluation editEvaluation(EditEvaluationRequest editEvaluationRequest) throws EntityNotFoundException;
 
     /**
-     * A method to create an evaluation
+     * Creates an evaluation and sends invites to participants
      *
      * @param evaluationRequest Request without models
      * @return The Evaluation or bad request
