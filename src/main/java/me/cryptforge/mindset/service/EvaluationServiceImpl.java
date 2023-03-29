@@ -90,8 +90,9 @@ public class EvaluationServiceImpl implements EvaluationService {
                 trainee
         ));
 
-        final long timeDifference = System.currentTimeMillis() - request.date().getTime();
-        final Date reminderDate = new Date(timeDifference);
+        final long currentTime = System.currentTimeMillis();
+        final long timeDifference = currentTime - request.date().getTime();
+        final Date reminderDate = new Date(currentTime + timeDifference / 2);
         final EvaluationInvitation invitation = new EvaluationInvitation(
                 trainee,
                 evaluation,
