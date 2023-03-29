@@ -6,7 +6,31 @@ import DashboardCourse from "./DashboardCourse";
 import DashboardSkill from "./DashboardSkill";
 import ReportList from "../../Report/ReportList";
 import CreateReport from "../Popup/CreateReport";
+import { useState, useEffect } from "react";
+import { authFetch } from "../../../util";
+import { useAuthContext } from "../../../AuthContext";
+import { API_BASE } from "../../../main";
+
 const User = () => {
+  const auth = useAuthContext();
+  const [skillList, setSkillList] = useState([]);
+  const [courseList, setCourseList] = useState([]);
+
+  useEffect(() => {
+    authFetch(
+      `${API_BASE}/skill/all/user/${auth.getUser().id}`,
+      auth.getUser().token
+    )
+      .then((response) => response.json())
+      .then((data) => setSkillList(data));
+    authFetch(
+      `${API_BASE}/course/all/user/${auth.getUser().id}`,
+      auth.getUser().token
+    )
+      .then((response) => response.json())
+      .then((data) => setCourseList(data));
+  }, []);
+
   const reportArray = [
     {
       name: "report1",
@@ -22,17 +46,6 @@ const User = () => {
       name: "report3",
       message: "hoho",
       date: "2016-10-10",
-    },
-  ];
-  const skillArray = [
-    {
-      name: "Woodcutting",
-    },
-    {
-      name: "Planning",
-    },
-    {
-      name: "Astral Projection",
     },
   ];
   const courseArray = [
@@ -80,7 +93,7 @@ const User = () => {
         <div className="min-width-0">
           <h2>Skills</h2>
           <ul className="alternating-ul flex flex-column padding-bottom-alternating-ul">
-            {skillArray.map((skill, index) => (
+            {skillList.map((skill, index) => (
               <DashboardSkill name={skill.name} key={index} />
             ))}
           </ul>
@@ -131,7 +144,7 @@ const User = () => {
         <div>
           <h2>Training courses and certifications</h2>
           <ul className="alternating-ul flex flex-column padding-bottom-alternating-ul">
-            {courseArray.map((course, index) => (
+            {courseList.map((course, index) => (
               <DashboardCourse
                 name={course.name}
                 progress={course.progress}

@@ -4,22 +4,25 @@ import DashboardInvitation from "../DashboardInvitation";
 import AddInvitationForm from "../AddInvitation/AddInvitiationForm";
 import Popup from "reactjs-popup";
 import { Link } from "react-router-dom";
+import { useAuthContext } from "../../../AuthContext";
+import { useEffect, useState } from "react";
+import { API_BASE } from "../../../main";
+import { authFetch } from "../../../util";
 
 const Manager = () => {
-  const traineeArray = [
-    {
-      name: "Victor",
-      id: 0,
-    },
-    {
-      name: "Tijs",
-      id: 1,
-    },
-    {
-      name: "Rebecca",
-      id: 2,
-    },
-  ];
+  const auth = useAuthContext();
+  const [traineeList, setTraineeList] = useState([]);
+
+  useEffect(() => {
+    authFetch(
+      `${API_BASE}/trainee/all/${auth.getUser().role.toLowerCase()}/${
+        auth.getUser().id
+      }`,
+      auth.getUser().token
+    )
+      .then((response) => response.json())
+      .then((data) => setTraineeList(data));
+  }, []);
   const inviteArray = [
     {
       date: new Date("1994-10-21"),
@@ -52,10 +55,10 @@ const Manager = () => {
         <div className="min-width-0">
           <h2>Students</h2>
           <ul className="alternating-ul flex flex-column padding-bottom-alternating-ul">
-            {traineeArray.map((trainee, index) => (
+            {traineeList.map((trainee, index) => (
               <DashboardTraineeList
                 key={index}
-                name={trainee.name}
+                name={trainee.username}
                 id={trainee.id}
                 index={index}
               />
@@ -87,7 +90,7 @@ const Manager = () => {
               trigger={<button className="button">Add Invitation</button>}
               modal
             >
-              <AddInvitationForm traineeArray={traineeArray} />
+              <AddInvitationForm traineeList={traineeList} />
             </Popup>
           </div>
           <div>

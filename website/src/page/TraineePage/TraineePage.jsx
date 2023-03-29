@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ListedTrainee from "../../component/TraineePage/ListedTrainee";
 import SearchInput, { createFilter } from "react-search-input";
+import AuthContext, { useAuthContext } from "../../AuthContext";
+import { API_BASE } from "../../main";
+import { authFetch } from "../../util";
 import "./TraineePage.css";
 import { API_BASE } from "../../main";
 import { useAuthContext } from "../../AuthContext";
@@ -46,7 +49,11 @@ const TraineePage = (props) => {
             onChange={(value) => setSearchTerm(value)}
           />
           {filteredList.map((trainee, index) => (
-            <ListedTrainee key={index} name={trainee.name} id={trainee.id} />
+            <ListedTrainee
+              key={index}
+              name={trainee.username}
+              id={trainee.id}
+            />
           ))}
         </div>
         <div className="flex space-around button-list">
