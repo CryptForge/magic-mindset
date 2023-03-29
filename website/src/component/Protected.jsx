@@ -1,8 +1,7 @@
-import AuthContext from "../AuthContext";
-import { useContext } from "react";
+import { useAuthContext } from "../AuthContext";
 
 const Protected = (props) => {
-  const auth = useContext(AuthContext);
+  const auth = useAuthContext();
 
   if (!auth.userIsAuthenticated()) {
     return getOrElse(props.orElse);

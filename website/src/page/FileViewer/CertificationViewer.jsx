@@ -1,14 +1,14 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import "./FileViewer.css";
-import AuthContext from "../../AuthContext";
+import { useAuthContext } from "../../AuthContext";
 import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
 import { API_BASE } from "../../main";
 
 const CertificationViewer = () => {
   const { courseId } = useParams();
 
-  const auth = useContext(AuthContext);
+  const auth = useAuthContext();
 
   let token = "";
 

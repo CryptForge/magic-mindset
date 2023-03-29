@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import "./Info.css";
-import AuthContext from "../../AuthContext";
+import { useAuthContext } from "../../AuthContext";
 import { NavLink, Link } from "react-router-dom";
 
 const Info = () => {
-  const auth = useContext(AuthContext);
+  const auth = useAuthContext();
 
   const isLoggedIn = auth.userIsAuthenticated();
 

@@ -1,14 +1,14 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Navigate } from "react-router-dom";
-import AuthContext from "../../../AuthContext";
+import { useAuthContext } from "../../../AuthContext";
 import { API_BASE } from "../../../main";
 import { postForm } from "../../../util";
 import { NavLink } from "react-router-dom";
 import "./Login.css";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 const Login = () => {
-  const auth = useContext(AuthContext);
+  const auth = useAuthContext();
 
   if (auth.userIsAuthenticated()) {
     return <Navigate to="/dashboard" replace />;

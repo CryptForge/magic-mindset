@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ListedTrainee from "../../component/TraineePage/ListedTrainee";
 import SearchInput, { createFilter } from "react-search-input";
-import AuthContext, { useAuthContext } from "../../AuthContext";
+import { useAuthContext } from "../../AuthContext";
 import { API_BASE } from "../../main";
-import { authFetch } from "../../util";
 import "./TraineePage.css";
 
 const TraineePage = (props) => {
@@ -22,7 +21,6 @@ const TraineePage = (props) => {
       });
       const data = await request.json();
       const trainees = data.filter((a) => a.user.role === "TRAINEE");
-      console.log(trainees);
       setTrainees(trainees);
     }
 
@@ -47,11 +45,7 @@ const TraineePage = (props) => {
             onChange={(value) => setSearchTerm(value)}
           />
           {filteredList.map((trainee, index) => (
-            <ListedTrainee
-              key={index}
-              name={trainee.username}
-              id={trainee.id}
-            />
+            <ListedTrainee key={index} name={trainee.name} id={trainee.id} />
           ))}
         </div>
         <div className="flex space-around button-list">
