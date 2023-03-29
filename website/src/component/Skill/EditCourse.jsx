@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
+import Popup from "reactjs-popup";
 import { useAuthContext } from "../../AuthContext";
 import { API_BASE } from "../../main";
+import DeleteCourseConformation from "./DeleteCourseConformation";
 
 const EditCourse = (props) => {
   const auth = useAuthContext();
@@ -84,9 +86,20 @@ const EditCourse = (props) => {
       <button className="button" onClick={saveCourse}>
         Save
       </button>
-      <button className="button button-red" onClick={deleteCourse}>
-        Delete
-      </button>
+      <Popup
+        modal
+        nested
+        trigger={
+          <button className="button button-red" onClick={deleteCourse}>
+            Delete
+          </button>
+        }
+      >
+        <DeleteCourseConformation
+          id={props.course.id}
+          setReloadCourses={props.setReloadCourses}
+        />
+      </Popup>
     </div>
   );
 };

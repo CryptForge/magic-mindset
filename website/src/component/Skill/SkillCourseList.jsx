@@ -37,6 +37,7 @@ const SkillCourseList = (props) => {
             onClose={() => {
               setOpen(false);
             }}
+            nested
             modal
             trigger={
               <div className="skill-course-list-padding">
