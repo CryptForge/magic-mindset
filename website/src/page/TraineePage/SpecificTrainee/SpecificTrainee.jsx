@@ -8,6 +8,7 @@ import { useAuthContext } from "../../../AuthContext";
 import Popup from "reactjs-popup";
 import Protected from "../../../component/Protected";
 import AddSkill from "../../../component/Dashboard/Popup/AddSkill";
+import EditEvaluation from "../../../component/TraineePage/EditEvaluation";
 
 const SpecificTrainee = () => {
   const { traineeId } = useParams();
@@ -87,6 +88,13 @@ const SpecificTrainee = () => {
           >
             <AddSkill id={traineeId} setRecallValues={setRecallValues} />
           </Popup>
+          <Popup
+            trigger={
+              <button className="button back-button-top">Add Evaluation</button>
+            }
+          >
+            <div>asdasdasdasd</div>
+          </Popup>
         </Protected>
         <Link to="/traineepage" className="back-button-top">
           <button className="button">Back to Traineepage!</button>
@@ -114,9 +122,17 @@ const SpecificTrainee = () => {
         ))}
       </div>
       <Protected role="COACH|MANAGER">
-        <Popup trigger={<button className="button">Add Skill</button>}>
-          <AddSkill id={traineeId} setRecallValues={setRecallValues} />
-        </Popup>
+        <div className="flex">
+          <Popup modal trigger={<button className="button">Add Skill</button>}>
+            <AddSkill id={traineeId} setRecallValues={setRecallValues} />
+          </Popup>
+          <Popup
+            modal
+            trigger={<button className="button">Add Evaluation</button>}
+          >
+            <EditEvaluation skills={skills}></EditEvaluation>
+          </Popup>
+        </div>
       </Protected>
       <Link to="/traineepage" className="back-button-top">
         <button className="button">Back to Traineepage!</button>
