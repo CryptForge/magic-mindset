@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 import { useAuthContext } from "../../AuthContext";
 import { API_BASE } from "../../main";
 
@@ -23,18 +24,23 @@ const EditCourse = (props) => {
       });
     }
 
-    await fetch(`${API_BASE}/course/edit`, {
-      method: "PUT",
-      headers: {
-        Authorization: `Bearer ${auth.getUser().token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: props.course.id,
-        name: name,
-        progress: progress,
-      }),
-    });
+    if (progress < 0 || progress > 100) {
+      toast.error("Your progress is too high, it should be between 0 and 100");
+    } else {
+      await fetch(`${API_BASE}/course/edit`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${auth.getUser().token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: props.course.id,
+          name: name,
+          progress: progress,
+        }),
+      });
+    }
+    toast.success("Saved the course!");
     props.setReloadCourses(true);
     props.open(false);
   };
@@ -75,9 +81,12 @@ const EditCourse = (props) => {
           accept="application/pdf"
         />
       </div>
-      <button className="button" onClick={saveCourse}>
-        Save
-      </button>
+      <input
+        type="button"
+        className="button"
+        value="Save"
+        onClick={saveCourse}
+      ></input>
       <button className="button button-red" onClick={deleteCourse}>
         Delete
       </button>
