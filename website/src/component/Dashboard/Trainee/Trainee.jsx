@@ -2,7 +2,7 @@ import React from "react";
 import DashboardInvitation from "../Common/DashboardInvitation";
 import Popup from "reactjs-popup";
 import AddTraineeInvitationForm from "./AddTraineeInvitationForm";
-import DashboardCourse from "./temp/DashboardCourse";
+import DashboardCourse from "./DashboardCourse";
 import DashboardSkill from "./DashboardSkill";
 import ReportList from "../../Report/ReportList";
 import CreateReport from "../Popup/CreateReport";
