@@ -37,8 +37,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: production-files
-          working-directory: website
-          path: ./dist
+          path: ./website/dist
 
   deploy:
     name: Deploy
