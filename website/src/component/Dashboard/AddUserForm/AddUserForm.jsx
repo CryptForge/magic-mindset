@@ -4,10 +4,17 @@ import { authPostForm } from "../../../util";
 import "./AddUserForm.css";
 import { useAuthContext } from "../../../AuthContext";
 
-const AddUserForm = () => {
+const AddUserForm = (props) => {
   const auth = useAuthContext();
+
+  async function postForm(event) {
+    await authPostForm(event, `${API_BASE}/user/create`, auth.getUser().token);
+    props.callClose();
+    props.changeValues(true);
+  }
+
   return (
-    <form
+     <form
       onSubmit={(event) =>
         authPostForm(event, `${API_BASE}/user/create`, auth.getUser().token)
       }
