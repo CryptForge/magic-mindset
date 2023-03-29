@@ -12,7 +12,7 @@ const DashboardCourse = (props) => {
         trigger={<button className="button">Add Certificate</button>}
         modal
       >
-        <div className="white-element">UPLOAD CERTIFICATE HERE</div>
+        <div className="white-element">UPLOAD CERTIFICATE HERE NEEDS IMPL</div>
       </Popup>
     </li>
   );
