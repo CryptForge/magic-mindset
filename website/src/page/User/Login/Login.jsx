@@ -17,7 +17,6 @@ const Login = () => {
   const login = async (event) => {
     try {
       const response = await postForm(event, `${API_BASE}/auth/login`);
-      console.log(response);
       if (response.status === 401) {
         toast.error("Failed to login! Invalid User Credentials", {
           position: "bottom-center",
