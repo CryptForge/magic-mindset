@@ -81,12 +81,9 @@ const EditCourse = (props) => {
           accept="application/pdf"
         />
       </div>
-      <input
-        type="button"
-        className="button"
-        value="Save"
-        onClick={saveCourse}
-      ></input>
+      <button className="button" onClick={saveCourse}>
+        Save
+      </button>
       <button className="button button-red" onClick={deleteCourse}>
         Delete
       </button>
