@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
+import Popup from "reactjs-popup";
 import { useAuthContext } from "../../AuthContext";
 import { API_BASE } from "../../main";
+import DeleteCourseConformation from "./DeleteCourseConformation";
 
 const EditCourse = (props) => {
   const auth = useAuthContext();
@@ -23,18 +26,23 @@ const EditCourse = (props) => {
       });
     }
 
-    await fetch(`${API_BASE}/course/edit`, {
-      method: "PUT",
-      headers: {
-        Authorization: `Bearer ${auth.getUser().token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: props.course.id,
-        name: name,
-        progress: progress,
-      }),
-    });
+    if (progress < 0 || progress > 100) {
+      toast.error("Your progress is too high, it should be between 0 and 100");
+    } else {
+      await fetch(`${API_BASE}/course/edit`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${auth.getUser().token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: props.course.id,
+          name: name,
+          progress: progress,
+        }),
+      });
+    }
+    toast.success("Saved the course!");
     props.setReloadCourses(true);
     props.open(false);
   };
@@ -78,9 +86,20 @@ const EditCourse = (props) => {
       <button className="button" onClick={saveCourse}>
         Save
       </button>
-      <button className="button button-red" onClick={deleteCourse}>
-        Delete
-      </button>
+      <Popup
+        modal
+        nested
+        trigger={
+          <button className="button button-red" onClick={deleteCourse}>
+            Delete
+          </button>
+        }
+      >
+        <DeleteCourseConformation
+          id={props.course.id}
+          setReloadCourses={props.setReloadCourses}
+        />
+      </Popup>
     </div>
   );
 };

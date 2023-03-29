@@ -12,16 +12,32 @@ const TraineePage = (props) => {
 
   useEffect(() => {
     async function fetchAllUsers() {
-      const request = await fetch(`${API_BASE}/user/get/all`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${auth.getUser().token}`,
-        },
-      });
-      const data = await request.json();
-      const trainees = data.filter((a) => a.user.role === "TRAINEE");
-      setTrainees(trainees);
+      if (auth.getUser().role === "HR") {
+        const request = await fetch(`${API_BASE}/trainee/all`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${auth.getUser().token}`,
+          },
+        });
+        const data = await request.json();
+        setTrainees(data);
+      } else {
+        const request = await fetch(
+          `${API_BASE}/trainee/all/${auth.getUser().role.toLowerCase()}/${
+            auth.getUser().id
+          }`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${auth.getUser().token}`,
+            },
+          }
+        );
+        const data = await request.json();
+        setTrainees(data);
+      }
     }
 
     fetchAllUsers();
@@ -29,7 +45,7 @@ const TraineePage = (props) => {
 
   const [searchTerm, setSearchTerm] = useState("");
 
-  const KEYS_TO_FILTERS = ["name", "user.email"];
+  const KEYS_TO_FILTERS = ["username"];
 
   const filteredList = trainees.filter(
     createFilter(searchTerm, KEYS_TO_FILTERS)
@@ -45,7 +61,11 @@ const TraineePage = (props) => {
             onChange={(value) => setSearchTerm(value)}
           />
           {filteredList.map((trainee, index) => (
-            <ListedTrainee key={index} name={trainee.name} id={trainee.id} />
+            <ListedTrainee
+              key={index}
+              name={trainee.username}
+              id={trainee.id}
+            />
           ))}
         </div>
         <div className="flex space-around button-list">
