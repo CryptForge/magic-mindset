@@ -13,7 +13,7 @@ const ReportList = (props) => {
         trigger={
           <td>
             <div className="flex center">
-              <button className="button">View</button>
+              <button className="button">View Skill Report</button>
             </div>
           </td>
         }
@@ -26,7 +26,7 @@ const ReportList = (props) => {
         trigger={
           <td>
             <div className="flex center">
-              <button className="button">View</button>
+              <button className="button">View Evaluation</button>
             </div>
           </td>
         }
@@ -38,7 +38,7 @@ const ReportList = (props) => {
         trigger={
           <td>
             <div className="flex center">
-              <button className="button">View</button>
+              <button className="button">View Content</button>
             </div>
           </td>
         }
