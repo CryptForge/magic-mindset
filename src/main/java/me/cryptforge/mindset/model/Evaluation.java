@@ -39,11 +39,11 @@ public class Evaluation {
     @JoinColumn(name = "trainee_id")
     private Trainee trainee;
 
-    @OneToOne(mappedBy = "evaluation")
-    private Report report;
-
     @OneToMany(mappedBy = "evaluation")
     private List<EvaluationInvitation> invitations;
+
+    @OneToMany(mappedBy = "evaluation")
+    private List<SkillReport> skillReports;
 
     public Evaluation(Date date, String location, String conclusion, UserInfo evaluator, Trainee trainee) {
         this.date = date;

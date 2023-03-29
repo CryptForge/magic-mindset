@@ -19,8 +19,8 @@ public class SkillReport {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "report_id")
-    private Report report;
+    @JoinColumn(name = "evaluation_id")
+    private Evaluation evaluation;
 
     @ManyToOne
     @JoinColumn(name = "skill_id")
@@ -32,8 +32,8 @@ public class SkillReport {
     @Column(name = "date", nullable = false)
     private Date date;
 
-    public SkillReport(Report report, Skill skill, String progress, Date date) {
-        this.report = report;
+    public SkillReport(Evaluation evaluation, Skill skill, String progress, Date date) {
+        this.evaluation = evaluation;
         this.skill = skill;
         this.progress = progress;
         this.date = date;
