@@ -19,11 +19,11 @@ public class SkillReport {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "evaluation_id")
+    @JoinColumn(name = "evaluation_id", nullable = false)
     private Evaluation evaluation;
 
     @ManyToOne
-    @JoinColumn(name = "skill_id")
+    @JoinColumn(name = "skill_id", nullable = false)
     private Skill skill;
 
     @Column(name = "progress", nullable = false)
