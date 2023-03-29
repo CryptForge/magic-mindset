@@ -17,8 +17,10 @@ const RecommendationForm = (props) => {
     >
       <label htmlFor="trainee">Trainee</label>
       <select id="trainee" name="trainee">
-        {props.traineeArray.map((trainee, index) => (
-          <option value={trainee.id}>{trainee.name}</option>
+        {props.traineeList.map((trainee, index) => (
+          <option value={trainee.id} key={index}>
+            {trainee.name}
+          </option>
         ))}
       </select>
       <label htmlFor="date">Date</label>
