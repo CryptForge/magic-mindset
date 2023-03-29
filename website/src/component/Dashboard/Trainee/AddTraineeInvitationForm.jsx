@@ -10,17 +10,13 @@ const AddTraineeInvitationForm = () => {
       <form
         className="flex flex-column white-element"
         onSubmit={(event) =>
-          authPostForm(
-            event,
-            `${API_BASE}/invitation/create`,
-            auth.getUser().token
-          )
+          authPostForm(event, `${API_BASE}/evaluation`, auth.getUser().token)
         }
       >
         <label htmlFor="date">Date</label>
-        <input type="date" id="date" name="date" required></input>
-        <label htmlFor="message">Optional Message</label>
-        <input type="text" id="message" name="message"></input>
+        <input type="datetime-local" id="date" name="date" required></input>
+        <label htmlFor="location">Location</label>
+        <input type="text" id="location" name="location"></input>
         <input type="submit" value="Contact Coach!"></input>
       </form>
     </div>
