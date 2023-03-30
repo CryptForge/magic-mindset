@@ -4,18 +4,18 @@ import me.cryptforge.mindset.dto.evaluation.EditEvaluationRequest;
 import me.cryptforge.mindset.dto.evaluation.EvaluationRequest;
 import me.cryptforge.mindset.dto.evaluation.EvaluationResponse;
 import me.cryptforge.mindset.exception.EntityNotFoundException;
-import me.cryptforge.mindset.model.Course;
 import me.cryptforge.mindset.model.Evaluation;
 import me.cryptforge.mindset.model.EvaluationInvitation;
 import me.cryptforge.mindset.model.File;
-import me.cryptforge.mindset.model.user.*;
+import me.cryptforge.mindset.model.user.Trainee;
+import me.cryptforge.mindset.model.user.User;
+import me.cryptforge.mindset.model.user.UserInfo;
 import me.cryptforge.mindset.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
 
@@ -32,10 +32,6 @@ public class EvaluationServiceImpl implements EvaluationService {
     private UserInfoRepository userInfoRepository;
     @Autowired
     private TraineeRepository traineeRepository;
-    @Autowired
-    private CoachRepository coachRepository;
-    @Autowired
-    private ManagerRepository managerRepository;
     @Autowired
     private FileService fileService;
 
@@ -67,7 +63,8 @@ public class EvaluationServiceImpl implements EvaluationService {
         final UserInfo userInfo = userInfoRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(("user")));
 
-        if (userInfo.getUser().getRole() != User.Role.COACH && userInfo.getUser().getRole() != User.Role.MANAGER) {
+        final User.Role role = userInfo.getUser().getRole();
+        if (role != User.Role.COACH && role != User.Role.MANAGER) {
             throw new EntityNotFoundException("coach or manager");
         }
 
