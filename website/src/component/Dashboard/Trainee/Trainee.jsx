@@ -37,7 +37,7 @@ const User = () => {
       .then((data) => setCoachId(data.coach.id));
   }, []);
 
-  const EvaluationArray = [
+  const evaluationArray = [
     {
       date: "2011-10-10",
       participator: "coachmans",
@@ -79,7 +79,7 @@ const User = () => {
 
   const KEYS_TO_FILTERS_REPORTS = ["name"];
 
-  const filteredListEvaluation = EvaluationArray.filter(
+  const filteredListEvaluation = evaluationArray.filter(
     createFilter(searchTermReports, KEYS_TO_FILTERS_REPORTS)
   );
 
