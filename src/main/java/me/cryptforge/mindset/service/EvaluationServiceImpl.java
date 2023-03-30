@@ -67,11 +67,8 @@ public class EvaluationServiceImpl implements EvaluationService {
         final UserInfo userInfo = userInfoRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(("user")));
 
-        final Optional<Coach> coach = coachRepository.findByUser(userInfo);
-        final Optional<Manager> manager = managerRepository.findByUser(userInfo);
-
-        if (coach.isEmpty() && manager.isEmpty()) {
-            throw new EntityNotFoundException(("coach or manager"));
+        if (userInfo.getUser().getRole() != User.Role.COACH && userInfo.getUser().getRole() != User.Role.MANAGER) {
+            throw new EntityNotFoundException("coach or manager");
         }
 
         return StreamSupport.stream(evaluationRepository.findAllByEvaluator(userInfo).spliterator(), false)
