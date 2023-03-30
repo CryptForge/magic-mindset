@@ -4,7 +4,6 @@ import "./Skill.css";
 import AddCourseForm from "../TraineePage/AddCourseForm";
 import Protected from "../Protected";
 import SkillCourseList from "./SkillCourseList";
-import ReportListPopup from "../Report/ReportListPopup";
 import { useAuthContext } from "../../AuthContext";
 import { API_BASE } from "../../main";
 
@@ -34,16 +33,19 @@ const Skill = (props) => {
 
   const evaluationArray = [
     {
-      name: "Evaluation 1",
-      message: "haha",
+      date: "2011-10-10",
+      participator: "coachmans",
+      id: "1",
     },
     {
-      name: "Evaluation 2",
-      message: "hihi",
+      participator: "managermans",
+      date: "2018-10-10",
+      id: "2",
     },
     {
-      name: "Evaluation 3",
-      message: "hoho",
+      participator: "coachmans",
+      date: "2016-10-10",
+      id: "3",
     },
   ];
   return (
@@ -81,11 +83,7 @@ const Skill = (props) => {
               nested
             >
               {evaluationArray.map((evaluation, index) => (
-                <ReportListPopup
-                  name={evaluation.name}
-                  message={evaluation.message}
-                  key={index}
-                />
+                <div key={index}>hallo</div>
               ))}
             </Popup>
           </div>
