@@ -14,7 +14,7 @@ public record InvitationResponse(
     public static InvitationResponse fromInvitation(EvaluationInvitation invitation) {
         return new InvitationResponse(
                 invitation.getId(),
-                invitation.getTrainee().getId(),
+                invitation.getUser().getId(),
                 invitation.getReminder(),
                 invitation.isAnswered()
         );

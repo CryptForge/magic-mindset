@@ -20,7 +20,7 @@ public record EvaluationResponse(
                 evaluation.getId(),
                 evaluation.getDate(),
                 evaluation.getLocation(),
-                evaluation.getConclusion(),
+                evaluation.getConclusionFileName(),
                 evaluation.getEvaluator().getId(),
                 evaluation.getTrainee().getId()
         );
