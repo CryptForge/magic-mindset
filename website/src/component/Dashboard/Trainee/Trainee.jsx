@@ -4,13 +4,12 @@ import Popup from "reactjs-popup";
 import AddTraineeInvitationForm from "./AddTraineeInvitationForm";
 import DashboardCourse from "./DashboardCourse";
 import DashboardSkill from "./DashboardSkill";
-import ReportList from "../../Report/ReportList";
-import CreateReport from "../Popup/CreateReport";
 import { useState, useEffect } from "react";
 import { authFetch } from "../../../util";
 import { useAuthContext } from "../../../AuthContext";
 import { API_BASE } from "../../../main";
 import SearchInput, { createFilter } from "react-search-input";
+import DashboardEvaluationList from "../Common/DashboardEvaluationList";
 
 const User = () => {
   const auth = useAuthContext();
@@ -38,21 +37,21 @@ const User = () => {
       .then((data) => setCoachId(data.coach.id));
   }, []);
 
-  const reportArray = [
+  const EvaluationArray = [
     {
-      name: "report1",
-      message: "haha",
       date: "2011-10-10",
+      participator: "coachmans",
+      id: "1",
     },
     {
-      name: "report2",
-      message: "hihi",
+      participator: "managermans",
       date: "2018-10-10",
+      id: "2",
     },
     {
-      name: "report3",
-      message: "hoho",
+      participator: "coachmans",
       date: "2016-10-10",
+      id: "3",
     },
   ];
   const inviteArray = [
@@ -80,7 +79,7 @@ const User = () => {
 
   const KEYS_TO_FILTERS_REPORTS = ["name"];
 
-  const filteredListReports = reportArray.filter(
+  const filteredListEvaluation = EvaluationArray.filter(
     createFilter(searchTermReports, KEYS_TO_FILTERS_REPORTS)
   );
 
@@ -135,7 +134,7 @@ const User = () => {
       </div>
       <div className="grid-element element box3">
         <div>
-          <h2>List of All Reports</h2>
+          <h2>List of All Evaluations</h2>
           <SearchInput
             className="search-input"
             onChange={(value) => setSearchTermReports(value)}
@@ -143,29 +142,22 @@ const User = () => {
           <table>
             <thead>
               <tr>
-                <th className="padding-th">Name</th>
+                <th className="padding-th">Number</th>
                 <th className="padding-th">Date</th>
-                <th>View Skill-reports</th>
+                <th>Participator</th>
                 <th>View Evaluation</th>
-                <th>View Content</th>
               </tr>
             </thead>
             <tbody>
-              {filteredListReports.map((report, index) => (
-                <ReportList
-                  name={report.name}
-                  message={report.message}
+              {filteredListEvaluation.map((evaluation, index) => (
+                <DashboardEvaluationList
+                  evaluation={evaluation}
+                  index={index}
                   key={index}
                 />
               ))}
             </tbody>
           </table>
-          <Popup
-            modal
-            trigger={<button className="button">Create report</button>}
-          >
-            <CreateReport />
-          </Popup>
         </div>
       </div>
       <div className="grid-element element box4">
