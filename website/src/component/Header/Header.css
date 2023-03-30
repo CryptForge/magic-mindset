@@ -104,18 +104,18 @@ a.title:hover {
 
 @media screen and (min-width: 910px) {
   .navigation-link {
-    font-size: 0.9em;
+    font-size: 0.75em;
   }
   a.title {
-    font-size: 2em;
+    font-size: 1.75em;
   }
 }
 
 @media screen and (min-width: 1025px) {
   .navigation-link {
-    font-size: 1.5em;
+    font-size: 1.1em;
   }
   a.title {
-    font-size: 2.5em;
+    font-size: 2em;
   }
 }

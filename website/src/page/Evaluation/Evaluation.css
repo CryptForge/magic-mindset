@@ -1,0 +1,20 @@
+.evaluation-page {
+  min-width: 0;
+  width: calc(100vw - 6vw);
+  margin: 5vh 0 0 2vw;
+  height: calc(100vh - 5vh - 10vh - 1vh);
+}
+
+@media screen and (min-width: 910px) {
+  .grid-1x2 {
+    grid-template-areas: "left right";
+  }
+
+  .grid-1x2 .box1 {
+    grid-area: left;
+  }
+
+  .grid-1x2 .box2 {
+    grid-area: right;
+  }
+}
