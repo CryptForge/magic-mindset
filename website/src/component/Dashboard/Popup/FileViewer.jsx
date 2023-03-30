@@ -23,7 +23,6 @@ const FileViewer = (props) => {
         Click somewhere else to close
       </div>
       <div>
-        {console.log(docs)}
         {docs.length > 0 ? (
           <DocViewer
             documents={docs}

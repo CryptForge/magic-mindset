@@ -15,6 +15,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SkillPage from "./page/Skillpage/SkillPage";
 import CertificationViewer from "./page/FileViewer/CertificationViewer";
+import Evaluation from "./page/Evaluation/Evaluation";
+import SingleEvaluation from "./page/Evaluation/SingleEvaluation";
 
 function App() {
   return (
@@ -77,9 +79,32 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/evaluation"
+            element={
+              <ProtectedRoute role="TRAINEE|COACH|MANAGER">
+                <Evaluation />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/evaluation/:evaluationId"
+            element={
+              <ProtectedRoute role="TRAINEE|COACH|MANAGER">
+                <SingleEvaluation />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/info" element={<Info />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/trainee/:traineeId" element={<SpecificTrainee />} />
+          <Route
+            path="/trainee/:traineeId"
+            element={
+              <ProtectedRoute>
+                <SpecificTrainee />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/verify" element={<Verify />} />
         </Routes>
       </div>

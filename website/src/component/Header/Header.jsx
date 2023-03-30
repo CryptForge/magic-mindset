@@ -28,6 +28,13 @@ const Header = () => {
             </Protected>
           </div>
           <div>
+            <Protected role="TRAINEE|COACH|MANAGER">
+              <NavLink to="/evaluation" className="navigation-link">
+                Evaluations
+              </NavLink>
+            </Protected>
+          </div>
+          <div>
             <Protected role="COACH|MANAGER|HR">
               <NavLink to="/traineepage" className="navigation-link">
                 Trainees
@@ -72,6 +79,11 @@ const Header = () => {
           <Protected role="COACH|MANAGER|HR">
             <NavLink to="/traineepage" className="navigation-link">
               Trainees
+            </NavLink>
+          </Protected>
+          <Protected role="COACH|MANAGER|TRAINEE">
+            <NavLink to="/evaluation" className="navigation-link">
+              Evaluations
             </NavLink>
           </Protected>
         </div>
