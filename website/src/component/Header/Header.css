@@ -101,17 +101,32 @@ a.title:hover {
     justify-content: space-around;
   }
 }
-
+@media screen and (min-width: 430px) {
+  .navigation-link {
+    font-size: 0.35em;
+  }
+  a.title {
+    font-size: 0.8em;
+  }
+}
 @media screen and (min-width: 910px) {
   .navigation-link {
     font-size: 0.9em;
   }
   a.title {
-    font-size: 2em;
+    font-size: 1.4em;
   }
 }
 
 @media screen and (min-width: 1025px) {
+  .navigation-link {
+    font-size: 1.2em;
+  }
+  a.title {
+    font-size: 1.6em;
+  }
+}
+@media screen and (min-width: 1260px) {
   .navigation-link {
     font-size: 1.5em;
   }
