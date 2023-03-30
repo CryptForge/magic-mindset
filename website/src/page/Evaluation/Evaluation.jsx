@@ -22,14 +22,15 @@ const Evaluation = () => {
       )
         .then((response) => response.json())
         .then((data) => {
+          const now = Date.now();
           setComingEvaluations(
             data.filter(
-              (a) => a.date == null || a.date < new Date().getTime().toFixed()
+              (a) => a.date == null || a.date > now
             )
           );
           setDoneEvaluations(
             data.filter(
-              (a) => a.date != null && a.date > new Date().getTime().toFixed()
+              (a) => a.date != null && a.date < now
             )
           );
         });
