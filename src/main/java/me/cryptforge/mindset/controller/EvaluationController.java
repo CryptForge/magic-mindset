@@ -37,7 +37,7 @@ public class EvaluationController {
         return evaluationService.getAllByEvaluator(id);
     }
 
-    @GetMapping("/all/user/trainee/{id}")
+    @GetMapping("/all/trainee/{id}")
     public Iterable<EvaluationResponse> getAllEvaluationsTrainee(@PathVariable Long id) {
         return evaluationService.getAllByTrainee(id);
     }
