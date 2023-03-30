@@ -76,7 +76,7 @@ const User = () => {
       date: new Date("2020-01-12"),
       answered: false,
     },
-  ];
+  ].sort((a, b) => a.date.getTime() - b.date.getTime());
 
   const KEYS_TO_FILTERS_REPORTS = ["name"];
 

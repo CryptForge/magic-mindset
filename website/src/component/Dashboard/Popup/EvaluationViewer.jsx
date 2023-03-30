@@ -34,7 +34,7 @@ const EvaluationViewer = () => {
             </tr>
             <tr>
               <td className="large-text">Date:</td>
-              <td>{new Date().toISOString().split("T")[0]}</td>
+              <td>{new Date().toLocaleDateString()}</td>
             </tr>
             <tr>
               <td className="large-text">Evaluator:</td>
