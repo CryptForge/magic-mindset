@@ -80,16 +80,12 @@ public class EvaluationServiceImpl implements EvaluationService {
 
     @Override
     public EvaluationResponse createEvaluation(EvaluationRequest request) throws EntityNotFoundException {
-        final User user = userRepository.findById(request.traineeId())
-                .orElseThrow(() -> new EntityNotFoundException("user"));
-        final UserInfo userInfo = userInfoRepository.findByUser(user)
-                .orElseThrow(() -> new EntityNotFoundException("userInfo"));
-        final Trainee trainee = traineeRepository.findByUser(userInfo)
+        final UserInfo traineeUser = userInfoRepository.findById(request.traineeId())
                 .orElseThrow(() -> new EntityNotFoundException("trainee"));
-        final User evaluatorUser = userRepository.findById(request.evaluatorId())
-                .orElseThrow(() -> new EntityNotFoundException("evaluator user"));
-        final UserInfo evaluator = userInfoRepository.findByUser(evaluatorUser)
-                .orElseThrow(() -> new EntityNotFoundException("evaluator userInfo"));
+        final Trainee trainee = traineeRepository.findByUser(traineeUser)
+                .orElseThrow(() -> new EntityNotFoundException("trainee"));
+        final UserInfo evaluator = userInfoRepository.findById(request.evaluatorId())
+                .orElseThrow(() -> new EntityNotFoundException("evaluator"));
 
 
         final Evaluation evaluation = evaluationRepository.save(new Evaluation(
@@ -103,7 +99,7 @@ public class EvaluationServiceImpl implements EvaluationService {
         final long timeDifference = currentTime - request.date().getTime();
         final Date reminderDate = new Date(currentTime + timeDifference / 2);
         final EvaluationInvitation invitation = new EvaluationInvitation(
-                trainee,
+                request.isTrainee() ? evaluator : traineeUser,
                 evaluation,
                 reminderDate
         );

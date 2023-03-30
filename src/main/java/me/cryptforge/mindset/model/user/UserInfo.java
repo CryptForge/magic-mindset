@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import me.cryptforge.mindset.model.Evaluation;
+import me.cryptforge.mindset.model.EvaluationInvitation;
 
 import java.sql.Blob;
 import java.util.List;
@@ -39,6 +40,9 @@ public class UserInfo {
 
     @OneToMany(mappedBy = "evaluator")
     private List<Evaluation> evaluations;
+
+    @OneToMany(mappedBy = "user")
+    private List<EvaluationInvitation> invitations;
 
     public UserInfo(User user, String name, String address, String city) {
         this.user = user;

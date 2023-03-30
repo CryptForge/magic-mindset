@@ -38,9 +38,6 @@ public class Trainee {
     private List<Course> courses;
 
     @OneToMany(mappedBy = "trainee")
-    private List<EvaluationInvitation> invitations;
-
-    @OneToMany(mappedBy = "trainee")
     private List<Recommendation> recommendations;
 
     @OneToMany(mappedBy = "trainee")

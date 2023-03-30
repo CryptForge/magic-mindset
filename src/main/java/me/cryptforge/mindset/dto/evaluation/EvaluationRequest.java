@@ -6,6 +6,7 @@ public record EvaluationRequest(
         Date date,
         String location,
         Long evaluatorId,
-        Long traineeId
+        Long traineeId,
+        boolean isTrainee
 ) {
 }
