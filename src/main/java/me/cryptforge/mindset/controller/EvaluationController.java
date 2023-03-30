@@ -2,8 +2,7 @@ package me.cryptforge.mindset.controller;
 
 import me.cryptforge.mindset.dto.evaluation.EditEvaluationRequest;
 import me.cryptforge.mindset.dto.evaluation.EvaluationRequest;
-import me.cryptforge.mindset.exception.EntityNotFoundException;
-import me.cryptforge.mindset.model.Evaluation;
+import me.cryptforge.mindset.dto.evaluation.EvaluationResponse;
 import me.cryptforge.mindset.service.EvaluationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,36 +16,28 @@ public class EvaluationController {
     @Autowired
     private EvaluationService evaluationService;
 
-    @GetMapping("/get/all")
-    public Iterable<Evaluation> getAllEvaluations() {
+    @GetMapping("/all")
+    public Iterable<EvaluationResponse> getAllEvaluations() {
         return evaluationService.getAllEvaluations();
     }
 
-    @GetMapping("/get/single/{id}")
-    public ResponseEntity<Evaluation> getSingleEvaluation(@PathVariable Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<EvaluationResponse> getSingleEvaluation(@PathVariable Long id) {
         return ResponseEntity.of(evaluationService.getSingleEvaluation(id));
     }
 
-    @GetMapping("/get/all/user/{id}")
-    public Iterable<Evaluation> getAllEvaluationsUser(@PathVariable Long id) {
-        return evaluationService.getAllEvaluationsUser(id);
+    @GetMapping("/all/user/{id}")
+    public Iterable<EvaluationResponse> getAllEvaluationsUser(@PathVariable Long id) {
+        return evaluationService.getAllByTrainee(id);
     }
 
     @PostMapping
-    public ResponseEntity<?> createEvaluation(@RequestBody EvaluationRequest evaluationRequest) {
-        try {
-            return ResponseEntity.ok(evaluationService.createEvaluation(evaluationRequest));
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    public EvaluationResponse createEvaluation(@RequestBody EvaluationRequest evaluationRequest) {
+        return evaluationService.createEvaluation(evaluationRequest);
     }
 
     @PutMapping("/edit")
-    public ResponseEntity<?> editEvaluation(@RequestBody EditEvaluationRequest editEvaluationRequest) {
-        try {
-            return ResponseEntity.ok(evaluationService.editEvaluation(editEvaluationRequest));
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    public EvaluationResponse editEvaluation(@RequestBody EditEvaluationRequest editEvaluationRequest) {
+        return evaluationService.editEvaluation(editEvaluationRequest);
     }
 }
