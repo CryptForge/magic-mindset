@@ -73,6 +73,25 @@ export const authPostForm = (event, url, token) => {
   return authFetch(url, token, JSON.stringify(request), "POST");
 };
 
+export const authPostFormMutliForm = (id, event, url, token) => {
+  event.preventDefault();
+  const formData = new FormData(event.currentTarget);
+  formData.append("id", id);
+  event.currentTarget.reset();
+
+  return authFetchMutliForm(url, token, formData);
+};
+
+export const authFetchMutliForm = (url, token, body) => {
+  return fetch(url, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: body,
+  });
+};
+
 export const authFetch = (url, token, body = undefined, method = "GET") => {
   return fetch(url, {
     method,

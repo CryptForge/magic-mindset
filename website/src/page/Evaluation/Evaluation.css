@@ -5,6 +5,10 @@
   height: calc(100vh - 5vh - 10vh - 1vh);
 }
 
+.evaluation-page .margin-top {
+  margin-top: 1vh;
+}
+
 @media screen and (min-width: 910px) {
   .grid-1x2 {
     grid-template-areas: "left right";

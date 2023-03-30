@@ -4,16 +4,18 @@ import me.cryptforge.mindset.dto.evaluation.EditEvaluationRequest;
 import me.cryptforge.mindset.dto.evaluation.EvaluationRequest;
 import me.cryptforge.mindset.dto.evaluation.EvaluationResponse;
 import me.cryptforge.mindset.exception.EntityNotFoundException;
+import me.cryptforge.mindset.model.Course;
 import me.cryptforge.mindset.model.Evaluation;
 import me.cryptforge.mindset.model.EvaluationInvitation;
-import me.cryptforge.mindset.model.user.Trainee;
-import me.cryptforge.mindset.model.user.User;
-import me.cryptforge.mindset.model.user.UserInfo;
+import me.cryptforge.mindset.model.File;
+import me.cryptforge.mindset.model.user.*;
 import me.cryptforge.mindset.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
 
@@ -30,6 +32,12 @@ public class EvaluationServiceImpl implements EvaluationService {
     private UserInfoRepository userInfoRepository;
     @Autowired
     private TraineeRepository traineeRepository;
+    @Autowired
+    private CoachRepository coachRepository;
+    @Autowired
+    private ManagerRepository managerRepository;
+    @Autowired
+    private FileService fileService;
 
     @Override
     public Optional<EvaluationResponse> getSingleEvaluation(Long id) {
@@ -55,6 +63,23 @@ public class EvaluationServiceImpl implements EvaluationService {
     }
 
     @Override
+    public Iterable<EvaluationResponse> getAllByEvaluator(Long id) {
+        final UserInfo userInfo = userInfoRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(("user")));
+
+        final Optional<Coach> coach = coachRepository.findByUser(userInfo);
+        final Optional<Manager> manager = managerRepository.findByUser(userInfo);
+
+        if (coach.isEmpty() && manager.isEmpty()) {
+            throw new EntityNotFoundException(("coach or manager"));
+        }
+
+        return StreamSupport.stream(evaluationRepository.findAllByEvaluator(userInfo).spliterator(), false)
+                .map(EvaluationResponse::fromEvaluation)
+                .toList();
+    }
+
+    @Override
     public EvaluationResponse editEvaluation(EditEvaluationRequest request) throws EntityNotFoundException {
         final User user = userRepository.findById(request.traineeId())
                 .orElseThrow(() -> new EntityNotFoundException("user"));
@@ -71,7 +96,6 @@ public class EvaluationServiceImpl implements EvaluationService {
 
         evaluation.setDate(request.date());
         evaluation.setLocation(request.location());
-        evaluation.setConclusionFileName(request.conclusionFileName());
         evaluation.setEvaluator(evaluator);
         evaluation.setTrainee(trainee);
 
@@ -106,5 +130,20 @@ public class EvaluationServiceImpl implements EvaluationService {
         invitationRepository.save(invitation);
 
         return EvaluationResponse.fromEvaluation(evaluation);
+    }
+
+    @Override
+    public void addConclusion(Long id, MultipartFile multipartFile) {
+        String uuidString = fileService.saveFileUUIDBack(multipartFile);
+        Evaluation evaluation = evaluationRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("evaluation"));
+        evaluation.setConclusionFileName(uuidString);
+        evaluationRepository.save(evaluation);
+    }
+
+    @Override
+    public File getConclusion(Long id) {
+        Evaluation evaluation = evaluationRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("evaluation"));
+        return fileService.getFile(evaluation.getConclusionFileName());
     }
 }

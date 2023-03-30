@@ -76,7 +76,7 @@ const Skill = (props) => {
           </Protected>
           <div className="flex space-between button-spacing">
             <Popup
-              trigger={<button className="button">Show Evaluations</button>}
+              trigger={<button className="button">Show Reports</button>}
               modal
               nested
             >
