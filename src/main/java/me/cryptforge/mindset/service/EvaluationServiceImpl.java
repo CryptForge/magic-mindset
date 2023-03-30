@@ -2,25 +2,28 @@ package me.cryptforge.mindset.service;
 
 import me.cryptforge.mindset.dto.evaluation.EditEvaluationRequest;
 import me.cryptforge.mindset.dto.evaluation.EvaluationRequest;
+import me.cryptforge.mindset.dto.evaluation.EvaluationResponse;
 import me.cryptforge.mindset.exception.EntityNotFoundException;
 import me.cryptforge.mindset.model.Evaluation;
+import me.cryptforge.mindset.model.EvaluationInvitation;
 import me.cryptforge.mindset.model.user.Trainee;
 import me.cryptforge.mindset.model.user.User;
 import me.cryptforge.mindset.model.user.UserInfo;
-import me.cryptforge.mindset.repository.EvaluationRepository;
-import me.cryptforge.mindset.repository.TraineeRepository;
-import me.cryptforge.mindset.repository.UserInfoRepository;
-import me.cryptforge.mindset.repository.UserRepository;
+import me.cryptforge.mindset.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 @Service
 public class EvaluationServiceImpl implements EvaluationService {
 
     @Autowired
     private EvaluationRepository evaluationRepository;
+    @Autowired
+    private InvitationRepository invitationRepository;
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -29,22 +32,30 @@ public class EvaluationServiceImpl implements EvaluationService {
     private TraineeRepository traineeRepository;
 
     @Override
-    public Optional<Evaluation> getSingleEvaluation(Long id) {
-        return evaluationRepository.findById(id);
+    public Optional<EvaluationResponse> getSingleEvaluation(Long id) {
+        return evaluationRepository.findById(id)
+                .map(EvaluationResponse::fromEvaluation);
     }
 
     @Override
-    public Iterable<Evaluation> getAllEvaluations() {
-        return evaluationRepository.findAll();
+    public Iterable<EvaluationResponse> getAllEvaluations() {
+        return StreamSupport.stream(evaluationRepository.findAll().spliterator(), false)
+                .map(EvaluationResponse::fromEvaluation)
+                .toList();
     }
 
     @Override
-    public Iterable<Evaluation> getAllEvaluationsUser(Long id) {
-        return evaluationRepository.findAllByTrainee_User_User_Id(id);
+    public Iterable<EvaluationResponse> getAllByTrainee(Long id) {
+        final Trainee trainee = traineeRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(("trainee")));
+
+        return StreamSupport.stream(evaluationRepository.findAllByTrainee(trainee).spliterator(), false)
+                .map(EvaluationResponse::fromEvaluation)
+                .toList();
     }
 
     @Override
-    public Evaluation editEvaluation(EditEvaluationRequest request) throws EntityNotFoundException {
+    public EvaluationResponse editEvaluation(EditEvaluationRequest request) throws EntityNotFoundException {
         final User user = userRepository.findById(request.traineeId())
                 .orElseThrow(() -> new EntityNotFoundException("user"));
         final UserInfo userInfo = userInfoRepository.findByUser(user)
@@ -64,30 +75,36 @@ public class EvaluationServiceImpl implements EvaluationService {
         evaluation.setEvaluator(evaluator);
         evaluation.setTrainee(trainee);
 
-        return evaluationRepository.save(evaluation);
+        return EvaluationResponse.fromEvaluation(evaluationRepository.save(evaluation));
     }
 
     @Override
-    public Evaluation createEvaluation(EvaluationRequest request) throws EntityNotFoundException {
-        final User user = userRepository.findById(request.traineeId())
-                .orElseThrow(() -> new EntityNotFoundException("user"));
-        final UserInfo userInfo = userInfoRepository.findByUser(user)
-                .orElseThrow(() -> new EntityNotFoundException("userInfo"));
-        final Trainee trainee = traineeRepository.findByUser(userInfo)
+    public EvaluationResponse createEvaluation(EvaluationRequest request) throws EntityNotFoundException {
+        final UserInfo traineeUser = userInfoRepository.findById(request.traineeId())
                 .orElseThrow(() -> new EntityNotFoundException("trainee"));
-        final User evaluatorUser = userRepository.findById(request.evaluatorId())
-                .orElseThrow(() -> new EntityNotFoundException("evaluator user"));
-        final UserInfo evaluator = userInfoRepository.findByUser(evaluatorUser)
-                .orElseThrow(() -> new EntityNotFoundException("evaluator userInfo"));
+        final Trainee trainee = traineeRepository.findByUser(traineeUser)
+                .orElseThrow(() -> new EntityNotFoundException("trainee"));
+        final UserInfo evaluator = userInfoRepository.findById(request.evaluatorId())
+                .orElseThrow(() -> new EntityNotFoundException("evaluator"));
 
-        final Evaluation evaluation = new Evaluation(
+
+        final Evaluation evaluation = evaluationRepository.save(new Evaluation(
                 request.date(),
                 request.location(),
-                request.conclusion(),
                 evaluator,
                 trainee
-        );
+        ));
 
-        return evaluationRepository.save(evaluation);
+        final long currentTime = System.currentTimeMillis();
+        final long timeDifference = currentTime - request.date().getTime();
+        final Date reminderDate = new Date(currentTime + timeDifference / 2);
+        final EvaluationInvitation invitation = new EvaluationInvitation(
+                request.isTrainee() ? evaluator : traineeUser,
+                evaluation,
+                reminderDate
+        );
+        invitationRepository.save(invitation);
+
+        return EvaluationResponse.fromEvaluation(evaluation);
     }
 }

@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import me.cryptforge.mindset.model.user.Trainee;
+import me.cryptforge.mindset.model.user.UserInfo;
 
 import java.util.Date;
 
@@ -14,30 +14,31 @@ import java.util.Date;
 @Entity
 @Table(name = "evaluation_invitation")
 public class EvaluationInvitation {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "trainee_id")
-    private Trainee trainee;
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserInfo user;
 
     @ManyToOne
-    @JoinColumn(name = "evaluation_id")
+    @JoinColumn(name = "evaluation_id", nullable = false)
     private Evaluation evaluation;
 
-    @Column(name = "reminder_date")
+    @Column(name = "reminder_date", nullable = false)
     private Date reminder;
 
-    @Column(name = "reminder_sent")
+    @Column(name = "reminder_sent", nullable = false)
     private boolean reminderSent;
 
-    @Column(name = "answered")
+    @Column(name = "answered", nullable = false)
     private boolean answered;
 
-    public EvaluationInvitation(Trainee trainee, Evaluation evaluation, Date reminder) {
-        this.trainee = trainee;
+    public EvaluationInvitation(UserInfo user, Evaluation evaluation, Date reminder) {
+        this.user = user;
         this.evaluation = evaluation;
         this.reminder = reminder;
     }
