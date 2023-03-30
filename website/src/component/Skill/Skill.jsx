@@ -55,7 +55,7 @@ const Skill = (props) => {
             className="button"
             onClick={() => props.toggleButton(props.index)}
           >
-            Show Courses
+            Toggle Courses
           </button>
           <Protected role="COACH|MANAGER">
             <div className="flex space-between button-spacing">
