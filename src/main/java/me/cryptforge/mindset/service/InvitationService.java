@@ -9,7 +9,7 @@ public interface InvitationService {
 
     Optional<InvitationResponse> getInvitation(Long id);
 
-    Iterable<InvitationResponse> getByTrainee(Long traineeId);
+    Iterable<InvitationResponse> getByUser(Long traineeId);
 
     Iterable<InvitationResponse> getByEvaluation(Long evaluationId);
 

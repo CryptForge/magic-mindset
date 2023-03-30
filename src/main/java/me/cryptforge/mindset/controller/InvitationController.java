@@ -19,9 +19,9 @@ public class InvitationController {
         return ResponseEntity.of(service.getInvitation(id));
     }
 
-    @GetMapping("/all/trainee/{id}")
-    public Iterable<InvitationResponse> getAllByTrainee(@PathVariable Long id) {
-        return service.getByTrainee(id);
+    @GetMapping("/all/user/{id}")
+    public Iterable<InvitationResponse> getAllByUser(@PathVariable Long id) {
+        return service.getByUser(id);
     }
 
     @GetMapping("/all/evaluation/{id}")

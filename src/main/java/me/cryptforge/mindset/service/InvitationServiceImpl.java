@@ -3,10 +3,10 @@ package me.cryptforge.mindset.service;
 import me.cryptforge.mindset.dto.invitation.InvitationResponse;
 import me.cryptforge.mindset.exception.EntityNotFoundException;
 import me.cryptforge.mindset.model.Evaluation;
-import me.cryptforge.mindset.model.user.Trainee;
+import me.cryptforge.mindset.model.user.UserInfo;
 import me.cryptforge.mindset.repository.EvaluationRepository;
 import me.cryptforge.mindset.repository.InvitationRepository;
-import me.cryptforge.mindset.repository.TraineeRepository;
+import me.cryptforge.mindset.repository.UserInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,10 +20,10 @@ public class InvitationServiceImpl implements InvitationService {
     InvitationRepository invitationRepository;
 
     @Autowired
-    TraineeRepository traineeRepository;
+    EvaluationRepository evaluationRepository;
 
     @Autowired
-    EvaluationRepository evaluationRepository;
+    private UserInfoRepository userInfoRepository;
 
     @Override
     public Optional<InvitationResponse> getInvitation(Long id) {
@@ -31,11 +31,11 @@ public class InvitationServiceImpl implements InvitationService {
     }
 
     @Override
-    public Iterable<InvitationResponse> getByTrainee(Long traineeId) {
-        final Trainee trainee = traineeRepository.findById(traineeId)
-                .orElseThrow(() -> new EntityNotFoundException("trainee"));
+    public Iterable<InvitationResponse> getByUser(Long userId) {
+        final UserInfo trainee = userInfoRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("user"));
 
-        return StreamSupport.stream(invitationRepository.findAllByTrainee(trainee).spliterator(), false)
+        return StreamSupport.stream(invitationRepository.findAllByUser(trainee).spliterator(), false)
                 .map(InvitationResponse::fromInvitation)
                 .toList();
     }
