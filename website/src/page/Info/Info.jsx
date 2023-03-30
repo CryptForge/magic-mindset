@@ -27,31 +27,20 @@ const Info = () => {
       <div className="side-lines-middle">
         <div className="split-flex">
           <div className="home-column-flex">
-            <h1>Info</h1>
+            <h1>
+              Welcome to <span className="sparkle">Magic Mindset</span>!
+            </h1>
             <h2>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-              natus dolores repellat recusandae est, dicta rem doloremque
-              ratione quis reiciendis explicabo cupiditate, mollitia placeat
-              nisi voluptatibus velit optio deserunt. Debitis. Lorem ipsum dolor
-              sit amet consectetur adipisicing elit. Quisquam natus dolores
-              repellat recusandae est, dicta rem doloremque ratione quis
-              reiciendis explicabo cupiditate, mollitia placeat nisi
-              voluptatibus velit optio deserunt. Debitis. Lorem ipsum dolor sit
-              amet consectetur adipisicing elit. Quisquam natus dolores repellat
-              recusandae est, dicta rem doloremque ratione quis reiciendis
-              explicabo cupiditate, mollitia placeat nisi voluptatibus velit
-              optio deserunt. Debitis. Lorem ipsum dolor sit amet consectetur
-              adipisicing elit. Quisquam natus dolores repellat recusandae est,
-              dicta rem doloremque ratione quis reiciendis explicabo cupiditate,
-              mollitia placeat nisi voluptatibus velit optio deserunt. Debitis.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-              natus dolores repellat recusandae est, dicta rem doloremque
-              ratione quis reiciendis explicabo cupiditate, mollitia placeat
-              nisi voluptatibus velit optio deserunt. Debitis. Lorem ipsum dolor
-              sit amet consectetur adipisicing elit. Quisquam natus dolores
-              repellat recusandae est, dicta rem doloremque ratione quis
-              reiciendis explicabo cupiditate, mollitia placeat nisi
-              voluptatibus velit optio deserunt. Debitis.
+              Wether a beginner, or an expert in any given field, skill or
+              ability, magic mindset is the place to learn. An enthusiastic team
+              of coaches and managers stand ready to assist you in learing any
+              discipline, from skill to even mindsets! We work with personalized
+              learning processes and embedded coaches and managers to keep an
+              eye on your progress with frequent progress reports and
+              evaluations. A simple skill/course system will let you work on any
+              skill you desire to learn, or master. So don't wait and become a
+              part of the magic experience that is the magic mindset! Sign up
+              now and start your learning journey today!
             </h2>
             {!isLoggedIn && (
               <Link to="/login" className="login">
