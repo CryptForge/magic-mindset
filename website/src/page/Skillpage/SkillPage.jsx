@@ -4,6 +4,7 @@ import Skill from "../../component/Skill/Skill";
 import { useState, useEffect } from "react";
 import { API_BASE } from "../../main";
 import { authFetch } from "../../util";
+import "./SkillPage.css";
 
 const SkillPage = () => {
   const auth = useAuthContext();
@@ -40,27 +41,34 @@ const SkillPage = () => {
     }
     activateSkill(index);
   }
-  return (
-    <div>
-      <h2>
-        Logged in as <span>{userName}</span>
-      </h2>
-      <div>
-        <div>
-          {skillList.map((skill, index) => (
-            <Skill
-              name={skill.name}
-              id={skill.id}
-              key={index}
-              courseArray={courseList}
-              toggleButton={toggleButton}
-              activeSkill={activeSkill}
-              index={index}
-            ></Skill>
-          ))}
+  if (skillList.length === 0) {
+    return (
+      <div className="center align-center skill-margin">
+        <div className="element">
+          <h3>No skills just yet! Contact your coach to get started!</h3>
         </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div>
+        <div>
+          <div>
+            {skillList.map((skill, index) => (
+              <Skill
+                name={skill.name}
+                id={skill.id}
+                key={index}
+                courseArray={courseList}
+                toggleButton={toggleButton}
+                activeSkill={activeSkill}
+                index={index}
+              ></Skill>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
 };
 export default SkillPage;
