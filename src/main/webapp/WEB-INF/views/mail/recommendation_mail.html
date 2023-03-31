@@ -4,9 +4,9 @@
       <span th:text="'Hello, ' + ${to} + '!'"></span>
     </h3>
     <div>
-      <h4>Your request was denied for the following reason</h4>
+      <h4 th:text="'You got a recommendation from: ' + ${from}"></h4>
     </div>
-    <div><span th:text="${reason}"></span></div>
+    <div><span th:text="${recommendation}"></span></div>
     <div style="color: #2e294e">
       <span>This is an automated mail, all responses will be ignored</span>
     </div>

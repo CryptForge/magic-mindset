@@ -8,7 +8,15 @@ public interface MailService {
 
     void sendVerificationMail(String to) throws MessagingException;
 
-    void sendEvaluationMail(String to, String username, String dateTime, String location) throws MessagingException;
+    void sendEvaluationMailQuestion(String to, String asker, String dateTime, String location) throws MessagingException;
+
+    void sendEvaluationMailAccepted(String to, String acceptor, String dateTime, String location) throws MessagingException;
+
+    void sendEvaluationMailDenied(String to, String acceptor, String reason) throws MessagingException;
+
+    void sendEvaluationMailValuesChanged(String to, String changer, String dateTime, String location) throws MessagingException;
+
+    void sendRecommendationMail(String to, String usernameFrom, String recommendation) throws MessagingException;
 
     void sendRequestDenied(String to, String reason) throws MessagingException;
 
