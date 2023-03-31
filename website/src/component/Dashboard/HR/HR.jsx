@@ -62,7 +62,6 @@ const HR = () => {
   }, [recallPendingRequests]);
 
   useEffect(() => {
-    console.log(new Date().getTime());
     authFetch(`${API_BASE}/evaluation/all`, auth.getUser().token)
       .then((response) => response.json())
       .then((data) =>
@@ -72,7 +71,7 @@ const HR = () => {
 
   useEffect(() => {
     async function fetchAllUsers() {
-      const request = await fetch(`${API_BASE}/user/get/all`, {
+      const request = await fetch(`${API_BASE}/user/all`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

@@ -35,10 +35,7 @@ const SingleEvaluation = () => {
 
   useEffect(() => {
     if (JSON.stringify(evaluation) !== "{}") {
-      authFetch(
-        `${API_BASE}/user/${evaluation.trainee}`,
-        auth.getUser().token
-      )
+      authFetch(`${API_BASE}/user/${evaluation.trainee}`, auth.getUser().token)
         .then((response) => response.json())
         .then((data) => setTrainee(data));
     }
