@@ -35,4 +35,14 @@ public class TraineeController {
         return service.getAllByManager(id);
     }
 
+    @PostMapping("/{id}/coach")
+    public TraineeResponse changeCoach(@PathVariable Long id, @RequestBody Long coachId) {
+        return service.changeCoach(id, coachId);
+    }
+
+    @PostMapping("/{id}/manager")
+    public TraineeResponse changeManager(@PathVariable Long id, @RequestBody Long managerId) {
+        return service.changeManager(id, managerId);
+    }
+
 }
