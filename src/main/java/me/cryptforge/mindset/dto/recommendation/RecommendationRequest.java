@@ -8,6 +8,7 @@ public record RecommendationRequest(
         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
         Date date,
         String message,
-        Long traineeId
+        Long traineeId,
+        Long userId
 ) {
 }
