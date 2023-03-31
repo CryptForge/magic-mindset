@@ -9,6 +9,7 @@ import SearchInput, { createFilter } from "react-search-input";
 import { API_BASE } from "../../../main";
 import { useAuthContext } from "../../../AuthContext";
 import { authFetch } from "../../../util";
+import DashboardEvaluationList from "../Common/DashboardEvaluationList";
 
 const HR = () => {
   const auth = useAuthContext();
@@ -19,6 +20,7 @@ const HR = () => {
   const [recallUsers, setRecallUsers] = useState(true);
 
   const [trainees, setTrainees] = useState([]);
+  const [evaluations, setEvaluations] = useState([]);
 
   const [openAddUserForm, setOpenAddUserForm] = useState(false);
   const closeAddUserForm = () => setOpenAddUserForm(false);
@@ -60,6 +62,15 @@ const HR = () => {
   }, [recallPendingRequests]);
 
   useEffect(() => {
+    console.log(new Date().getTime());
+    authFetch(`${API_BASE}/evaluation/all`, auth.getUser().token)
+      .then((response) => response.json())
+      .then((data) =>
+        setEvaluations(data.filter((a) => a.date < new Date().getTime()))
+      );
+  }, []);
+
+  useEffect(() => {
     async function fetchAllUsers() {
       const request = await fetch(`${API_BASE}/user/get/all`, {
         method: "GET",
@@ -94,7 +105,7 @@ const HR = () => {
   const filteredListUsers = users.filter(
     createFilter(searchTermUsers, KEYS_TO_FILTERS_USERS)
   );
-  const filteredListReports = reportArray.filter(
+  const filteredListEvaluation = evaluations.filter(
     createFilter(searchTermReports, KEYS_TO_FILTERS_REPORTS)
   );
 
@@ -150,8 +161,8 @@ const HR = () => {
       </div>
 
       <div className="grid-element element box3">
-        <div className="min-width-0">
-          <h2>List of All Reports</h2>
+        <div>
+          <h2>List of All Passed Evaluations</h2>
           <SearchInput
             className="search-input"
             onChange={(value) => setSearchTermReports(value)}
@@ -159,20 +170,18 @@ const HR = () => {
           <table>
             <thead>
               <tr>
-                <th className="padding-th">Name</th>
+                <th className="padding-th">Number</th>
                 <th className="padding-th">Date</th>
-                <th>View Skill-reports</th>
+                <th>Participator</th>
                 <th>View Evaluation</th>
-                <th>View Content</th>
               </tr>
             </thead>
             <tbody>
-              {filteredListReports.map((report, index) => (
-                <ReportList
+              {filteredListEvaluation.map((evaluation, index) => (
+                <DashboardEvaluationList
+                  evaluation={evaluation}
+                  index={index}
                   key={index}
-                  name={report.name}
-                  message={report.message}
-                  date={report.date.toLocaleDateString()}
                 />
               ))}
             </tbody>
