@@ -39,7 +39,7 @@ public class RecommendationServiceImpl implements RecommendationService {
         final Trainee trainee = traineeRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("trainee"));
 
-        return StreamSupport.stream(recommendationRepository.findAllByTrainee(trainee).spliterator(),false)
+        return StreamSupport.stream(recommendationRepository.findAllByTrainee(trainee).spliterator(), false)
                 .map(RecommendationResponse::fromRecommendation)
                 .toList();
     }

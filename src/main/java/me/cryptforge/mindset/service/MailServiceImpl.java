@@ -3,7 +3,6 @@ package me.cryptforge.mindset.service;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import me.cryptforge.mindset.dto.user.UserChangeInfo;
-import me.cryptforge.mindset.model.user.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -60,8 +59,8 @@ public class MailServiceImpl implements MailService {
     }
 
     @Override
-    public void sendEvaluationMailDenied(String to, String acceptor, String reason) throws MessagingException {
-        Map<String, Object> templateModel = Map.of("to", to, "acceptor", acceptor,
+    public void sendEvaluationMailDenied(String to, String denier, String reason) throws MessagingException {
+        Map<String, Object> templateModel = Map.of("to", to, "denier", denier,
                 "reason", reason);
 
         String htmlBody = thymeleafTemplateEngine.process("mail/evaluation_mail_denied.html", createContext(templateModel));

@@ -17,42 +17,6 @@ public record TraineeResponse(
         List<CourseResponse> courses
 ) {
 
-    public record Info(
-            String name,
-            String email,
-            String address,
-            String city
-    ) {
-    }
-
-    public record TraineeCoach(
-            Long id,
-            String name
-    ) {
-
-        public static TraineeCoach fromCoach(Coach coach) {
-            if(coach == null) {
-                return null;
-            }
-            return new TraineeCoach(coach.getId(), coach.getUser().getName());
-        }
-
-    }
-
-    public record TraineeManager(
-            Long id,
-            String name
-    ) {
-
-        public static TraineeManager fromManager(Manager manager) {
-            if(manager == null) {
-                return null;
-            }
-            return new TraineeManager(manager.getId(), manager.getUser().getName());
-        }
-
-    }
-
     public static TraineeResponse fromTrainee(Trainee trainee) {
         return new TraineeResponse(
                 trainee.getId(),
@@ -67,6 +31,42 @@ public record TraineeResponse(
                 trainee.getSkills().stream().map(SkillResponse::fromSkill).toList(),
                 trainee.getCourses().stream().map(CourseResponse::fromCourse).toList()
         );
+    }
+
+    public record Info(
+            String name,
+            String email,
+            String address,
+            String city
+    ) {
+    }
+
+    public record TraineeCoach(
+            Long id,
+            String name
+    ) {
+
+        public static TraineeCoach fromCoach(Coach coach) {
+            if (coach == null) {
+                return null;
+            }
+            return new TraineeCoach(coach.getId(), coach.getUser().getName());
+        }
+
+    }
+
+    public record TraineeManager(
+            Long id,
+            String name
+    ) {
+
+        public static TraineeManager fromManager(Manager manager) {
+            if (manager == null) {
+                return null;
+            }
+            return new TraineeManager(manager.getId(), manager.getUser().getName());
+        }
+
     }
 
 }

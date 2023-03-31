@@ -4,7 +4,10 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import me.cryptforge.mindset.model.*;
+import me.cryptforge.mindset.model.Course;
+import me.cryptforge.mindset.model.Evaluation;
+import me.cryptforge.mindset.model.Recommendation;
+import me.cryptforge.mindset.model.Skill;
 
 import java.util.List;
 
