@@ -1,13 +1,9 @@
 package me.cryptforge.mindset.controller;
 
 import me.cryptforge.mindset.dto.mail.MailDenyRequest;
-import me.cryptforge.mindset.dto.skill.SkillResponse;
 import me.cryptforge.mindset.dto.user.UserChangeInfoResponse;
-import me.cryptforge.mindset.model.Course;
-import me.cryptforge.mindset.model.PendingEdit;
 import me.cryptforge.mindset.service.PendingEditService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +15,7 @@ public class AccountChangesController {
 
     @Autowired
     private PendingEditService pendingEditService;
+
     @GetMapping("/get/all")
     public List<UserChangeInfoResponse> getAllPendingEdits() {
         return pendingEditService.pendingEdits();

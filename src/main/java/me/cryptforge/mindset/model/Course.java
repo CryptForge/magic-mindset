@@ -6,8 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import me.cryptforge.mindset.model.user.Trainee;
 
-import java.sql.Blob;
-
 @Getter
 @Setter
 @NoArgsConstructor

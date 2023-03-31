@@ -7,7 +7,6 @@ public record EditEvaluationRequest(
         Date date,
         String location,
         String conclusionFileName,
-        Long evaluatorId,
-        Long traineeId
+        Long doneBy
 ) {
 }

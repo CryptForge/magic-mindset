@@ -45,7 +45,7 @@ public class SkillServiceImpl implements SkillService {
     @Override
     public Iterable<SkillResponse> getAllUserSkills(Long id) {
         final Iterable<Skill> skills = skillRepository.findAllByTrainee_User_User_Id(id);
-        return StreamSupport.stream(skills.spliterator(),false)
+        return StreamSupport.stream(skills.spliterator(), false)
                 .map(SkillResponse::fromSkill)
                 .toList();
     }

@@ -17,27 +17,24 @@ const Evaluation = () => {
   useEffect(() => {
     const getEvaluations = () => {
       authFetch(
-        `${API_BASE}/evaluation/all/user/${auth.getUser().id}`,
+        auth.getUser().role === "TRAINEE"
+          ? `${API_BASE}/evaluation/all/trainee/${auth.getUser().id}`
+          : `${API_BASE}/evaluation/all/user/${auth.getUser().id}`,
         auth.getUser().token
       )
         .then((response) => response.json())
         .then((data) => {
-          const now = Date.now();
-          console.log(data);
-          console.log("now: " + now);
-
-          const comingEvaluations = data.filter(
-            (a) => a.date == null || a.date > now
+          const now = new Date();
+          setComingEvaluations(
+            data.filter(
+              (evaluation) => evaluation.date == null || evaluation.date < now
+            )
           );
-          const doneEvaluations = data.filter(
-            (a) => a.date != null && a.date < now
+          setDoneEvaluations(
+            data.filter(
+              (evaluation) => evaluation.date != null && evaluation.date >= now
+            )
           );
-
-          console.log("Coming: " + comingEvaluations);
-          console.log("Done: " + doneEvaluations);
-
-          setComingEvaluations(comingEvaluations);
-          setDoneEvaluations(doneEvaluations);
         });
     };
 

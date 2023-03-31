@@ -27,7 +27,7 @@ body {
 .element {
   background: rgba(217, 217, 217, 0.75);
   border-radius: 25px;
-  padding: 4vw;
+  padding: 2vw;
 }
 .white-element {
   background-color: #fbfef9;
