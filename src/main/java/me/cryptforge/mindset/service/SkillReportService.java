@@ -13,4 +13,5 @@ public interface SkillReportService {
 
     Iterable<SkillReportResponse> getAllBySkill(Long id);
 
+    Iterable<SkillReportResponse> getAllByEvaluation(Long id);
 }

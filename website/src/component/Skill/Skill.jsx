@@ -6,6 +6,7 @@ import Protected from "../Protected";
 import SkillCourseList from "./SkillCourseList";
 import { useAuthContext } from "../../AuthContext";
 import { API_BASE } from "../../main";
+import SkillReports from "./SkillReports";
 
 const Skill = (props) => {
   const auth = useAuthContext();
@@ -31,23 +32,6 @@ const Skill = (props) => {
     }
   }, [reloadCourses]);
 
-  const evaluationArray = [
-    {
-      date: "2011-10-10",
-      participator: "coachmans",
-      id: "1",
-    },
-    {
-      participator: "managermans",
-      date: "2018-10-10",
-      id: "2",
-    },
-    {
-      participator: "coachmans",
-      date: "2016-10-10",
-      id: "3",
-    },
-  ];
   return (
     <div>
       <div className="flex skill">
@@ -82,9 +66,7 @@ const Skill = (props) => {
               modal
               nested
             >
-              {evaluationArray.map((evaluation, index) => (
-                <div key={index}>hallo</div>
-              ))}
+              <SkillReports skillId={props.id}></SkillReports>
             </Popup>
           </div>
         </div>

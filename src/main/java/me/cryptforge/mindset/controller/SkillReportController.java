@@ -25,6 +25,11 @@ public class SkillReportController {
         return service.getAllBySkill(id);
     }
 
+    @GetMapping("/all/evaluation/{id}")
+    public Iterable<SkillReportResponse> getAllByEvaluation(@PathVariable Long id) {
+        return service.getAllByEvaluation(id);
+    }
+
     @PostMapping
     public ResponseEntity<String> createSkillReport(@RequestBody SkillReportRequest request) {
         service.createSkillReport(request);

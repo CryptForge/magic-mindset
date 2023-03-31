@@ -1,33 +1,16 @@
 import Popup from "reactjs-popup";
+import { useAuthContext } from "../../AuthContext";
 import Protected from "../Protected";
 import AddSkillReport from "./AddSkillReport";
 import SkillReportListItem from "./SkillReportListItem";
 
-const SkillReportList = () => {
-  const skillReports = [
-    {
-      skillId: 1,
-      skill: "Woodworking",
-      percentage: 100,
-    },
-    {
-      skillId: 2,
-      skill: "Woodworking 2",
-      percentage: 99,
-    },
-    {
-      skillId: 3,
-      skill: "Woodworking 3",
-      percentage: 67,
-    },
-  ];
-
+const SkillReportList = (props) => {
   return (
     <div className="grid-element element box1">
       <div className="min-width-0">
         <h2>All Skill Reports</h2>
         <ul className="alternating-ul flex flex-column padding-bottom-alternating-ul">
-          {skillReports.map((skillReport, index) => (
+          {props.skillReports.map((skillReport, index) => (
             <SkillReportListItem
               skillReport={skillReport}
               index={index}
@@ -40,7 +23,11 @@ const SkillReportList = () => {
             modal
             trigger={<button className="button">Add Skill Report</button>}
           >
-            <AddSkillReport />
+            <AddSkillReport
+              traineeId={props.traineeId}
+              refreshEvaluation={props.refreshEvaluation}
+              evaluationId={props.evaluationId}
+            />
           </Popup>
         </Protected>
       </div>
