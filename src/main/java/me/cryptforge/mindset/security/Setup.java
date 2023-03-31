@@ -1,10 +1,9 @@
 package me.cryptforge.mindset.security;
 
-import me.cryptforge.mindset.dto.user.EditCoachInTraineeRequest;
-import me.cryptforge.mindset.dto.user.EditManagerInTraineeRequest;
 import me.cryptforge.mindset.dto.user.UserRequest;
 import me.cryptforge.mindset.model.user.User;
 import me.cryptforge.mindset.service.AuthService;
+import me.cryptforge.mindset.service.TraineeService;
 import me.cryptforge.mindset.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -17,6 +16,9 @@ public class Setup {
 
     @Autowired
     UserInfoService userService;
+
+    @Autowired
+    TraineeService traineeService;
 
     @Autowired
     AuthService authService;
@@ -44,26 +46,18 @@ public class Setup {
         long testCoach2 = createTestUser("TestCoach 2", User.Role.COACH);
         long testManager = createTestUser("TestManagerMan", User.Role.MANAGER);
 
-        linkCoach(testTrainee1, testCoach2);
-        linkCoach(testTrainee2, testCoach1);
-        linkCoach(testTrainee3, testCoach1);
-        linkManager(testTrainee1, testManager);
-        linkManager(testTrainee2, testManager);
-        linkManager(testTrainee3, testManager);
+        traineeService.changeCoach(testTrainee1, testCoach2);
+        traineeService.changeCoach(testTrainee2, testCoach1);
+        traineeService.changeCoach(testTrainee3, testCoach1);
+        traineeService.changeManager(testTrainee1, testManager);
+        traineeService.changeManager(testTrainee2, testManager);
+        traineeService.changeManager(testTrainee3, testManager);
     }
 
     private long createTestUser(String name, User.Role role) {
         var user = userService.createUser(new UserRequest(name, name, role, name, name + " Street", name + " City"));
         authService.verify(name);
-        return user.getId();
-    }
-
-    private void linkCoach(long traineeId, long coachId) {
-        userService.changeCoachTrainee(new EditCoachInTraineeRequest(traineeId, coachId));
-    }
-
-    private void linkManager(long traineeId, long managerId) {
-        userService.changeManagerTrainee(new EditManagerInTraineeRequest(traineeId, managerId));
+        return user.id();
     }
 
 }

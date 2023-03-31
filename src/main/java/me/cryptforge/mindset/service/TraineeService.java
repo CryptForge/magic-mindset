@@ -38,4 +38,22 @@ public interface TraineeService {
      */
     Iterable<CompactTraineeResponse> getAllByManager(Long managerId);
 
+    /**
+     * Changes the coach of a trainee
+     *
+     * @param id Trainee id
+     * @param coachId Coach id
+     * @return Changed trainee
+     */
+    TraineeResponse changeCoach(Long id, Long coachId);
+
+    /**
+     * Changes the manager of a trainee
+     *
+     * @param id Trainee id
+     * @param managerId Manager id
+     * @return Changed manager
+     */
+    TraineeResponse changeManager(Long id, Long managerId);
+
 }

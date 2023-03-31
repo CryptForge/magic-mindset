@@ -6,7 +6,6 @@ import { authFetch } from "../../util";
 import DeleteCourseConformation from "../Skill/DeleteCourseConformation";
 
 const EditComingEvaluation = (props) => {
-  console.log(props.evaluation);
   const auth = useAuthContext();
   const [location, setLocation] = useState(
     props.evaluation.location !== null ? props.evaluation.location : ""
@@ -14,6 +13,24 @@ const EditComingEvaluation = (props) => {
   const [date, setDate] = useState(
     props.evaluation.date !== null ? props.evaluation.date : ""
   );
+
+  const sendRequest = async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    formData.append("id", props.evaluation.id);
+    formData.append("conclusionFileName", props.evaluation.conclusionFileName);
+    formData.append("evaluatorId", props.evaluation.evaluator);
+    formData.append("traineeId", props.evaluation.trainee);
+    const request = Object.fromEntries(formData);
+
+    await authFetch(
+      `${API_BASE}/evaluation/edit`,
+      auth.getUser().token,
+      JSON.stringify(request),
+      "PUT"
+    );
+    props.refreshEvaluations(true);
+  };
 
   return (
     <div className="popup-container flex flex-column">
@@ -27,29 +44,7 @@ const EditComingEvaluation = (props) => {
             ? props.evaluation.evaluatorName
             : props.evaluation.traineeName}
         </span>
-        <form
-          onSubmit={async (event) => {
-            event.preventDefault();
-            const formData = new FormData(event.currentTarget);
-            formData.append("id", props.evaluation.id);
-            formData.append(
-              "conclusionFileName",
-              props.evaluation.conclusionFileName
-            );
-            formData.append("evaluatorId", props.evaluation.evaluator);
-            formData.append("traineeId", props.evaluation.trainee);
-            const request = Object.fromEntries(formData);
-            event.currentTarget.reset();
-
-            await authFetch(
-              `${API_BASE}/evaluation/edit`,
-              auth.getUser().token,
-              JSON.stringify(request),
-              "PUT"
-            );
-            props.refreshEvaluations(true);
-          }}
-        >
+        <form onSubmit={sendRequest}>
           <div>
             <label htmlFor="location">Location</label>
             <input

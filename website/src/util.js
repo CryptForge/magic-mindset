@@ -55,7 +55,7 @@ export const verifyUserAccount = (email) => {
 };
 
 export const getUser = (id, token) => {
-  return fetch(`${API_BASE}/user/get/profile/${id}`, {
+  return fetch(`${API_BASE}/user/profile/${id}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

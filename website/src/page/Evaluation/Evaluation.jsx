@@ -23,16 +23,21 @@ const Evaluation = () => {
         .then((response) => response.json())
         .then((data) => {
           const now = Date.now();
-          setComingEvaluations(
-            data.filter(
-              (a) => a.date == null || a.date > now
-            )
+          console.log(data);
+          console.log("now: " + now);
+
+          const comingEvaluations = data.filter(
+            (a) => a.date == null || a.date > now
           );
-          setDoneEvaluations(
-            data.filter(
-              (a) => a.date != null && a.date < now
-            )
+          const doneEvaluations = data.filter(
+            (a) => a.date != null && a.date < now
           );
+
+          console.log("Coming: " + comingEvaluations);
+          console.log("Done: " + doneEvaluations);
+
+          setComingEvaluations(comingEvaluations);
+          setDoneEvaluations(doneEvaluations);
         });
     };
 
