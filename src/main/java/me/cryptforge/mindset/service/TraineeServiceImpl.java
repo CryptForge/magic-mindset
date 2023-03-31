@@ -5,6 +5,7 @@ import me.cryptforge.mindset.dto.user.trainee.TraineeResponse;
 import me.cryptforge.mindset.exception.EntityNotFoundException;
 import me.cryptforge.mindset.model.user.Coach;
 import me.cryptforge.mindset.model.user.Manager;
+import me.cryptforge.mindset.model.user.Trainee;
 import me.cryptforge.mindset.repository.CoachRepository;
 import me.cryptforge.mindset.repository.ManagerRepository;
 import me.cryptforge.mindset.repository.TraineeRepository;
@@ -56,5 +57,29 @@ public class TraineeServiceImpl implements TraineeService {
         return StreamSupport.stream(repository.findAllByManager(manager).spliterator(), false)
                 .map(CompactTraineeResponse::fromTrainee)
                 .toList();
+    }
+
+    @Override
+    public TraineeResponse changeCoach(Long id, Long coachId) {
+        final Trainee trainee = repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("trainee"));
+        final Coach coach = coachRepository.findById(coachId)
+                .orElseThrow(() -> new EntityNotFoundException("coach"));
+
+        trainee.setCoach(coach);
+
+        return TraineeResponse.fromTrainee(repository.save(trainee));
+    }
+
+    @Override
+    public TraineeResponse changeManager(Long id, Long managerId) {
+        final Trainee trainee = repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("trainee"));
+        final Manager manager = managerRepository.findById(managerId)
+                .orElseThrow(() -> new EntityNotFoundException("manager"));
+
+        trainee.setManager(manager);
+
+        return TraineeResponse.fromTrainee(repository.save(trainee));
     }
 }

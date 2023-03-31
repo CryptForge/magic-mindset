@@ -9,6 +9,7 @@ import me.cryptforge.mindset.model.Evaluation;
 import me.cryptforge.mindset.model.Recommendation;
 import me.cryptforge.mindset.model.Skill;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -35,16 +36,16 @@ public class Trainee {
     private Manager manager;
 
     @OneToMany(mappedBy = "trainee")
-    private List<Skill> skills;
+    private List<Skill> skills = new ArrayList<>();
 
     @OneToMany(mappedBy = "trainee")
-    private List<Course> courses;
+    private List<Course> courses = new ArrayList<>();
 
     @OneToMany(mappedBy = "trainee")
-    private List<Recommendation> recommendations;
+    private List<Recommendation> recommendations = new ArrayList<>();
 
     @OneToMany(mappedBy = "trainee")
-    private List<Evaluation> evaluations;
+    private List<Evaluation> evaluations = new ArrayList<>();
 
     public Trainee(UserInfo user) {
         this.user = user;
