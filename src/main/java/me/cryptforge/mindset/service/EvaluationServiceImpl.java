@@ -1,5 +1,6 @@
 package me.cryptforge.mindset.service;
 
+import jakarta.mail.MessagingException;
 import me.cryptforge.mindset.dto.evaluation.EditEvaluationRequest;
 import me.cryptforge.mindset.dto.evaluation.EvaluationRequest;
 import me.cryptforge.mindset.dto.evaluation.EvaluationResponse;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
 
@@ -34,6 +36,8 @@ public class EvaluationServiceImpl implements EvaluationService {
     private TraineeRepository traineeRepository;
     @Autowired
     private FileService fileService;
+    @Autowired
+    private MailService mailService;
 
     @Override
     public Optional<EvaluationResponse> getSingleEvaluation(Long id) {
@@ -75,23 +79,22 @@ public class EvaluationServiceImpl implements EvaluationService {
 
     @Override
     public EvaluationResponse editEvaluation(EditEvaluationRequest request) throws EntityNotFoundException {
-        final User user = userRepository.findById(request.traineeId())
-                .orElseThrow(() -> new EntityNotFoundException("user"));
-        final UserInfo userInfo = userInfoRepository.findByUser(user)
-                .orElseThrow(() -> new EntityNotFoundException("userInfo"));
-        final Trainee trainee = traineeRepository.findByUser(userInfo)
-                .orElseThrow(() -> new EntityNotFoundException("trainee"));
-        final User evaluatorUser = userRepository.findById(request.evaluatorId())
-                .orElseThrow(() -> new EntityNotFoundException("evaluator user"));
-        final UserInfo evaluator = userInfoRepository.findByUser(evaluatorUser)
-                .orElseThrow(() -> new EntityNotFoundException("evaluator userInfo"));
         final Evaluation evaluation = evaluationRepository.findById(request.id())
                 .orElseThrow(() -> new EntityNotFoundException("evaluation"));
+        final UserInfo doneByPerson = userInfoRepository.findById(request.doneBy())
+                .orElseThrow(() -> new EntityNotFoundException("user"));
+        final UserInfo sendTo = Objects.equals(request.doneBy(), evaluation.getEvaluator().getUser().getId()) ?
+                evaluation.getTrainee().getUser() : evaluation.getEvaluator();
 
         evaluation.setDate(request.date());
         evaluation.setLocation(request.location());
-        evaluation.setEvaluator(evaluator);
-        evaluation.setTrainee(trainee);
+
+        try {
+            mailService.sendEvaluationMailValuesChanged(sendTo.getUser().getEmail(), doneByPerson.getName(),
+                    String.valueOf(evaluation.getDate()), evaluation.getLocation());
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
 
         return EvaluationResponse.fromEvaluation(evaluationRepository.save(evaluation));
     }

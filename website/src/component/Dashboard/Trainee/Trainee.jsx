@@ -10,12 +10,16 @@ import { useAuthContext } from "../../../AuthContext";
 import { API_BASE } from "../../../main";
 import SearchInput, { createFilter } from "react-search-input";
 import DashboardEvaluationList from "../Common/DashboardEvaluationList";
+import { Link } from "react-router-dom";
 
 const User = () => {
   const auth = useAuthContext();
   const [skillList, setSkillList] = useState([]);
-  const [courseList, setCourseList] = useState([]);
   const [coachId, setCoachId] = useState(-1);
+  const [evaluations, setEvaluations] = useState([]);
+  const [invitations, setInvitations] = useState([]);
+
+  const [refreshInvitations, setRefreshInvitations] = useState(true);
 
   const [searchTermReports, setSearchTermReports] = useState("");
 
@@ -27,59 +31,40 @@ const User = () => {
       .then((response) => response.json())
       .then((data) => setSkillList(data));
     authFetch(
-      `${API_BASE}/course/all/user/${auth.getUser().id}`,
+      `${API_BASE}/evaluation/all/trainee/${auth.getUser().id}`,
       auth.getUser().token
     )
       .then((response) => response.json())
-      .then((data) => setCourseList(data));
+      .then((data) =>
+        setEvaluations(
+          data.sort(
+            (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+          )
+        )
+      );
     authFetch(`${API_BASE}/trainee/${auth.getUser().id}`, auth.getUser().token)
       .then((response) => response.json())
-      .then((data) => setCoachId(data.coach.id));
+      .then((data) => setCoachId(data.coach));
   }, []);
 
-  const evaluationArray = [
-    {
-      date: "2011-10-10",
-      participator: "coachmans",
-      id: "1",
-    },
-    {
-      participator: "managermans",
-      date: "2018-10-10",
-      id: "2",
-    },
-    {
-      participator: "coachmans",
-      date: "2016-10-10",
-      id: "3",
-    },
-  ];
-  const inviteArray = [
-    {
-      date: new Date("1994-10-21"),
-      answered: true,
-    },
-    {
-      date: new Date("2006-07-06"),
-      answered: true,
-    },
-    {
-      date: new Date("2003-04-03"),
-      answered: false,
-    },
-    {
-      date: new Date("2016-05-16"),
-      answered: true,
-    },
-    {
-      date: new Date("2020-01-12"),
-      answered: false,
-    },
-  ].sort((a, b) => a.date.getTime() - b.date.getTime());
+  useEffect(() => {
+    const getInvitations = async () => {
+      await authFetch(
+        `${API_BASE}/invitation/all/user/${auth.getUser().id}`,
+        auth.getUser().token
+      )
+        .then((response) => response.json())
+        .then((data) => setInvitations(data));
+    };
+    if (refreshInvitations) {
+      setRefreshInvitations(false);
+      getInvitations();
+    }
+  }, [refreshInvitations]);
 
-  const KEYS_TO_FILTERS_REPORTS = ["name"];
+  const KEYS_TO_FILTERS_REPORTS = ["evaluatorName", "location"];
 
-  const filteredListEvaluation = evaluationArray.filter(
+  const filteredListEvaluation = evaluations.filter(
     createFilter(searchTermReports, KEYS_TO_FILTERS_REPORTS)
   );
 
@@ -118,23 +103,16 @@ const User = () => {
               <h2>No Coach yet</h2>
             </div>
           )}
-          <div>
-            <span>List with awaiting response</span>
+          <div className="margin-top">
+            <Link to="/evaluation" className="button">
+              View Evaluations
+            </Link>
           </div>
-          <ul className="alternating-ul flex flex-column padding-bottom-alternating-ul">
-            {inviteArray.map((invitation, index) => (
-              <DashboardInvitation
-                key={index}
-                date={invitation.date.toLocaleDateString()}
-                mine={true}
-              />
-            ))}
-          </ul>
         </div>
       </div>
       <div className="grid-element element box3">
         <div>
-          <h2>List of All Evaluations</h2>
+          <h2>List of All Passed Evaluations</h2>
           <SearchInput
             className="search-input"
             onChange={(value) => setSearchTermReports(value)}
@@ -162,13 +140,13 @@ const User = () => {
       </div>
       <div className="grid-element element box4">
         <div>
-          <h2>Training courses and certifications</h2>
+          <h2>Evaluation Invitations</h2>
           <ul className="alternating-ul flex flex-column padding-bottom-alternating-ul">
-            {courseList.map((course, index) => (
-              <DashboardCourse
-                name={course.name}
-                progress={course.progress}
+            {invitations.map((invitation, index) => (
+              <DashboardInvitation
                 key={index}
+                invitation={invitation}
+                refreshInvitations={setRefreshInvitations}
               />
             ))}
           </ul>

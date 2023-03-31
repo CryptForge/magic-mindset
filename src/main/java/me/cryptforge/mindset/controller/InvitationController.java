@@ -1,5 +1,6 @@
 package me.cryptforge.mindset.controller;
 
+import me.cryptforge.mindset.dto.invitation.InvitationDenyRequest;
 import me.cryptforge.mindset.dto.invitation.InvitationResponse;
 import me.cryptforge.mindset.service.InvitationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,4 +30,13 @@ public class InvitationController {
         return service.getByEvaluation(id);
     }
 
+    @PostMapping("/deny")
+    public void denyInvitation(@RequestBody InvitationDenyRequest invitationDenyRequest) {
+        service.denyInvitation(invitationDenyRequest);
+    }
+
+    @GetMapping("/accept/{id}")
+    public void acceptInvitation(@PathVariable Long id) {
+        service.acceptInvitation(id);
+    }
 }

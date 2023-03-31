@@ -34,9 +34,6 @@ public class EvaluationInvitation {
     @Column(name = "reminder_sent", nullable = false)
     private boolean reminderSent;
 
-    @Column(name = "answered", nullable = false)
-    private boolean answered;
-
     public EvaluationInvitation(UserInfo user, Evaluation evaluation, Date reminder) {
         this.user = user;
         this.evaluation = evaluation;

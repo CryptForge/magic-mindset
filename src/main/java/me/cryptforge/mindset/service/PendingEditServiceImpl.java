@@ -13,7 +13,6 @@ import me.cryptforge.mindset.repository.UserInfoRepository;
 import me.cryptforge.mindset.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,8 +49,8 @@ public class PendingEditServiceImpl implements PendingEditService {
         User user = userRepository.findByEmail(pendingEdit.getOldEmail()).orElseThrow(() -> new EntityNotFoundException("user"));
         UserInfo userInfo = userInfoRepository.findByUser(user).orElseThrow(() -> new EntityNotFoundException("userInfo"));
         try {
-            mailService.sendRequestAccepted(pendingEdit.getEmail(), new UserChangeInfo(userInfo.getName(),user.getEmail(), userInfo.getAddress(), userInfo.getCity()),
-                    new UserChangeInfo(pendingEdit.getName(),pendingEdit.getEmail(), pendingEdit.getAddress(), pendingEdit.getCity()));
+            mailService.sendRequestAccepted(pendingEdit.getEmail(), new UserChangeInfo(userInfo.getName(), user.getEmail(), userInfo.getAddress(), userInfo.getCity()),
+                    new UserChangeInfo(pendingEdit.getName(), pendingEdit.getEmail(), pendingEdit.getAddress(), pendingEdit.getCity()));
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }

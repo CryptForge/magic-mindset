@@ -2,7 +2,6 @@ package me.cryptforge.mindset.service;
 
 import jakarta.mail.MessagingException;
 import me.cryptforge.mindset.dto.user.UserChangeInfo;
-import me.cryptforge.mindset.model.user.UserInfo;
 
 public interface MailService {
 
@@ -12,7 +11,7 @@ public interface MailService {
 
     void sendEvaluationMailAccepted(String to, String acceptor, String dateTime, String location) throws MessagingException;
 
-    void sendEvaluationMailDenied(String to, String acceptor, String reason) throws MessagingException;
+    void sendEvaluationMailDenied(String to, String denier, String reason) throws MessagingException;
 
     void sendEvaluationMailValuesChanged(String to, String changer, String dateTime, String location) throws MessagingException;
 

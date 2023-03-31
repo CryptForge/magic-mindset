@@ -6,9 +6,9 @@ import java.util.Date;
 
 public record InvitationResponse(
         Long id,
-        Long trainee,
+        Long answerer,
         Date reminder,
-        boolean answered
+        Long evaluationId
 ) {
 
     public static InvitationResponse fromInvitation(EvaluationInvitation invitation) {
@@ -16,7 +16,7 @@ public record InvitationResponse(
                 invitation.getId(),
                 invitation.getUser().getId(),
                 invitation.getReminder(),
-                invitation.isAnswered()
+                invitation.getEvaluation().getId()
         );
     }
 
