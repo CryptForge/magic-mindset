@@ -13,6 +13,7 @@ import java.util.Date;
 @Entity
 @Table(name = "skill_report")
 public class SkillReport {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
