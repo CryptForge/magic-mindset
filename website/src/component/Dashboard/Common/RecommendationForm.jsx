@@ -12,21 +12,21 @@ const RecommendationForm = (props) => {
           event,
           `${API_BASE}/recommendation/create`,
           auth.getUser().token
-        )
+        ).then(props.refreshCall(true))
       }
     >
-      <label htmlFor="trainee">Trainee</label>
-      <select id="trainee" name="trainee">
+      <label htmlFor="traineeId">Trainee</label>
+      <select id="traineeId" name="traineeId">
         {props.traineeList.map((trainee, index) => (
           <option value={trainee.id} key={index}>
-            {trainee.name}
+            {trainee.username}
           </option>
         ))}
       </select>
       <label htmlFor="date">Date</label>
-      <input type="date" name="date" id="date"></input>
+      <input type="datetime-local" name="date" id="date"></input>
       <label htmlFor="message">Message</label>
-      <textarea id="message"></textarea>
+      <textarea id="message" name="message"></textarea>
       <input type="submit" value="Make recommendation"></input>
     </form>
   );

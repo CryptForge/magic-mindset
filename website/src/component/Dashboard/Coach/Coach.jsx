@@ -14,17 +14,45 @@ import RecommendationForm from "../Common/RecommendationForm";
 const Coach = () => {
   const auth = useAuthContext();
   const [traineeList, setTraineeList] = useState([]);
+  const [recommendationList, setRecommendationList] = useState([]);
+  const [refreshCall, setRefreshCall] = useState(false);
 
   useEffect(() => {
-    authFetch(
-      `${API_BASE}/trainee/all/${auth.getUser().role.toLowerCase()}/${
-        auth.getUser().id
-      }`,
-      auth.getUser().token
-    )
-      .then((response) => response.json())
-      .then((data) => setTraineeList(data));
+    const fetchTrainees = async () => {
+      await authFetch(
+        `${API_BASE}/trainee/all/${auth.getUser().role.toLowerCase()}/${
+          auth.getUser().id
+        }`,
+        auth.getUser().token
+      )
+        .then((response) => response.json())
+        .then((data) => setTraineeList(data));
+      setRefreshCall(true);
+    };
+    fetchTrainees();
   }, []);
+
+  useEffect(() => {
+    const getRecommendationList = async () => {
+      const result = [];
+      for await (const trainee of traineeList) {
+        await authFetch(
+          `${API_BASE}/recommendation/all/user/${trainee.id}`,
+          auth.getUser().token
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            data.forEach((value) => result.push(value));
+          });
+      }
+      setRecommendationList(result);
+    };
+    if (refreshCall) {
+      setRefreshCall(false);
+      getRecommendationList();
+    }
+  }, [refreshCall]);
+
   const inviteArray = [
     {
       date: new Date("1994-10-21"),
@@ -51,21 +79,6 @@ const Coach = () => {
   inviteArray.sort((a, b) => a.date.getTime() - b.date.getTime());
   const answeredInvites = inviteArray.filter((invite) => invite.answered);
   const unansweredInvites = inviteArray.filter((invite) => !invite.answered);
-
-  const recommendationArray = [
-    {
-      date: "1994-10-21",
-      message: "Terrible",
-    },
-    {
-      date: "2006-07-06",
-      message: "Amazing",
-    },
-    {
-      date: "2003-04-03",
-      message: "What is this?",
-    },
-  ];
 
   return (
     <div className="grid grid-2x2">
@@ -104,9 +117,9 @@ const Coach = () => {
         <div className="min-width-0">
           <h2>Recommendation to student</h2>
           <ul className="alternating-ul flex flex-column padding-bottom-alternating-ul">
-            {recommendationArray.map((recommendation, index) => (
+            {recommendationList.map((recommendation, index) => (
               <CoachRecommendation
-                user={"Bob"}
+                userId={recommendation.trainee}
                 date={recommendation.date}
                 message={recommendation.message}
                 key={index}
@@ -117,7 +130,10 @@ const Coach = () => {
             modal
             trigger={<button className="button">Add Recommendation</button>}
           >
-            <RecommendationForm traineeList={traineeList} />
+            <RecommendationForm
+              traineeList={traineeList}
+              refreshCall={setRefreshCall}
+            />
           </Popup>
         </div>
       </div>
