@@ -1,4 +1,5 @@
 import Popup from "reactjs-popup";
+import Protected from "../Protected";
 import EditSkillReport from "./EditSkillReport";
 
 const SkillReportListItem = (props) => {
@@ -7,9 +8,11 @@ const SkillReportListItem = (props) => {
       <div>
         {props.skillReport.skill} - {props.skillReport.percentage}%
       </div>
-      <Popup modal nested trigger={<button className="button">Edit</button>}>
-        <EditSkillReport />
-      </Popup>
+      <Protected role="COACH|MANAGER">
+        <Popup modal nested trigger={<button className="button">Edit</button>}>
+          <EditSkillReport />
+        </Popup>
+      </Protected>
     </li>
   );
 };

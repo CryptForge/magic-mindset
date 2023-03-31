@@ -2,7 +2,6 @@ package me.cryptforge.mindset.service;
 
 import me.cryptforge.mindset.dto.mail.MailDenyRequest;
 import me.cryptforge.mindset.dto.user.UserChangeInfoResponse;
-import me.cryptforge.mindset.model.PendingEdit;
 
 import java.util.List;
 

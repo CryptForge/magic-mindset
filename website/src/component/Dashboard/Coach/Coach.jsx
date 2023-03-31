@@ -16,6 +16,8 @@ const Coach = () => {
   const [traineeList, setTraineeList] = useState([]);
   const [recommendationList, setRecommendationList] = useState([]);
   const [refreshCall, setRefreshCall] = useState(false);
+  const [refreshInvitations, setRefreshInvitations] = useState(true);
+  const [invitations, setInvitations] = useState([]);
 
   useEffect(() => {
     const fetchTrainees = async () => {
@@ -53,32 +55,20 @@ const Coach = () => {
     }
   }, [refreshCall]);
 
-  const inviteArray = [
-    {
-      date: new Date("1994-10-21"),
-      answered: true,
-    },
-    {
-      date: new Date("2006-07-06"),
-      answered: true,
-    },
-    {
-      date: new Date("2003-04-03"),
-      answered: false,
-    },
-    {
-      date: new Date("2016-05-16"),
-      answered: true,
-    },
-    {
-      date: new Date("2020-01-12"),
-      answered: false,
-    },
-  ];
-
-  inviteArray.sort((a, b) => a.date.getTime() - b.date.getTime());
-  const answeredInvites = inviteArray.filter((invite) => invite.answered);
-  const unansweredInvites = inviteArray.filter((invite) => !invite.answered);
+  useEffect(() => {
+    const getInvitations = async () => {
+      await authFetch(
+        `${API_BASE}/invitation/all/user/${auth.getUser().id}`,
+        auth.getUser().token
+      )
+        .then((response) => response.json())
+        .then((data) => setInvitations(data));
+    };
+    if (refreshInvitations) {
+      setRefreshInvitations(false);
+      getInvitations();
+    }
+  }, [refreshInvitations]);
 
   return (
     <div className="grid grid-2x2">
@@ -104,10 +94,11 @@ const Coach = () => {
         <div className="min-width-0">
           <h2>Show invitations</h2>
           <ul className="alternating-ul flex flex-column padding-bottom-alternating-ul">
-            {answeredInvites.map((invitation, index) => (
+            {invitations.map((invitation, index) => (
               <DashboardInvitation
                 key={index}
-                date={invitation.date.toLocaleDateString()}
+                invitation={invitation}
+                refreshInvitations={setRefreshInvitations}
               />
             ))}
           </ul>
@@ -148,18 +139,11 @@ const Coach = () => {
               <AddInvitationForm traineeList={traineeList} />
             </Popup>
           </div>
-          <div>
-            <span>List with awaiting response</span>
+          <div className="margin-top">
+            <Link to="/evaluation" className="button">
+              See All Evaluations
+            </Link>
           </div>
-          <ul className="alternating-ul flex flex-column padding-bottom-alternating-ul">
-            {unansweredInvites.map((invitation, index) => (
-              <DashboardInvitation
-                key={index}
-                date={invitation.date.toLocaleDateString()}
-                mine={true}
-              />
-            ))}
-          </ul>
         </div>
       </div>
     </div>

@@ -1,19 +1,23 @@
 import Popup from "reactjs-popup";
+import Protected from "../Protected";
 import AddSkillReport from "./AddSkillReport";
 import SkillReportListItem from "./SkillReportListItem";
 
 const SkillReportList = () => {
   const skillReports = [
     {
-      skill: 1,
+      skillId: 1,
+      skill: "Woodworking",
       percentage: 100,
     },
     {
-      skill: 2,
+      skillId: 2,
+      skill: "Woodworking 2",
       percentage: 99,
     },
     {
-      skill: 3,
+      skillId: 3,
+      skill: "Woodworking 3",
       percentage: 67,
     },
   ];
@@ -31,12 +35,14 @@ const SkillReportList = () => {
             />
           ))}
         </ul>
-        <Popup
-          modal
-          trigger={<button className="button">Add Skill Report</button>}
-        >
-          <AddSkillReport />
-        </Popup>
+        <Protected role="COACH|MANAGER">
+          <Popup
+            modal
+            trigger={<button className="button">Add Skill Report</button>}
+          >
+            <AddSkillReport />
+          </Popup>
+        </Protected>
       </div>
     </div>
   );
