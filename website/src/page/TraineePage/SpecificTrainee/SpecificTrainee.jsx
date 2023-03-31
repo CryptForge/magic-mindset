@@ -20,7 +20,7 @@ const SpecificTrainee = () => {
 
   useEffect(() => {
     async function fetchAllUser() {
-      const request = await fetch(`${API_BASE}/user/get/${traineeId}`, {
+      const request = await fetch(`${API_BASE}/user/${traineeId}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

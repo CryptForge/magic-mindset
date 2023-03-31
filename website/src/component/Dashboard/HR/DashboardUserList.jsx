@@ -2,7 +2,7 @@ import Popup from "reactjs-popup";
 const DashboardUserList = (props) => {
   return (
     <div className="div divider min-width-0">
-      <li>{props.user.user.email}</li>
+      <li>{props.user.email}</li>
       <Popup trigger={<button>View User</button>} modal>
         <div className="white-element">
           <p>
@@ -11,7 +11,7 @@ const DashboardUserList = (props) => {
           </p>
           <p>
             <span>Email: </span>
-            {props.user.user.email}
+            {props.user.email}
           </p>
           <p>
             <span>Address: </span>
@@ -23,7 +23,7 @@ const DashboardUserList = (props) => {
           </p>
           <p>
             <span>Role: </span>
-            {props.user.user.role}
+            {props.user.role}
           </p>
         </div>
       </Popup>

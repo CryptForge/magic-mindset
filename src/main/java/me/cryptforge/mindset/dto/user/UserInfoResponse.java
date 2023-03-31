@@ -1,5 +1,6 @@
 package me.cryptforge.mindset.dto.user;
 
+import me.cryptforge.mindset.model.user.User;
 import me.cryptforge.mindset.model.user.UserInfo;
 
 public record UserInfoResponse(
@@ -7,7 +8,8 @@ public record UserInfoResponse(
         String name,
         String email,
         String address,
-        String city
+        String city,
+        User.Role role
 ) {
 
     public static UserInfoResponse fromUserInfo(UserInfo userInfo) {
@@ -16,7 +18,8 @@ public record UserInfoResponse(
                 userInfo.getName(),
                 userInfo.getUser().getEmail(),
                 userInfo.getAddress(),
-                userInfo.getCity()
+                userInfo.getCity(),
+                userInfo.getUser().getRole()
         );
     }
 

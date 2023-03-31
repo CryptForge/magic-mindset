@@ -26,15 +26,17 @@ const User = () => {
     )
       .then((response) => response.json())
       .then((data) => setSkillList(data));
+    
     authFetch(
       `${API_BASE}/course/all/user/${auth.getUser().id}`,
       auth.getUser().token
     )
       .then((response) => response.json())
       .then((data) => setCourseList(data));
+
     authFetch(`${API_BASE}/trainee/${auth.getUser().id}`, auth.getUser().token)
       .then((response) => response.json())
-      .then((data) => setCoachId(data.coach.id));
+      .then((data) => setCoachId(data.coach));
   }, []);
 
   const evaluationArray = [
