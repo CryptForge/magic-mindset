@@ -4,15 +4,20 @@
       <span th:text="'Hello, ' + ${to} + '!'"></span>
     </h3>
     <div>
-      <span th:text="${asker} + ' wants to have a meeting with you.'"></span>
+      <span
+        th:text="${acceptor} + ' accepted to have a meeting with you.'"
+      ></span>
     </div>
     <div>
       <span th:text="'At location: ' + ${location}"></span>
     </div>
-    <div>
-      <span th:text="'At date + time: ' + ${dateTime}"></span>
-    </div>
-    <h4 style="color: #2e294e">Go to your dashboard to accept/deny</h4>
+    <div><span th:text="'At date + time: ' + ${dateTime}"></span></div>
+    <h4 style="color: #2e294e">
+      <span
+        >If the time/date and/or location isn't decided yet change it on your
+        dashboard</span
+      >
+    </h4>
     <div style="color: #2e294e">
       <span>This is an automated mail, all responses will be ignored</span>
     </div>

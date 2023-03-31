@@ -36,17 +36,57 @@ public class MailServiceImpl implements MailService {
 
         String htmlBody = thymeleafTemplateEngine.process("mail/verification_mail.html", createContext(templateModel));
 
-        sendHtmlMessage(to, "Verification for MagicMindset", htmlBody);
+        sendHtmlMessage(to, "Verification - Magic Mindset", htmlBody);
     }
 
     @Override
-    public void sendEvaluationMail(String to, String username, String dateTime, String location) throws MessagingException {
-        Map<String, Object> templateModel = Map.of("to", to, "asker", username,
+    public void sendEvaluationMailQuestion(String to, String asker, String dateTime, String location) throws MessagingException {
+        Map<String, Object> templateModel = Map.of("to", to, "asker", asker,
                 "dateTime", dateTime, "location", location);
 
         String htmlBody = thymeleafTemplateEngine.process("mail/evaluation_mail.html", createContext(templateModel));
 
-        sendHtmlMessage(to, "Evaluation request for MagicMindset", htmlBody);
+        sendHtmlMessage(to, "Evaluation request - Magic Mindset", htmlBody);
+    }
+
+    @Override
+    public void sendEvaluationMailAccepted(String to, String acceptor, String dateTime, String location) throws MessagingException {
+        Map<String, Object> templateModel = Map.of("to", to, "acceptor", acceptor,
+                "dateTime", dateTime, "location", location);
+
+        String htmlBody = thymeleafTemplateEngine.process("mail/evaluation_mail_accepted.html", createContext(templateModel));
+
+        sendHtmlMessage(to, "Evaluation Request Accepted - Magic Mindset", htmlBody);
+    }
+
+    @Override
+    public void sendEvaluationMailDenied(String to, String acceptor, String reason) throws MessagingException {
+        Map<String, Object> templateModel = Map.of("to", to, "acceptor", acceptor,
+                "reason", reason);
+
+        String htmlBody = thymeleafTemplateEngine.process("mail/evaluation_mail_denied.html", createContext(templateModel));
+
+        sendHtmlMessage(to, "Evaluation Request Denied - Magic Mindset", htmlBody);
+    }
+
+    @Override
+    public void sendEvaluationMailValuesChanged(String to, String changer, String dateTime, String location) throws MessagingException {
+        Map<String, Object> templateModel = Map.of("to", to, "changer", changer,
+                "dateTime", dateTime, "location", location);
+
+        String htmlBody = thymeleafTemplateEngine.process("mail/evaluation_mail_values_changed.html", createContext(templateModel));
+
+        sendHtmlMessage(to, "Evaluation Request Accepted - Magic Mindset", htmlBody);
+    }
+
+    @Override
+    public void sendRecommendationMail(String to, String usernameFrom, String recommendation) throws MessagingException {
+        Map<String, Object> templateModel = Map.of("to", to, "from", usernameFrom,
+                "recommendation", recommendation);
+
+        String htmlBody = thymeleafTemplateEngine.process("mail/recommendation_mail.html", createContext(templateModel));
+
+        sendHtmlMessage(to, "Recommendation - Magic Mindset", htmlBody);
     }
 
     @Override
@@ -55,7 +95,7 @@ public class MailServiceImpl implements MailService {
 
         String htmlBody = thymeleafTemplateEngine.process("mail/request_denied_mail.html", createContext(templateModel));
 
-        sendHtmlMessage(to, "Rejected Change Of Info", htmlBody);
+        sendHtmlMessage(to, "Rejected Change of Info - Magic Mindset", htmlBody);
     }
 
     @Override
@@ -72,7 +112,7 @@ public class MailServiceImpl implements MailService {
 
         String htmlBody = thymeleafTemplateEngine.process("mail/request_accepted_mail.html", createContext((templateModel)));
 
-        sendHtmlMessage(to, "Accepted Change Of Info", htmlBody);
+        sendHtmlMessage(to, "Accepted Change of Info - Magic Mindset", htmlBody);
     }
 
     private void sendHtmlMessage(String to, String subject, String htmlBody) throws MessagingException {

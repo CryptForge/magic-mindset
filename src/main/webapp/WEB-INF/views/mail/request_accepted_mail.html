@@ -1,35 +1,42 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<body>
-<h3 style="text-align: center; color: green">
-    <span th:text="'Hello, ' + ${to} + '!'"></span>
-    <span>Your request was accepted for the folowing change:</span>
-    <table>
+  <body style="text-align: center; color: black">
+    <h3 style="color: #2e294e">
+      <span th:text="'Hello, ' + ${to} + '!'"></span>
+    </h3>
+    <div>
+      <span>Your request was accepted for the folowing change:</span>
+    </div>
+    <div>
+      <table>
         <tr>
-            <th></th>
-            <th>Old Info</th>
-            <th>New Info</th>
+          <th></th>
+          <th>Old Info</th>
+          <th>New Info</th>
         </tr>
         <tr>
-            <td>Email</td>
-            <td th:text="${oldEmail}"></td>
-            <td th:text="${newEmail}"></td>
+          <td>Email</td>
+          <td th:text="${oldEmail}"></td>
+          <td th:text="${newEmail}"></td>
         </tr>
         <tr>
-            <td>Name</td>
-            <td th:text="${oldName}"></td>
-            <td th:text="${newName}"></td>
+          <td>Name</td>
+          <td th:text="${oldName}"></td>
+          <td th:text="${newName}"></td>
         </tr>
         <tr>
-            <td>Address</td>
-            <td th:text="${oldAddress}"></td>
-            <td th:text="${newAddress}"></td>
+          <td>Address</td>
+          <td th:text="${oldAddress}"></td>
+          <td th:text="${newAddress}"></td>
         </tr>
         <tr>
-            <td>City</td>
-            <td th:text="${oldCity}"></td>
-            <td th:text="${newCity}"></td>
+          <td>City</td>
+          <td th:text="${oldCity}"></td>
+          <td th:text="${newCity}"></td>
         </tr>
-    </table>
-</h3>
-</body>
+      </table>
+    </div>
+    <div style="color: #2e294e">
+      <span>This is an automated mail, all responses will be ignored</span>
+    </div>
+  </body>
 </html>
