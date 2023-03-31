@@ -7,10 +7,12 @@ const FileViewer = (props) => {
 
   const docs = [
     {
-      uri: `${API_BASE}/course/get/${
+      uri: `${API_BASE}/${
+        props.courseId !== undefined ? `course` : `evaluation`
+      }/get/${
         props.courseId !== undefined
           ? `certification/` + props.courseId
-          : `evaluation/` + props.evaluationId
+          : `conclusion/` + props.evaluationId
       }`,
     },
   ];

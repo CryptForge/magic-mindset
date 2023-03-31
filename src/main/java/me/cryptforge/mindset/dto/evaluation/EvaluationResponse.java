@@ -10,9 +10,11 @@ public record EvaluationResponse(
         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
         Date date,
         String location,
-        String conclusion,
+        String conclusionFileName,
         Long evaluator,
-        Long trainee
+        String evaluatorName,
+        Long trainee,
+        String traineeName
 ) {
 
     public static EvaluationResponse fromEvaluation(Evaluation evaluation) {
@@ -22,7 +24,9 @@ public record EvaluationResponse(
                 evaluation.getLocation(),
                 evaluation.getConclusionFileName(),
                 evaluation.getEvaluator().getId(),
-                evaluation.getTrainee().getId()
+                evaluation.getEvaluator().getName(),
+                evaluation.getTrainee().getId(),
+                evaluation.getTrainee().getUser().getName()
         );
     }
 
