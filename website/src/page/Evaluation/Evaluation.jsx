@@ -16,42 +16,26 @@ const Evaluation = () => {
 
   useEffect(() => {
     const getEvaluations = () => {
-      if (auth.getUser().role == "TRAINEE") {
-        authFetch(
-          `${API_BASE}/evaluation/all/trainee/${auth.getUser().id}`,
-          auth.getUser().token
-        )
-          .then((response) => response.json())
-          .then((data) => {
-            const now = new Date();
-            setComingEvaluations(
-              data.filter(
-                (evaluation) => evaluation.date == null || evaluation.date < now
-              )
-            );
-            setDoneEvaluations(
-              data.filter(
-                (evaluation) =>
-                  evaluation.date != null && evaluation.date >= now
-              )
-            );
-          });
-      } else {
-        authFetch(
-          `${API_BASE}/evaluation/all/user/${auth.getUser().id}`,
-          auth.getUser().token
-        )
-          .then((response) => response.json())
-          .then((data) => {
-            const now = Date.now();
-            setComingEvaluations(
-              data.filter((a) => a.date == null || a.date < now)
-            );
-            setDoneEvaluations(
-              data.filter((a) => a.date != null && a.date > now)
-            );
-          });
-      }
+      authFetch(
+        auth.getUser().role === "TRAINEE"
+          ? `${API_BASE}/evaluation/all/trainee/${auth.getUser().id}`
+          : `${API_BASE}/evaluation/all/user/${auth.getUser().id}`,
+        auth.getUser().token
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          const now = new Date();
+          setComingEvaluations(
+            data.filter(
+              (evaluation) => evaluation.date == null || evaluation.date < now
+            )
+          );
+          setDoneEvaluations(
+            data.filter(
+              (evaluation) => evaluation.date != null && evaluation.date >= now
+            )
+          );
+        });
     };
 
     if (refreshEvaluations) {
