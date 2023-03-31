@@ -1,4 +1,4 @@
-import { authPostForm } from "../../../util";
+import { authFetch } from "../../../util";
 import { API_BASE } from "../../../main";
 import { useAuthContext } from "../../../AuthContext";
 
@@ -6,14 +6,23 @@ const RecommendationForm = (props) => {
   const auth = useAuthContext();
   return (
     <form
-      className="flex flex-column white-element"
-      onSubmit={(event) =>
-        authPostForm(
-          event,
+      className="flex flex-column white-element text"
+      onSubmit={async (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.currentTarget);
+        formData.append("date", new Date().getTime());
+        formData.append("userId", auth.getUser().id);
+        const request = Object.fromEntries(formData);
+        event.currentTarget.reset();
+
+        await authFetch(
           `${API_BASE}/recommendation/create`,
-          auth.getUser().token
-        ).then(props.refreshCall(true))
-      }
+          auth.getUser().token,
+          JSON.stringify(request),
+          "POST"
+        );
+        props.refreshCall(true);
+      }}
     >
       <label htmlFor="traineeId">Trainee</label>
       <select id="traineeId" name="traineeId">
@@ -23,8 +32,6 @@ const RecommendationForm = (props) => {
           </option>
         ))}
       </select>
-      <label htmlFor="date">Date</label>
-      <input type="datetime-local" name="date" id="date"></input>
       <label htmlFor="message">Message</label>
       <textarea id="message" name="message"></textarea>
       <input type="submit" value="Make recommendation"></input>
