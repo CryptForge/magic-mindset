@@ -8,7 +8,8 @@ public record SkillReportRequest(
         Long skillId,
         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
         Date date,
-        String progress
+        String progress,
+        Long evaluationId
 ) {
 
 }

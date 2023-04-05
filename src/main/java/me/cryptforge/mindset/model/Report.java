@@ -30,12 +30,8 @@ public class Report {
     @Column(name = "date", nullable = false)
     private Date date;
 
-    @Column(name = "content", nullable = false)
-    private String reportFileName;
-
-    public Report(Evaluation evaluation, Date date, String reportFileName) {
+    public Report(Evaluation evaluation, Date date) {
         this.evaluation = evaluation;
         this.date = date;
-        this.reportFileName = reportFileName;
     }
 }

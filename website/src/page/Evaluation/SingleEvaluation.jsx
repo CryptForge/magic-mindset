@@ -17,6 +17,7 @@ const SingleEvaluation = () => {
   const [refreshEvaluation, setRefreshEvaluation] = useState(true);
   const [evaluation, setEvaluation] = useState({});
   const [trainee, setTrainee] = useState({});
+  const [skillReports, setSkillReports] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,15 +39,24 @@ const SingleEvaluation = () => {
       authFetch(`${API_BASE}/user/${evaluation.trainee}`, auth.getUser().token)
         .then((response) => response.json())
         .then((data) => setTrainee(data));
+      authFetch(
+        `${API_BASE}/report/all/evaluation/${evaluationId}`,
+        auth.getUser().token
+      )
+        .then((response) => response.json())
+        .then((data) => setSkillReports(data));
     }
-
-    //TODO GET ALL SKILL REPORTS WHEN EVALUATION IS SEND
   }, [evaluation]);
 
   return (
     <div className="evaluation-page">
       <div className="grid grid-2x2first1x2">
-        <SkillReportList />
+        <SkillReportList
+          skillReports={skillReports}
+          traineeId={trainee.id}
+          refreshEvaluation={setRefreshEvaluation}
+          evaluationId={evaluationId}
+        />
         <TraineeInfo trainee={trainee} />
         <UploadFile
           fileName={evaluation.conclusionFileName}

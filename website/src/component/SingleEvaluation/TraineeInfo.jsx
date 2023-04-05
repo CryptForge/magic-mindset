@@ -11,7 +11,7 @@ const TraineeInfo = (props) => {
       <div>
         Name: <span className="capitalize">{props.trainee.name}</span>
       </div>
-      <div>Email: {props.trainee.user.email}</div>
+      <div>Email: {props.trainee.email}</div>
       <div>Addess: {props.trainee.address}</div>
       <div>City: {props.trainee.city}</div>
     </div>

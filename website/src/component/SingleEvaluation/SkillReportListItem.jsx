@@ -1,18 +1,25 @@
-import Popup from "reactjs-popup";
-import Protected from "../Protected";
-import EditSkillReport from "./EditSkillReport";
+import { useEffect, useState } from "react";
+import { useAuthContext } from "../../AuthContext";
+import { API_BASE } from "../../main";
+import { authFetch } from "../../util";
 
 const SkillReportListItem = (props) => {
+  const auth = useAuthContext();
+  const [skill, setSkill] = useState({});
+
+  useEffect(() => {
+    authFetch(
+      `${API_BASE}/skill/${props.skillReport.skillId}`,
+      auth.getUser().token
+    )
+      .then((response) => response.json())
+      .then((data) => setSkill(data));
+  }, []);
   return (
     <li className="divider min-width-0">
       <div>
-        {props.skillReport.skill} - {props.skillReport.percentage}%
+        {skill.name} - {props.skillReport.progress}%
       </div>
-      <Protected role="COACH|MANAGER">
-        <Popup modal nested trigger={<button className="button">Edit</button>}>
-          <EditSkillReport />
-        </Popup>
-      </Protected>
     </li>
   );
 };
