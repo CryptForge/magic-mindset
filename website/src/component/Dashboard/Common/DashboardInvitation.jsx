@@ -18,7 +18,6 @@ const DashboardInvitation = (props) => {
       .then((data) => setInvitation(data));
   }, []);
 
-  console.log(props.invitation);
   return (
     <li className="divider min-width-0">
       <div>
