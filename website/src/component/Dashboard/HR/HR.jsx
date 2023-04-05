@@ -76,10 +76,6 @@ const HR = () => {
     }
   }, [recallUsers]);
 
-  useEffect(() => {
-    console.log(users);
-  }, [users]);
-
   const [searchTermUsers, setSearchTermUsers] = useState("");
   const [searchTermReports, setSearchTermReports] = useState("");
 
