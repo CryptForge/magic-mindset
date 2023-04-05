@@ -91,6 +91,14 @@ export const authFetchMutliForm = (url, token, body) => {
     body: body,
   });
 };
+export const authPutForm = (event, url, token) => {
+  event.preventDefault();
+  const formData = new FormData(event.currentTarget);
+  const request = Object.fromEntries(formData);
+  event.currentTarget.reset();
+
+  return authFetch(url, token, JSON.stringify(request), "PUT");
+};
 
 export const authFetch = (url, token, body = undefined, method = "GET") => {
   return fetch(url, {

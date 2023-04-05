@@ -10,6 +10,7 @@ import { API_BASE } from "../../../main";
 import { useAuthContext } from "../../../AuthContext";
 import { authFetch } from "../../../util";
 import DashboardEvaluationList from "../Common/DashboardEvaluationList";
+import UserRelationUI from "./UserRelationUI";
 
 const HR = () => {
   const auth = useAuthContext();
@@ -24,24 +25,6 @@ const HR = () => {
 
   const [openAddUserForm, setOpenAddUserForm] = useState(false);
   const closeAddUserForm = () => setOpenAddUserForm(false);
-
-  const reportArray = [
-    {
-      name: "report1",
-      message: "haha",
-      date: new Date("2011-10-10"),
-    },
-    {
-      name: "report2",
-      message: "hihi",
-      date: new Date("2018-10-10"),
-    },
-    {
-      name: "report3",
-      message: "hoho",
-      date: new Date("2016-10-10"),
-    },
-  ];
 
   useEffect(() => {
     async function fetchPendingRequests() {
@@ -93,7 +76,9 @@ const HR = () => {
     }
   }, [recallUsers]);
 
-  reportArray.sort((a, b) => a.date.getTime() - b.date.getTime());
+  useEffect(() => {
+    console.log(users);
+  }, [users]);
 
   const [searchTermUsers, setSearchTermUsers] = useState("");
   const [searchTermReports, setSearchTermReports] = useState("");
@@ -156,6 +141,14 @@ const HR = () => {
               <DashboardUserList user={user} key={index} />
             ))}
           </ul>
+          <Popup
+            modal
+            trigger={
+              <button className="button">Change User Relationships</button>
+            }
+          >
+            <UserRelationUI users={users} />
+          </Popup>
         </div>
       </div>
 
